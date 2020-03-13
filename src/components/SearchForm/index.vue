@@ -29,10 +29,10 @@ export default {
     },
     methods: {
         search() {
-        this.$emit("search");
+            this.$emit("search");
         },
         reset() {
-        this.$emit("rest");
+            this.$emit("rest");
         }
     }
 };

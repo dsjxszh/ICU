@@ -1,11 +1,8 @@
 // 存储用户令牌和角色信息
 const state = {
-    editableTabs:[{
-        title: '首页',
-        name: '首页'
-    }],
+    editableTabs:[],
     currentTab: '首页',
-    closable: false //tabs是否可关闭
+    closable: true //tabs是否可关闭
     // 其他用户信息
 };
   
@@ -22,7 +19,7 @@ const mutations = {
         if (!duplicate) {
             state.editableTabs.push(tab);
         }
-        if (state.editableTabs.length > 1) {
+        if (state.editableTabs.length > 0) {
             state.closable = true;
         }
     },
@@ -37,7 +34,8 @@ const mutations = {
                 }
             }
         })
-        if (state.editableTabs.length === 1) {  
+        if (state.editableTabs.length === 0) {
+            state.currentTab = 'first-page';
             state.closable = false;
         }
     },

@@ -15,7 +15,7 @@ export default {
   inject: ["farther"],
   props: {
     keyName: {
-      type: String
+      type: String,
     }
   },
 };

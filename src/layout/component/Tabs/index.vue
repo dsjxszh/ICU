@@ -2,6 +2,16 @@
     <div>
         <el-tabs :value="currentTab" @tab-click="changeTab" type="card" :closable="closable" @tab-remove="remove" style="margin-top: 5px;">
             <el-tab-pane
+                key="首页"
+                label="首页"
+                name="first-page"
+                :closable="false"
+            >
+                <div class="content first-page">
+                    首页
+                </div>
+            </el-tab-pane>
+            <el-tab-pane
                 v-for="item in editableTabs"
                 :key="item.name"
                 :label="item.title"
@@ -79,5 +89,13 @@ export default {
     width: 100%;
     min-height: 835px;
     background-color: white;
+}
+
+#tab-first-page {
+    .el-icon-close {
+        &::before {
+            content: '';
+        }
+    }
 }
 </style>
