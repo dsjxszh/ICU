@@ -1,0 +1,94 @@
+// base color
+$blue:#324157;
+$light-blue:#3A71A8;
+$red:#C03639;
+$pink: #E65D6E;
+$green: #30B08F;
+$tiffany: #4AB7BD;
+$yellow:#FEC171;
+$panGreen: #30B08F;
+
+// sidebar
+// $menuText:#bfcbd9;
+$menuText:#7f90a4;
+// $menuActiveText:#409EFF;
+$menuActiveText:#FFF;
+// $subMenuActiveText:#f4f4f5; // https://github.com/ElemeFE/element/issues/12951
+$subMenuActiveText:#7f90a4; // https://github.com/ElemeFE/element/issues/12951
+
+// $menuBg:#304156;
+$menuBg:#323c45;
+$menuHover:#263445;
+
+// $subMenuBg:#1f2d3d;
+$subMenuBg:#15191d;
+$subMenuHover:#001528;
+$newSubMenuBg:#15191d;
+$sideBarWidth: 210px;
+//监控概览中各级别报警边框颜色及渐变颜色
+$emergencyBorder:#6D249F;
+$emergencyContent0:#A8148A;
+$emergencyContent1:#D583E4;
+$emergencyTextshadow:#703EB7;
+
+$seniorBorder:#D02219;
+$seniorContent0:#E14D47;
+$seniorContent1:#FE9999;
+$seniorTextshadow:#E3524C;
+
+$intermediateBorder:#E36837;
+$intermediateContent0:#E77E4A;
+$intermediateContent1:#FDCAB1;
+$intermediateextshadow:#D06E3D;
+
+$generalBorder:#D4CA2F;
+$generalContent0:#D7CD27;
+$generalContent1:#FDF687;
+$generalTextshadow:#DBD130;
+
+$promptBorder:#5292E5;
+$promptContent0:#4181D4;
+$promptContent1:#CEE6FF;
+$promptTextshadow:#3973B1;
+
+$grayBorder:rgb(177, 199, 228);
+$grayContent0:rgb(164, 179, 199);
+$grayContent1:rgb(209, 228, 248);
+$grayTextshadow:rgb(147, 160, 173);
+
+// the :export directive is the magic sauce for webpack
+// https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
+:export {
+  emergencyBorder: $emergencyBorder;
+  emergencyContent0: $emergencyContent0;
+  emergencyContent1: $emergencyContent1;
+  emergencyTextshadow: $emergencyTextshadow;
+  seniorBorder: $seniorBorder;
+  seniorContent0: $seniorContent0;
+  seniorContent1: $seniorContent1;
+  seniorTextshadow: $seniorTextshadow;
+  intermediateBorder: $intermediateBorder;
+  intermediateContent0: $intermediateContent0;
+  intermediateContent1: $intermediateContent1;
+  intermediateextshadow: $intermediateextshadow;
+  generalBorder: $generalBorder;
+  generalContent0: $generalContent0;
+  generalContent1: $generalContent1;
+  generalTextshadow: $generalTextshadow;
+  promptBorder: $promptBorder;
+  promptContent0: $promptContent0;
+  promptContent1: $promptContent1;
+  promptTextshadow: $promptTextshadow;
+  grayBorder: $grayBorder;
+  grayContent0: $grayContent0;
+  grayContent1: $grayContent1;
+  grayTextshadow: $grayTextshadow;
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  sideBarWidth: $sideBarWidth;
+}
