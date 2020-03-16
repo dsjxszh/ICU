@@ -18,9 +18,8 @@
                 :name="item.name"
             >
                 <div class="content">
-                    <component :is="item.content"></component>
+                    <router-view></router-view>
                 </div>
-                
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -33,6 +32,17 @@ export default {
     mixins: [LayoutMixins],
     components: {
         ...AllPages
+    },
+    watch: {
+        currentTab: {
+            immediate: true,
+            handler(val) {
+                console.log('当前显示的tab为:', val)
+                if (val === '入科') {
+                    this.$router.push('/dashboard/entry');
+                }
+            }
+        }
     },
     created() {
         console.log(AllPages);

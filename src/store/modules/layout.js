@@ -1,7 +1,7 @@
 // 存储用户令牌和角色信息
 const state = {
     editableTabs:[],
-    currentTab: '首页',
+    currentTab: 'first-page',
     closable: true //tabs是否可关闭
     // 其他用户信息
 };

@@ -14,6 +14,13 @@ export const constRoutes = [
   {
     path: "/dashboard",
     component: () => import("@/layout"),// 应用布局
+    children: [
+      {
+        path: "entry",
+        component: () => import("@/views/entry"),
+        name: "entry"
+      }
+    ]
   }
 ];
 
