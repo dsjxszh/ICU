@@ -8,7 +8,7 @@
                 :closable="false"
             >
                 <div class="content first-page">
-                    首页
+                    <component :is="FirstPage" />
                 </div>
             </el-tab-pane>
             <el-tab-pane
@@ -16,11 +16,10 @@
                 :key="item.name"
                 :label="item.title"
                 :name="item.name"
-            >
-                <div class="content">
-                    <router-view></router-view>
-                </div>
-            </el-tab-pane>
+            ></el-tab-pane>
+            <div class="content">
+                <router-view></router-view>
+            </div>
         </el-tabs>
     </div>
 </template>
@@ -28,19 +27,23 @@
 <script>
 import LayoutMixins from '@/mixins/layout';
 import AllPages from '@/utils/pages';
+import FirstPage from '@/views/firstPage';
 export default {
     mixins: [LayoutMixins],
     components: {
-        ...AllPages
+        FirstPage
+    },
+    data() {
+        return {
+            FirstPage: 'FirstPage'
+        }
     },
     watch: {
         currentTab: {
             immediate: true,
             handler(val) {
-                console.log('当前显示的tab为:', val)
-                if (val === '入科') {
-                    this.$router.push('/dashboard/entry');
-                }
+                console.log('当前显示的tab为:', AllPages[val])
+                this.$router.push(`/dashboard/${AllPages[val]}`);
             }
         }
     },
@@ -49,7 +52,7 @@ export default {
     },
     methods: {
         remove(targetName) {
-            console.log('你要移除的项目为:', targetName);
+            // console.log('你要移除的项目为:', targetName);
             this.removeTab(targetName);
         },
         changeTab(tab) {
