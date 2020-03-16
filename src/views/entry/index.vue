@@ -1,6 +1,6 @@
 <template>
     <div>
-        <common-table :params="params"></common-table>
+        <common-table :params="params" :tableColumns="tableColumns"></common-table>
     </div>
 </template>
 
@@ -23,6 +23,60 @@ export default {
                     label: "住院号:",
                 }
             ],
+            tableColumns: [
+                {
+                    label: "姓名",
+                    prop: "acknowledged",
+                    width: 180
+                },
+                {
+                    label: "住院号",
+                    prop: "objectType",
+                    width: 180
+                },
+                {
+                    label: "性别",
+                    prop: "severityName",
+                    width: 180
+                },
+                {
+                    label: "年龄",
+                    prop: "createDate",
+                    width: 180
+                },
+                {
+                    label: "入科时间",
+                    prop: "name"
+                },
+                {
+                    label: "出科时间",
+                    prop: "outTime"
+                },
+                {
+                    label: "床位",
+                    prop: "chuangwei"
+                },
+                {
+                    label: "原科室",
+                    prop: "previousDepartment"
+                },
+                {
+                    label: "原科室床号",
+                    prop: 'yksch'
+                },
+                {
+                    label: "护理级别",
+                    prop: 'hljb'
+                },
+                {
+                    label: "病情状态",
+                    prop: 'bqzt'
+                },
+                {
+                    label: "操作",
+                    prop: 'op'
+                }
+            ]
         }
     }
 }

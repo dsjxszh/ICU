@@ -1,7 +1,7 @@
 <template>
     <div class="pagination-container">
         <el-pagination 
-            style="padding: 8px 16px 12px 0;" 
+            style="padding: 8px 26px 12px 0;" 
             @size-change="handleSizeChange" 
             @current-change="handleCurrentChange" 
             :current-page="currentPage" 
@@ -42,9 +42,14 @@ export default {
 
 <style lang="scss" scoped>
 .pagination-container {
-    background-color: #ffffff;
+    position: fixed;
+    bottom: 10px;
+    background-color: white;
     width: 100%;
     // border: 1px solid #CCD2D8;
     border-top: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
 }
 </style>

@@ -40,11 +40,15 @@ export default {
 
 <style lang="scss" scoped>
 .setting-form {
-  width:100%;
-  border: 1px solid #ccd2d8;
-  padding: 16px 0 6px 16px;
-  font-size: 12px;
-  background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    // width:100%;
+    border: 1px solid #ccd2d8;
+    padding: 16px 0 6px 16px;
+    font-size: 12px;
+    background-color: #ffffff;
+  
 }
 .el-form-item {
   margin-bottom: 10px !important;

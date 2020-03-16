@@ -1,11 +1,13 @@
 <template>
     <div class="app-container">
         <search-form :params="params" @search="search" @rest="rest" />
+        <business-table :columns="tableColumns"></business-table>
+        <pagination :currentPage="1" :total="500"></pagination>
     </div>
 </template>
 
 <script>
-import SearchForm from '@/components/SearchForm';
+import AllComponents from '@/utils/components'
 export default {
     provide() {
         return {
@@ -18,10 +20,16 @@ export default {
             default() {
                 return []
             }
+        },
+        tableColumns: {
+            type: Array,
+            default() {
+                return []
+            }
         }
     },
     components: {
-        SearchForm
+        ...AllComponents
     },
     data() {
         return {

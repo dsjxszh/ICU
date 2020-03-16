@@ -34,7 +34,7 @@ export default {
     },
     methods: {
         selectItem(e) {
-            console.log('选中的项目为:', e)
+            // console.log('选中的项目为:', e)
             this.setTab({
                 name: e,
                 title: e,
