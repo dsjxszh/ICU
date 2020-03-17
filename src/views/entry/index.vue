@@ -1,17 +1,23 @@
 <template>
     <div>
-        <common-table :params="params" :tableColumns="tableColumns"></common-table>
+        <common-table :params="params" :paramsbutton="paramsbutton" :tableColumns="tableColumns"></common-table>
     </div>
 </template>
 
 <script>
 import CommonTable from '@/components/CommonTable';
 export default {
+    provide() {
+        return {
+            farther: this
+        }
+    },
     components: {
         CommonTable
     },
     data() {
         return {
+            form: {},
             params: [
                 {
                     componentName: "InputTemplate",
@@ -21,11 +27,45 @@ export default {
                     componentName: "InputTemplate",
                     keyName: "period",
                     label: "住院号:",
+                },{
+                    componentName: "NuminputTemplate",
+                    keyName: "shuzhi",
+                    label: "",
+                    precision: 2,
                 }
+            ],
+            paramsbutton:[
+                {
+                    text: "查询1",
+                    func: this.sear
+                },
+                {
+                    text: "查询2",
+                    className: "buttonPrimary buttonIcon",
+                    iconName: "YLZH",
+                    func: this.sear
+                },
+                {
+                    text: "查询3",
+                    className: "buttonPrimary",
+                    func: this.sear
+                },
+                {
+                    text: "查询4",
+                    iconName: "SS",
+                    className: "buttonIcon",
+                    func: this.sear
+                },
+                {
+                    text: "查询5",
+                    iconName: "BJ",
+                    single:true,
+                    func: this.sear
+                },
             ],
             tableColumns: [
                 {
-                    label: "姓名11",
+                    label: "姓名",
                     prop: "acknowledged",
                     width: 180
                 },
@@ -77,6 +117,12 @@ export default {
                     prop: 'op'
                 }
             ]
+        }
+    },
+    methods:{
+        sear (){
+            alert("1")
+            
         }
     }
 }
