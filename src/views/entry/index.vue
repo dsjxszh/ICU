@@ -25,7 +25,7 @@ export default {
             ],
             tableColumns: [
                 {
-                    label: "姓名",
+                    label: "姓名11",
                     prop: "acknowledged",
                     width: 180
                 },
