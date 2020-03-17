@@ -4,6 +4,7 @@ module.exports = {
     InputTemplate: () => import("@/components/BusinessSearchComponents/InputTemplate"),
     SelectTemplate: () => import("@/components/BusinessSearchComponents/SelectTemplate"),
     SelectRemoteModel: () => import("@/components/BusinessSearchComponents/SelectRemoteModel"),
+    ButtonTemplate: () => import("@/components/BusinessSearchComponents/ButtonTemplate"),
     SearchForm: () => import("@/components/BusinessSearchComponents/SearchForm"),
     BusinessTable: () => import("@/components/BusinessSearchComponents/SettingBusinessTable"),
     Pagination: () => import("@/components/BusinessSearchComponents/Pagination")

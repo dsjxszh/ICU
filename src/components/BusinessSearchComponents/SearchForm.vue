@@ -9,8 +9,12 @@
       >
         <component :is="item.componentName" v-bind="item" />
       </el-form-item>
-      <button class="search-btn" @click.prevent="search">查询</button>
-      <button class="reset-btn" @click.prevent="reset">重置</button>
+      <button-template
+        v-for="(item) in paramsbutton"
+        :key="item.text"
+        v-bind="item"
+      >
+      </button-template>
     </el-form>
   </div>
 </template>
@@ -24,16 +28,14 @@ export default {
     },
     props: {
         params: {
-        type: Array
+          type: Array
+        },
+        paramsbutton: {
+          type: Array
         }
     },
     methods: {
-        search() {
-            this.$emit("search");
-        },
-        reset() {
-            this.$emit("rest");
-        }
+        
     }
 };
 </script>

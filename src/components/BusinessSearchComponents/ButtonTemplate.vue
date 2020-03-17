@@ -1,6 +1,6 @@
 <template>
     <el-button :class="[className, (single?singleClass:currencyClass)]" @click="func">
-        <template v-if="single"><img :src="imgSrc" :title="text" @mouseover="switchImgOver()" @mouseup="switchImgUp()"></template>
+        <template v-if="single"><img :src="imgSrc" :title="text" @mouseover="switchImgOver()" @mouseout="switchImgOut()"></template>
         <template v-else>
             <template v-if="iconName!=''"><img :src="imgSrc"/></template>
             {{text}}
@@ -33,7 +33,7 @@
         },
         computed: {
             imgSrc() {
-                return Icons[this.iconName]
+                return Icons[this.iconNameNew]
             }
         },
         data() {
@@ -41,16 +41,15 @@
                 ...Object.values(Icons),
                 currencyClass:"button",
                 singleClass:"singleClass",
+                iconNameNew:this.iconName
             }
         },
         methods:{
             switchImgOver (){
-                console.log(this.iconName+"_hover");
-                return Icons[this.iconName+"_hover"]
+                return this.iconNameNew=this.iconName+"_hover";
             },
-            switchImgUp (){
-                console.log(this.iconName);
-                return Icons[this.iconName]
+            switchImgOut (){
+                return this.iconNameNew=this.iconName;
             },
         }
     }
