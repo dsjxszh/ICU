@@ -1,15 +1,20 @@
 <template>
-    <div>
-        床位一览
+    <div class="bedbrowse">
+        <nursing-time></nursing-time>
     </div>
 </template>
 
 <script>
-    export default {
-        
+import NursingTime from '@/components/NursingList/NursingTime.vue';
+export default {
+    components: {
+        NursingTime
     }
+}
 </script>
 
 <style lang="scss" scoped>
-
+.bedbrowse {
+    margin-left: 330px;
+}
 </style>

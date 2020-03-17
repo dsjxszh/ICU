@@ -83,4 +83,12 @@ export function isExternal(path) {
     }
     return Array.isArray(arg)
   }
+
+  /**
+   * 数值校验
+   */
+  export function isNumber(str) {
+    const reg = /^[0-9]*$/
+    return reg.test(str)
+  }
   
