@@ -1,7 +1,10 @@
 <template>
-    <el-button :class="[className, currencyClass]" @click="func">
-        <template v-if="iconName!=''"><img :src="imgSrc"/></template>
-        {{text}}
+    <el-button :class="[className, (single?singleClass:currencyClass)]" @click="func">
+        <template v-if="single"><img :src="imgSrc" :title="text" @mouseover="switchImgOver()" @mouseup="switchImgUp()"></template>
+        <template v-else>
+            <template v-if="iconName!=''"><img :src="imgSrc"/></template>
+            {{text}}
+        </template>
     </el-button>
 </template>
 
@@ -16,8 +19,13 @@
                 type:String,
                 default:""//赋值默认值
             },
+            single:{
+                type:Boolean,
+                default:false//赋值默认值
+            },
             className:{
-                type:String
+                type:String,
+                default:""//赋值默认值
             },
             func:{
                 type:Function
@@ -31,13 +39,32 @@
         data() {
             return {
                 ...Object.values(Icons),
-                currencyClass:"button"
+                currencyClass:"button",
+                singleClass:"singleClass",
             }
+        },
+        methods:{
+            switchImgOver (){
+                console.log(this.iconName+"_hover");
+                return Icons[this.iconName+"_hover"]
+            },
+            switchImgUp (){
+                console.log(this.iconName);
+                return Icons[this.iconName]
+            },
         }
     }
 </script>
 
 <style lang="scss" scoped>
+    .singleClass{
+        border: 0px;
+        padding: 0px;
+        background: transparent;
+        img{
+            height: 24px;
+        }
+    }
     .button{
         color: #666;
         background: #fff;
