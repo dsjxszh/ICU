@@ -7,11 +7,17 @@
 <script>
 import CommonTable from '@/components/CommonTable';
 export default {
+    provide() {
+        return {
+            farther: this
+        }
+    },
     components: {
         CommonTable
     },
     data() {
         return {
+            form: {},
             params: [
                 {
                     componentName: "InputTemplate",
@@ -21,6 +27,11 @@ export default {
                     componentName: "InputTemplate",
                     keyName: "period",
                     label: "住院号:",
+                },{
+                    componentName: "NuminputTemplate",
+                    keyName: "shuzhi",
+                    label: "",
+                    precision: 2,
                 }
             ],
             paramsbutton:[

@@ -9,11 +9,7 @@
 <script>
 import AllComponents from '@/utils/components'
 export default {
-    provide() {
-        return {
-            farther: this
-        }
-    },
+    
     props: {
         params: {
             type: Array,
@@ -37,11 +33,7 @@ export default {
     components: {
         ...AllComponents
     },
-    data() {
-        return {
-            form: {}
-        }
-    },
+    
     methods: {
         search() {},
         rest() {}
