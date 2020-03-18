@@ -1,5 +1,5 @@
 <template>
-  <el-radio-group v-model="farther.form[keyName]" size="mini">
+    <el-radio-group v-model="farther.form[keyName]" size="mini">
       <el-radio-button  v-for="(item,index) in arrayData" :key="index" :label="item.value">{{item.label}}</el-radio-button>
     </el-radio-group>
 </template>

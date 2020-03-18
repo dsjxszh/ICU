@@ -6,6 +6,22 @@
 
 <script>
 import CommonTable from '@/components/CommonTable';
+
+const arrayData = [
+    {
+        value:"name1",
+        name:"name1",
+        label:"复选1",
+        fiesdlname:"青霉素1",
+
+    },{
+        value:"name2",
+        name:"name2",
+        fiesdlname:"青霉素",
+        label:"复选2"
+
+    }
+]
 export default {
     provide() {
         return {
@@ -17,7 +33,13 @@ export default {
     },
     data() {
         return {
-            form: {},
+            form: {
+                fuxuan: [],
+                name:"",
+                period:"",
+                shuzhi:"",
+            },
+            
             params: [
                 {
                     componentName: "InputTemplate",
@@ -32,6 +54,11 @@ export default {
                     keyName: "shuzhi",
                     label: "",
                     precision: 2,
+                },{
+                    componentName: "CheckboxList",
+                    keyName: "fuxuan",
+                    label: "",
+                    arrayData: arrayData
                 }
             ],
             paramsbutton:[
@@ -121,7 +148,20 @@ export default {
     },
     methods:{
         sear (){
-            alert("1")
+            this.form['fuxuan'].forEach(element => {
+                let select = arrayData.filter(item => {
+                    return item.value === element
+                })
+                console.log(select)
+                this.form[select[0]['name']]=select[0]['value'];
+                this.form[select[0]['name']+'fielsd1']=select[0]['fiesdlname']
+            });
+                console.log(this.form)
+            // delete this.form[keyName]
+
+            // return {
+            //     name,period,shuzhi,fuxuan
+            // }
             
         }
     }

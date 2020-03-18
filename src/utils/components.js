@@ -1,5 +1,6 @@
 module.exports = {
     RadioList: () => import("@/components/BusinessSearchComponents/RadioList"),
+    CheckboxList: () => import("@/components/BusinessSearchComponents/CheckboxList"),
     DateTemplate: () => import("@/components/BusinessSearchComponents/DateTemplate"),
     InputTemplate: () => import("@/components/BusinessSearchComponents/InputTemplate"),
     SelectTemplate: () => import("@/components/BusinessSearchComponents/SelectTemplate"),
