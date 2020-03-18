@@ -148,6 +148,7 @@ export default {
     },
     methods:{
         sear (){
+<<<<<<< HEAD
             this.form['fuxuan'].forEach(element => {
                 let select = arrayData.filter(item => {
                     return item.value === element
@@ -162,6 +163,9 @@ export default {
             // return {
             //     name,period,shuzhi,fuxuan
             // }
+=======
+            console.log(this.form)
+>>>>>>> 5f2314121c0dd793e291cb3392b8a83bc6ee4976
             
         }
     }

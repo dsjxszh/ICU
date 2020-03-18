@@ -1,0 +1,158 @@
+<template>
+    <div class="time">
+        <div class="clock">
+            <input v-model="hour" ref="hour" @blur="handleHour" @focus="focus($event)" class="input" @keyup.right="right" />
+            :
+            <input v-model="minute" ref="min" @blur="handleMinute" @focus="focus($event)" @keyup.left="left" class="input" />
+        </div>
+        <el-date-picker
+            class="picker"
+            v-model="value1"
+            type="datetime"
+            ref="datePicker"
+            :default-value="defaultValue"
+            @change="selectDate"
+            >
+        </el-date-picker>
+        <i class="el-icon-date" @click="showDate" />
+    </div>
+</template>
+
+<script>
+import { isNumber } from '@/utils/validate'
+export default {
+    data() {
+        return {
+            hour: '',
+            minute: '',
+            active: false,
+            value1: '',
+            defaultValue: new Date(),
+            inputByDate: false
+        }
+    },
+    watch: {
+        hour: {
+            immediate: true,
+            handler(val,oldValue) {
+                if (!this.inputByDate) {
+                    // 数值校验
+                    if (!isNumber(val) || parseInt(val) > 23) {
+                        // 还要对数值的大小进行校验(0-23)
+                        this.hour = oldValue
+                        return
+                    }
+                    if (val.length === 2 && this.minute === '') {
+                        this.$refs.min.focus();
+                        console.log(this.$refs.min.select)
+                        // this.minute = '00';
+                    }
+                    // 长度校验(如果原先的值为两位数，添加不可，删除则可)
+                    if (oldValue && oldValue.length === 2 && val.length >= 2 ) {
+                        // this.$refs.min.focus();
+                        this.hour =oldValue;
+                    }
+                }
+                
+            }
+        },
+        minute: {
+            immediate: true,
+            handler(val, oldValue) {
+                // 数值校验
+                if (!isNumber(val) || parseInt(val) > 59) {
+                    this.minute = oldValue
+                    return
+                }
+                // 长度校验(如果原先的值为两位数，添加不可，删除则可)
+                if (oldValue && oldValue.length === 2 && val.length >= 2 && val != '00' ) {
+                    this.minute =oldValue;
+                }
+            }
+        }
+    },
+    methods: {
+        focus:function(event){
+            event.currentTarget.select();
+        },
+        handleHour() {
+            if (parseInt(this.hour) <= 9 && this.hour != '') {
+                this.hour = '0' + this.hour;
+                return;
+            }
+            if (this.hour === '') {
+                this.hour = '00'
+            }
+        },
+        handleMinute() {
+            if (parseInt(this.minute) <= 9 && this.minute != '') {
+                this.minute = '0' + this.minute;
+            }
+        },
+        showDate() {
+            //当打开时间选取器后，可以向其中设定最新的时间
+            this.hour = this.hour === '' ? '00' : this.hour;
+            this.minute = this.minute === '' ? '00' : this.minute;
+            let date = new Date();
+            date.setHours(parseInt(this.hour));
+            date.setMinutes(parseInt(this.minute));
+            date.setSeconds(0);
+            this.value1 = date;
+            this.$refs.datePicker.pickerVisible = true
+        },
+        selectDate(e) {
+            //选定日期后重新设置时分
+            let hour = e.getHours();
+            let minute = e.getMinutes();
+            this.inputByDate = true;
+            this.hour = parseInt(hour) < 10 ? '0' + hour : hour;
+            this.minute = parseInt(minute) < 10 ? '0' + minute : minute;
+            this.inputByDate = false;
+        },
+        //点击向右的按钮
+        right() {
+            let start = this.$refs.min.selectionEnd;
+            // this.$refs.min.focus();
+            
+            console.log('光标位置:', start)
+        },
+        left() {
+            this.$refs.hour.focus();
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.time {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    .picker {
+        width: 0;
+        height: 0;
+        z-index: -999;
+    }
+    i {
+        margin-top: 4px;
+        margin-left: 3px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #666666;
+    }
+    .input {
+        &:focus {
+            outline: 0;
+        }
+        width: 20px;
+        border: 0;
+        text-align: center;
+    }
+}
+
+</style>
