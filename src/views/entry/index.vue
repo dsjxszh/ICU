@@ -22,6 +22,39 @@ const arrayData = [
 
     }
 ]
+const selectData = [
+    {
+        id:"1",
+        name:"选项一",
+        fields1:"青霉素1",
+
+    },{
+        id:"2",
+        name:"选项2",
+        fields1:"青霉素2",
+
+    },{
+        id:"3",
+        name:"选项3",
+        fields1:"青霉素3",
+
+    },{
+        id:"4",
+        name:"选项5",
+        fields1:"青霉素4",
+
+    },{
+        id:"5",
+        name:"选项5",
+        fields1:"青霉素3",
+
+    },{
+        id:"6",
+        name:"选项6",
+        fields1:"青霉素4",
+
+    }
+]
 export default {
     provide() {
         return {
@@ -59,6 +92,18 @@ export default {
                     keyName: "fuxuan",
                     label: "",
                     arrayData: arrayData
+                },{
+                    componentName: "SelectTemplate",
+                    keyName: "yongyao1",
+                    label: "",
+                    arrayData: selectData
+                },{
+                    componentName: "SelectTemplate",
+                    keyName: "yongyao2",
+                    multiple:true,
+                    identical:true,
+                    label: "",
+                    arrayData: selectData
                 }
             ],
             paramsbutton:[
@@ -143,29 +188,30 @@ export default {
                     label: "操作",
                     prop: 'op'
                 }
-            ]
+            ],
+            select:[]
         }
     },
     methods:{
         sear (){
-<<<<<<< HEAD
             this.form['fuxuan'].forEach(element => {
-                let select = arrayData.filter(item => {
+                const {value,name, fiesdlname } = arrayData.filter(item => {
                     return item.value === element
-                })
-                console.log(select)
-                this.form[select[0]['name']]=select[0]['value'];
-                this.form[select[0]['name']+'fielsd1']=select[0]['fiesdlname']
+                })[0]
+                let k=name+"fiesd";
+                let item = {
+                   name:value,
+                    [k]: fiesdlname
+                }
+                this.select.push(item)
             });
+                console.log(this.select)
                 console.log(this.form)
             // delete this.form[keyName]
 
             // return {
             //     name,period,shuzhi,fuxuan
             // }
-=======
-            console.log(this.form)
->>>>>>> 5f2314121c0dd793e291cb3392b8a83bc6ee4976
             
         }
     }
