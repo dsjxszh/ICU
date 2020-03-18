@@ -1,5 +1,5 @@
 <template>
-    <input v-model="inputText" />
+    <input class="number-input" v-model="inputText" />
 </template>
 
 <script>
@@ -93,5 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+.number-input {
+    width: 100%;
+}
 </style>

@@ -1,17 +1,25 @@
 <template>
     <div class="bedbrowse">
-        <nursing-time></nursing-time>
-        <single-select :options="options"></single-select>
+        <div class="left" v-for="(item, index) in menu" :key="index">
+            <div :class="['parent', item.children ? 'parent-children': '']">
+                <p>{{item.parent}}</p>
+            </div>
+            <template v-if="item.children">
+                <ul :key="item.parent">
+                    <li class="li" v-for="child in item.children" :key="child">{{child}}</li>
+                </ul>
+            </template>
+        </div>
+        <!-- <nursing-list></nursing-list> -->
     </div>
 </template>
 
 <script>
-import NursingTime from '@/components/NursingList/NursingTime.vue';
-import SingleSelect from '@/components/NursingList/SingleSelect.vue';
+// import NursingList from '@/components/NursingList';
+import { mock } from '@/mock/mock';
 export default {
     components: {
-        NursingTime,
-        SingleSelect
+        // NursingList
     },
     data() {
         return {
@@ -30,14 +38,71 @@ export default {
                 }, {
                 value: '选项5',
                 label: '北京烤鸭'
-            }]
+            }],
+            menu: [],
+            hasChildren: ''
         }
+    },
+    mounted() {
+        mock().then(res => {
+            console.log('***获取到的数据为:', res);
+            this.menu = res.map(item => {
+                if (item.list && item.list.length > 0) {
+                    let children = item.list.map(child => {
+                        return child.value;
+                    })
+                    return {
+                        parent: item.value,
+                        children
+                    }
+                } else {
+                    return {
+                        parent: item.value
+                    }
+                }
+            })
+            console.log('获取的menu为:', this.menu);
+        })
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .bedbrowse {
-    margin-left: 330px;
+    // margin-left: 330px;
+    display: flex;
+    flex-direction: column;
+    .left {
+        display: flex;
+        flex-direction: row;
+        .parent {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 192px;
+            min-height: 30px;
+            line-height: 100%;
+            border: 1px solid lightgray;
+            p{
+                display: table-cell;
+                vertical-align: middle;
+            }
+        }
+        .parent-children {
+            width: 40px;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+        .li {
+            height: 30px;
+            line-height: 30px;
+            border: 1px solid lightgray;
+            list-style-type: none;
+            width: 150px;
+        }
+    }
 }
 </style>

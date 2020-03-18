@@ -1,9 +1,9 @@
 <template>
     <div class="time">
         <div class="clock">
-            <input v-model="hour" ref="hour" @blur="handleHour" @focus="focus($event)" class="input" @keyup.right="right" />
+            <input v-model="hour" ref="hour" @blur="handleHour" @focus="focus($event)" class="input"  />
             :
-            <input v-model="minute" ref="min" @blur="handleMinute" @focus="focus($event)" @keyup.left="left" class="input" />
+            <input v-model="minute" ref="min" @blur="handleMinute" @focus="focus($event)" class="input" />
         </div>
         <el-date-picker
             class="picker"
@@ -21,6 +21,7 @@
 <script>
 import { isNumber } from '@/utils/validate'
 export default {
+    inject: ["farther"],
     data() {
         return {
             hour: '',
@@ -88,6 +89,7 @@ export default {
             if (parseInt(this.minute) <= 9 && this.minute != '') {
                 this.minute = '0' + this.minute;
             }
+            
         },
         showDate() {
             //当打开时间选取器后，可以向其中设定最新的时间
@@ -109,16 +111,6 @@ export default {
             this.minute = parseInt(minute) < 10 ? '0' + minute : minute;
             this.inputByDate = false;
         },
-        //点击向右的按钮
-        right() {
-            let start = this.$refs.min.selectionEnd;
-            // this.$refs.min.focus();
-            
-            console.log('光标位置:', start)
-        },
-        left() {
-            this.$refs.hour.focus();
-        }
     }
 }
 </script>
@@ -126,7 +118,7 @@ export default {
 <style lang="scss" scoped>
 .time {
     position: relative;
-    width: 100px;
+    width: 140px;
     height: 30px;
     border: 1px solid lightgray;
     display: flex;
@@ -152,6 +144,7 @@ export default {
         width: 20px;
         border: 0;
         text-align: center;
+        background-color: transparent;
     }
 }
 

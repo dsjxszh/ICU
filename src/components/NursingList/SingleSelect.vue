@@ -1,7 +1,7 @@
 <template>
     <div class="single-select" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
-        <el-select v-model="value" placeholder="请选择">
+        <el-select v-model="value" placeholder="">
             <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -17,7 +17,12 @@
 import selectIcon from '@/assets/image/f-selecticon@2x.png';
 export default {
     props: {
-        options: []
+        options: {
+            type: Array,
+            default() {
+                return []
+            }
+        }
     },
     data() {
         return {
@@ -56,6 +61,7 @@ export default {
     height: 25px;
     line-height: 25px;
     border-width: 0;
+    background-color: transparent;
 }
 </style>
 
@@ -65,7 +71,9 @@ export default {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: auto;
+    width: 140px;
+    height: 30px;
+    border: 1px solid lightgray;
     img {
         width: 15px;
         height: 15px;

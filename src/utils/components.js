@@ -9,6 +9,8 @@ module.exports = {
     NuminputTemplate: () => import("@/components/BusinessSearchComponents/NuminputTemplate"),
     SearchForm: () => import("@/components/BusinessSearchComponents/SearchForm"),
     BusinessTable: () => import("@/components/BusinessSearchComponents/SettingBusinessTable"),
-    Pagination: () => import("@/components/BusinessSearchComponents/Pagination")
+    Pagination: () => import("@/components/BusinessSearchComponents/Pagination"),
+    NursingTime: () => import("@/components/NursingList/NursingTime"),
+    SingleSelect: () => import("@/components/NursingList/SingleSelect")
     // CascaderModel: () => import("@/components/BusinessSearchComponents/CascaderModel")
 };
