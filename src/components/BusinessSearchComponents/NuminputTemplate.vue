@@ -1,5 +1,5 @@
 <template>
-    <input :value="farther.form[keyName]" @keyup="clearNoNum" />
+    <input v-model="inputText" />
 </template>
 
 <script>
@@ -33,46 +33,60 @@
             },
         },
         watch:{
-           
+           inputText: {
+               immediate: true,
+               handler(val) {
+                   console.log('监听中...',  val)
+                   this.clearNoNum(val)
+               }
+           }
+        },
+        data() {
+            return {
+                inputText:''
+            }
         },
         methods:{
-            clearNoNum(e){
-                let value=e.target.value;
+            clearNoNum(value){
                 if(this.precision==0){
-                        if(this.XieGang ==true)
-                            value = value.replace(/[^\d/]/g, "");//清除“数字”,和“/”以外的字符
-                        else if(this.JaJian==true)
-                            value = value.replace(/[^\d\-+]/g, "");//清除“数字”和“-”和“+”以外的字符
-                        else if(this.FuShu==true)
-                            value = value.replace(/[^\d-]/g, "");//清除“数字”和“-”以外的字符，可以输入负数
-                        else
-                            value = value.replace(/[^\d]/g, "");//清除“数字”以外的字符，只能输入正整数
-                    }else{
-                        if(this.FuShu==true)
-                            value = value.replace(/[^\d.-]/g, "");//清除“数字”和“.”和“-”以外的字符，可以输入负数
-                        else if(this.JaJian==true)
-                            value = value.replace(/[^\d.\-+]/g, "");//清除“数字”和“.”和“-”和“+”以外的字符
-                        else if(this.XieGang ==true)
-                            value = value.replace(/[^\d./]/g, "");//清除“数字”,和“/”和“.”以外的字符
-                        else
-                            value = value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
-                        
-               
-                        value = value.replace(/^\./g, "");//验证第一个字符是数字而不是.
-                        value = value.replace(/^\//g, "");//验证第一个字符是数字而不是/
-                        value= value.replace(/\.{2,}/g, ".");//只保留第一个. 清除多余的.
-                        value = value.replace(".", "$#$").replace(/\./g,"").replace("$#$", ".");
-                        value= value.replace(/\/{2,}/g,"/");//只保留第一个/ 清除多余的/
-                        value = value.replace("/","$#$").replace(/\//g,"").replace("$#$","/");
-                        if(this.FuShu==true)
-                            value= value.replace(new RegExp("^((-)?\\d+\\.\\d{"+this.precision+"}).+"), "$1");//控制输入几位小数
-                        else
-                            value= value.replace(new RegExp("^(\\d+\\.\\d{"+this.precision+"}).+"), "$1");//控制输入几位小数
-                       
-                    }
+                    if(this.XieGang ==true)
+                        value = value.replace(/[^\d/]/g, "");//清除“数字”,和“/”以外的字符
+                    else if(this.JaJian==true)
+                        value = value.replace(/[^\d\-+]/g, "");//清除“数字”和“-”和“+”以外的字符
+                    else if(this.FuShu==true)
+                        value = value.replace(/[^\d-]/g, "");//清除“数字”和“-”以外的字符，可以输入负数
+                    else
+                        value = value.replace(/[^\d]/g, "");//清除“数字”以外的字符，只能输入正整数
+                }else{
+                    if(this.FuShu==true)
+                        value = value.replace(/[^\d.-]/g, "");//清除“数字”和“.”和“-”以外的字符，可以输入负数
+                    else if(this.JaJian==true)
+                        value = value.replace(/[^\d.\-+]/g, "");//清除“数字”和“.”和“-”和“+”以外的字符
+                    else if(this.XieGang ==true)
+                        value = value.replace(/[^\d./]/g, "");//清除“数字”,和“/”和“.”以外的字符
+                    else
+                        value = value.replace(/[^\d.]/g, "");//清除“数字”和“.”以外的字符
                     
-                         console.log(value);
-                this.farther.form[this.keyName] = value;
+            
+                    value = value.replace(/^\./g, "");//验证第一个字符是数字而不是.
+                    value = value.replace(/^\//g, "");//验证第一个字符是数字而不是/
+                    value= value.replace(/\.{2,}/g, ".");//只保留第一个. 清除多余的.
+                    value = value.replace(".", "$#$").replace(/\./g,"").replace("$#$", ".");
+                    value= value.replace(/\/{2,}/g,"/");//只保留第一个/ 清除多余的/
+                    value = value.replace("/","$#$").replace(/\//g,"").replace("$#$","/");
+                    if(this.FuShu==true)
+                        value= value.replace(new RegExp("^((-)?\\d+\\.\\d{"+this.precision+"}).+"), "$1");//控制输入几位小数
+                    else
+                        value= value.replace(new RegExp("^(\\d+\\.\\d{"+this.precision+"}).+"), "$1");//控制输入几位小数
+                    
+                }
+                    
+                this.inputText = value;
+                this.$nextTick(() => {
+                    this.farther.form[this.keyName] = value;
+                })
+                
+                // console.log('外界绑定的表单为:', this.farther.form)
             }
         }
     }

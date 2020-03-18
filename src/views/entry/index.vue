@@ -17,7 +17,9 @@ export default {
     },
     data() {
         return {
-            form: {},
+            form: {
+                shuzhi: ''
+            },
             params: [
                 {
                     componentName: "InputTemplate",
@@ -121,7 +123,7 @@ export default {
     },
     methods:{
         sear (){
-            alert("1")
+            console.log(this.form)
             
         }
     }
