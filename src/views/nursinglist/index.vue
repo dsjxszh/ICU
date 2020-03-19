@@ -40,7 +40,7 @@ export default {
                 }
             })
             this.params = params;
-            console.log('params:', this.params)
+            // console.log('params:', this.params)
         })
     }
 }

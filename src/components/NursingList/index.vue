@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="nursing-list">
-                <nursing-form :params="params"></nursing-form>
+                <nursing-form :params="params" v-for="i in 12" :key="params[i].keyName + new Date()"></nursing-form>
             </div>
         </div>
     </div>
@@ -45,6 +45,9 @@ export default {
             }
         }
     },
+    mounted() {
+        console.log('组件加载完毕...');
+    },
     data() {
         return {
             form: {},
@@ -66,6 +69,9 @@ export default {
     width: 100%;
     height: 100%;
     .nursing-list {
+        max-width: 1200px;
+        overflow-x: scroll;
+        overflow-y: none;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
