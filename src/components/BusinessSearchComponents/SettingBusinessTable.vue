@@ -3,6 +3,7 @@
         <el-table 
             :data="tableData" 
             :row-class-name="tableRowClassName" 
+            stripe
             border 
             v-loading="loading" 
             ref="settingTable" 
@@ -11,6 +12,7 @@
             @select-all="handleSelectAll" 
             :header-cell-style="getRowClass"
             :max-height="tableHeight"
+            @row-dblclick="rowdblclick"
         >
             <el-table-column 
                 :header-align="item.column_align ? item.column_align:'left'" 
@@ -23,7 +25,7 @@
                 :fixed="item.fixed"
                 :prop="item.prop"
             >
-                <template slot-scope="scope">
+                <template v-slot:scope>
                     <template v-if="item.prop === 'buttons'">
                         <operation-buttons :buttons="item.buttons" />
                     </template>
@@ -73,6 +75,14 @@ export default {
     components: {
         ...AllComponents
     },
+    watch:{
+        tableData:{
+            immediate: true,
+            handler(val) {
+                console.log(val)
+            }
+        }
+    },
     methods: {
         handleSelect(selection) {
             this.$emit("select", selection);
@@ -100,6 +110,9 @@ export default {
                 return "warning-row";
             }
             return "normal-row";
+        },
+        rowdblclick(row){
+             this.$emit("rowdblclick", row);
         }
     }
 };

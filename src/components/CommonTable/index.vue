@@ -1,7 +1,7 @@
 <template>
     <div class="app-container">
         <search-form :params="params" :paramsbutton="paramsbutton" @search="search" @rest="rest" />
-        <business-table :columns="tableColumns"></business-table>
+        <business-table :columns="tableColumns" :tableData="tableData"></business-table>
         <pagination :currentPage="1" :total="500"></pagination>
     </div>
 </template>
@@ -24,6 +24,12 @@ export default {
             }
         },
         tableColumns: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        tableData:{
             type: Array,
             default() {
                 return []
