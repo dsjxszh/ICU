@@ -45,7 +45,7 @@ export default {
         currentTab: {
             immediate: true,
             handler(val) {
-                console.log('当前显示的tab为:', AllPages[val])
+                console.log('当前显示的tab为:',AllPages, val,  AllPages[val])
                 this.$router.push(`/dashboard/${AllPages[val]}`);
             }
         }

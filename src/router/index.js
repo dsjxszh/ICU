@@ -103,6 +103,10 @@ export const constRoutes = [
         path: "workstation",
         component: () => import("@/views/workstation"),
         name: "workstation"
+      },{
+        path: "nursinglist",
+        component: () => import("@/views/nursinglist"),
+        name: "nursinglist"
       }
     ]
   }

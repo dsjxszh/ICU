@@ -1,6 +1,6 @@
 <template>
     <div>
-        <common-table :params="params" :paramsbutton="paramsbutton" :tableColumns="tableColumns"></common-table>
+        <common-table :params="params" :paramsbutton="paramsbutton" :tableColumns="tableColumns" :tableData="tableData"></common-table>
     </div>
 </template>
 
@@ -55,6 +55,19 @@ const selectData = [
 
     }
 ]
+// const tableData=[{
+//         objectType: 200333,
+//         acknowledged: '王小虎',
+//     }, {
+//         objectType: 200333,
+//         acknowledged: '王小虎',
+//     }, {
+//         objectType: 200333,
+//         acknowledged: '王小虎',
+//     }, {
+//         objectType: 200333,
+//         acknowledged: '王小虎',
+//     }]
 export default {
     provide() {
         return {
@@ -189,7 +202,34 @@ export default {
                     prop: 'op'
                 }
             ],
-            select:[]
+            tableData:[
+                {
+                acknowledged: '上海市普陀区金沙江路 1518 弄',
+                // bqzt: '2016-05-02',
+                // hljb: '王小虎',
+                // yksch: '上海',
+                // previousDepartment: '普陀区',
+                // chuangwei: '上海市普陀区金沙江路 1518 弄',
+                // name: 200333,
+                // createDate: '家',
+                // objectType: 200333,
+                // severityName: '家'
+                },
+                {
+                acknowledged: '上海市普陀区金沙江路 1518 弄',
+                // bqzt: '2016-05-02',
+                // hljb: '王小虎',
+                // yksch: '上海',
+                // previousDepartment: '普陀区',
+                // chuangwei: '上海市普陀区金沙江路 1518 弄',
+                // name: 200333,
+                // createDate: '家',
+                // objectType: 200333,
+                // severityName: '家'
+                }
+            ],
+            select:[],
+
         }
     },
     methods:{
