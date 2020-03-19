@@ -91,6 +91,9 @@
 </script>
 
 <style lang="scss" scoped>
+<<<<<<< HEAD
+.number-input {
+=======
 .inputstlye{
     padding: 0px 5px;
     line-height: 30px;
@@ -101,6 +104,7 @@
     box-sizing: border-box;
     box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset;
     background: transparent;
+>>>>>>> 9c2d067bc75a2d4755897a8d31403e3bbe3f92e5
     width: 100%;
 }
 </style>
