@@ -117,7 +117,22 @@ export default {
     }
 };
 </script>
-
+<style lang="scss">
+.el-table th.is-leaf, .el-table td{
+    border-color: #D2D2D2;
+}
+.el-table--group, .el-table--border{
+    border-width: 0px;
+    border-right: 1px solid #d2d2d2;
+}
+.el-table__body-wrapper {
+    border: 1px solid #d2d2d2;
+    border-top: 0px;
+}
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+    background-color: #FFE9CF;
+}
+</style>
 <style lang="scss" scoped>
     .simple-linear {
         background: linear-gradient(0deg, #f2f2f2, #f9f9f9);

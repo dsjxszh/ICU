@@ -1,33 +1,32 @@
 <template>
-  <div class="select-outline">
-    <el-select v-model="farther.form[keyName]" 
-      :placeholder="placeholder" 
-      :disabled="disabled" 
-      :allow-create="allowcreate"
-      :multiple="multiple" 
-      :multiple-limit="multipleLimit"
-      clearable="clearable" 
-      filterable="filterable"
-      @change="selectChang">
-      <template v-if="identical">
-        <el-option :value="selectChangF">{{selectChangF}}</el-option>
-        <el-option
-          v-for="item in arrayData"
-          :key="item.id"
-          :label="item.name"
-          :value="item.name"
-        ></el-option>
-      </template>
-      <template v-else>
-        <el-option
+  <el-select v-model="farther.form[keyName]" 
+    :placeholder="placeholder" 
+    :disabled="disabled" 
+    :allow-create="allowcreate"
+    :multiple="multiple" 
+    :multiple-limit="multipleLimit"
+    clearable="clearable" 
+    filterable="filterable"
+    @change="selectChang">
+    <template v-if="identical">
+      <el-option v-if="multiple" :value="selectChangF">{{selectChangF}}</el-option>
+      <el-option
         v-for="item in arrayData"
         :key="item.id"
         :label="item.name"
         :value="item.id"
       ></el-option>
-      </template>
-    </el-select>
-  </div>
+    </template>
+    <template v-else>
+      <el-option v-if="multiple" :value="selectChangF">{{selectChangF}}</el-option>
+      <el-option
+      v-for="item in arrayData"
+      :key="item.id"
+      :label="item.name"
+      :value="item.id"
+    ></el-option>
+    </template>
+  </el-select>
 </template>
 
 <script>
@@ -72,23 +71,41 @@ export default {
     return{
       clearable:true,
       filterable:true,
-      selectChangF:"全选"
+      selectChangF:"全选",
+      selectData:[]
     }
+  },
+  created(){//进入组件只执行一次
+    this.arrayData.map(item => {
+      if(this.identical) this.selectData.push(item.name);
+      else this.selectData.push(item.id);
+    });
   },
   methods:{
     selectChang(value){
-      console.log(value)
       if(this.multiple){
         let q=value.filter(item => {
             return item === "全选" || item === "取消全选"   
         })
+        let valueNEW=value.filter(item => {
+            return item != "全选" || item != "取消全选"   
+        })
+        const result = valueNEW.length === this.selectData.length && valueNEW.every(a => this.selectData.some(b => a === b)) && this.selectData.every(_b => valueNEW.some(_a => _a === _b));
         if(q[0]=="全选"){
-         this.farther.form[this.keyName] = ["选项一", "选项2"];
-         this.selectChangF ="取消全选";
+          this.farther.form[this.keyName] =this.selectData;
+          this.selectChangF ="取消全选";
         }else if(q[0]=="取消全选"){
           this.farther.form[this.keyName] = [];
           this.selectChangF ="全选";
+        }else if(!result){
+          this.selectChangF ="全选";
+        }else if(result){
+          this.selectChangF ="取消全选";
         }
+        //  console.log("result"+result)
+        //  console.log("valueNEW:"+valueNEW)
+        //  console.log("value:"+value)
+        //  console.log("selectData:"+this.selectData)
       }
     }
   }

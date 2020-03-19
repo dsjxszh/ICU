@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="nursing-list">
-                <nursing-form :params="params" v-for="i in 12" :idx="i" :key="i"></nursing-form>
+                <nursing-form :params="params"></nursing-form>
             </div>
         </div>
     </div>
