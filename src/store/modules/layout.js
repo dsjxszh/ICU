@@ -1,9 +1,13 @@
-// 存储用户令牌和角色信息
+import AllPages from '@/utils/pages';
+
 const state = {
     editableTabs:[],
     currentTab: 'first-page',
-    closable: true //tabs是否可关闭
+    closable: true, //tabs是否可关闭
     // 其他用户信息
+    pages: {
+        ...AllPages
+    },
 };
   
 const mutations = {
@@ -41,6 +45,12 @@ const mutations = {
     },
     SET_CURRENT_TAB: (state, tab) => {
         state.currentTab = tab;
+    },
+    SET_NEW_NURSING_LIST: (state, obj) => { //新增护理表单路由接口
+        const { name, cb } = obj;
+        state.pages[name] = 'nursinglist';
+        console.log('pages:', state.pages);
+        cb && cb();
     }
 };
 
@@ -58,6 +68,11 @@ const actions = {
     // 切换当前标签
     changeCurrentTab({ commit }, tab) {
         commit("SET_CURRENT_TAB", tab);
+    },
+
+    // 新增路由
+    addNewRouter({ commit }, obj) {
+        commit("SET_NEW_NURSING_LIST", obj);
     }
   };
   

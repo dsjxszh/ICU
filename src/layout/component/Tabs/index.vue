@@ -18,7 +18,9 @@
                 :name="item.name"
             ></el-tab-pane>
             <div class="content">
-                <router-view></router-view>
+                <keep-alive>
+                    <router-view></router-view>
+                </keep-alive>
             </div>
         </el-tabs>
     </div>
@@ -26,7 +28,6 @@
 
 <script>
 import LayoutMixins from '@/mixins/layout';
-import AllPages from '@/utils/pages';
 import FirstPage from '@/views/firstPage';
 export default {
     mixins: [LayoutMixins],
@@ -42,23 +43,21 @@ export default {
         currentTab: {
             immediate: true,
             handler(val) {
-                console.log('当前显示的tab为:',AllPages, val,  AllPages[val])
-                this.$router.push(`/dashboard/${AllPages[val]}`);
+                // console.log('当前显示的tab为:',this.pages, val,  this.pages[val])
+                this.$router.push(`/dashboard/${this.pages[val]}`);
             }
         }
     },
     created() {
-        console.log(AllPages);
+        // console.log(AllPages);
     },
     methods: {
         remove(targetName) {
-            // console.log('你要移除的项目为:', targetName);
             this.removeTab(targetName);
         },
         changeTab(tab) {
             const { name } = tab;
             this.changeCurrentTab(name);
-            console.log('改变tab:', name);
         }
     }
 }
