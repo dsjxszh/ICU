@@ -120,7 +120,10 @@ export default {
     position: relative;
     width: 140px;
     height: 30px;
-    border: 1px solid lightgray;
+    // border-top: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -1,15 +1,18 @@
 <template>
     <div class="bedbrowse">
-        <div class="left" v-for="(item, index) in menu" :key="index">
-            <div :class="['parent', item.children ? 'parent-children': '']">
-                <p>{{item.parent}}</p>
+        <div>
+            <div class="left" v-for="(item, index) in menu" :key="index">
+                <div :class="['parent', item.children ? 'parent-children': '']">
+                    <p>{{item.parent}}</p>
+                </div>
+                <template v-if="item.children">
+                    <ul :key="item.parent">
+                        <li class="li" v-for="child in item.children" :key="child">{{child}}</li>
+                    </ul>
+                </template>
             </div>
-            <template v-if="item.children">
-                <ul :key="item.parent">
-                    <li class="li" v-for="child in item.children" :key="child">{{child}}</li>
-                </ul>
-            </template>
         </div>
+        
         <!-- <nursing-list></nursing-list> -->
     </div>
 </template>

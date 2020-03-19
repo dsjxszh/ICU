@@ -1,31 +1,33 @@
 <template>
-  <el-select v-model="farther.form[keyName]" 
-    :placeholder="placeholder" 
-    :disabled="disabled" 
-    :allow-create="allowcreate"
-    :multiple="multiple" 
-    :multiple-limit="multipleLimit"
-    clearable="clearable" 
-    filterable="filterable"
-    @change="selectChang">
-    <template v-if="identical">
-      <el-option :value="selectChangF">{{selectChangF}}</el-option>
-      <el-option
+  <div class="select-outline">
+    <el-select v-model="farther.form[keyName]" 
+      :placeholder="placeholder" 
+      :disabled="disabled" 
+      :allow-create="allowcreate"
+      :multiple="multiple" 
+      :multiple-limit="multipleLimit"
+      clearable="clearable" 
+      filterable="filterable"
+      @change="selectChang">
+      <template v-if="identical">
+        <el-option :value="selectChangF">{{selectChangF}}</el-option>
+        <el-option
+          v-for="item in arrayData"
+          :key="item.id"
+          :label="item.name"
+          :value="item.name"
+        ></el-option>
+      </template>
+      <template v-else>
+        <el-option
         v-for="item in arrayData"
         :key="item.id"
         :label="item.name"
-        :value="item.name"
+        :value="item.id"
       ></el-option>
-    </template>
-    <template v-else>
-      <el-option
-      v-for="item in arrayData"
-      :key="item.id"
-      :label="item.name"
-      :value="item.id"
-    ></el-option>
-    </template>
-  </el-select>
+      </template>
+    </el-select>
+  </div>
 </template>
 
 <script>
@@ -93,16 +95,18 @@ export default {
 };
 </script>
 <style lang="scss">
-
-.el-select{
-  width: 100%;
-  .el-input__inner {
-      border: 0px !important;
-      box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset !important;
-      background: transparent !important;
-      border-radius: 6px;
+.select-outline {
+  .el-select{
+    width: 100%;
+    .el-input__inner {
+        border: 0px !important;
+        box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset !important;
+        background: transparent !important;
+        border-radius: 6px;
+    }
   }
 }
+
  
 </style>
 <style lang="scss" scoped>

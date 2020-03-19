@@ -1,28 +1,48 @@
 let json = [
     {
+        key: 'SJ', 
+        value: '时间',
+        componentName: "NursingTime",
+        keyName: "time"
+    },
+    {
         key: 'SZ',
         value: '神志',
         list: [{
             key: 'ys',
-            value: '意识'
+            value: '意识',
+            componentName: "SingleSelect",
+            keyName: "time",
         },{
             key: 'rass',
-            value: 'RASS镇静评分'
+            value: 'RASS镇静评分',
+            componentName: "SingleSelect",
+            keyName: "rass",
         },{
             key: 'gcs',
-            value: 'GCS昏迷评分'
+            value: 'GCS昏迷评分',
+            componentName: "SingleSelect",
+            keyName: "rass",
         },{
             key: 'tky',
-            value: '瞳孔右'
+            value: '瞳孔右',
+            componentName: "SingleSelect",
+            keyName: "rass",
         },{
             key: 'tkz',
-            value: '瞳孔左'
+            value: '瞳孔左',
+            componentName: "SingleSelect",
+            keyName: "rass",
         },{
             key: 'zdgfy',
-            value: '左对光反应'
+            value: '左对光反应',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'ydgfy',
-            value: '右对光反应'
+            value: '右对光反应',
+            componentName: "SingleSelect",
+            keyName: "rass"
         }]
     },
     {
@@ -30,84 +50,132 @@ let json = [
         value: '生命体征',
         list: [{
             key: 'tw',
-            value: '体温'
+            value: '体温',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'xl',
-            value: '心率'
+            value: '心率',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'xll',
-            value: '心律'
+            value: '心律',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'ssywc',
-            value: '收缩压(无创)'
+            value: '收缩压(无创)',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'szywc',
-            value: '舒张压(无创)'
+            value: '舒张压(无创)',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'ssyyc',
-            value: '收缩压(有创)'
+            value: '收缩压(有创)',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'szyyc',
-            value: '舒张压(有创)'
+            value: '舒张压(有创)',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'map',
-            value: 'MAP'
+            value: 'MAP',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'cvp',
-            value: 'CVP'
+            value: 'CVP',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'bjsz',
-            value: '报警设置'
+            value: '报警设置',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'bjtl',
-            value: '报警调零'
+            value: '报警调零',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'hx',
-            value: '呼吸'
+            value: '呼吸',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'spo2',
-            value: 'SPO2'
+            value: 'SPO2',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'gyfs',
-            value: '给氧方式'
+            value: '给氧方式',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'yll',
-            value: '氧流量'
+            value: '氧流量',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'lldw',
-            value: '流量单位'
+            value: '流量单位',
+            componentName: "SingleSelect",
+            keyName: "rass"
         }]
     },
     {
         key: 'jxtq',
-        value: '机械通气'
+        value: '机械通气',
+        componentName: "SingleSelect",
+        keyName: "rass"
     },
     {
         key: 'ysqm',
-        value: '医生签名'
+        value: '医生签名',
+        componentName: "SingleSelect",
+        keyName: "rass"
     },
     {
         key: 'rl',
-        value: '入量'
+        value: '入量',
+        componentName: "SingleSelect",
+        keyName: "rass"
     },
     {
         key: 'cl',
         value: '出量',
         list: [{
             key: 'yly',
-            value: '引流液'
+            value: '引流液',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'dbys',
-            value: '大便颜色'
+            value: '大便颜色',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'dbl',
-            value: '大便量'
+            value: '大便量',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'nyys',
-            value: '尿液颜色'
+            value: '尿液颜色',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'msnl',
-            value: '每时尿量'
+            value: '每时尿量',
+            componentName: "SingleSelect",
+            keyName: "rass"
         }]
     },
     {
@@ -115,55 +183,85 @@ let json = [
         value: '风险评估',
         list: [{
             key: 'bardenpf',
-            value: 'Braden评分'
+            value: 'Braden评分',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'ddzcpf',
-            value: '跌倒坠床评分'
+            value: '跌倒坠床评分',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'ADLpf',
-            value: 'ADL评分'
+            value: 'ADL评分',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'nrsttpf',
-            value: 'NRS疼痛评分'
+            value: 'NRS疼痛评分',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'cpotttpf',
-            value: 'Cpot疼痛评分'
+            value: 'Cpot疼痛评分',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'vtepfwk',
-            value: 'VTE评分-外科'
+            value: 'VTE评分-外科',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'vtepfnk',
-            value: 'VTE评分-内科'
+            value: 'VTE评分-内科',
+            componentName: "SingleSelect",
+            keyName: "rass"
         },{
             key: 'yypf',
-            value: '营养评分'
+            value: '营养评分',
+            componentName: "SingleSelect",
+            keyName: "rass",
         },{
             key: 'aldretepf',
-            value: 'Aldrete评分'
+            value: 'Aldrete评分',
+            componentName: "SingleSelect",
+            keyName: "rass",
         },{
             key: 'ylxssyhpf',
-            value: '压力性损伤愈合评分'
+            value: '压力性损伤愈合评分',
+            componentName: "SingleSelect",
+            keyName: "rass",
         }]
     },
     {
         key: 'hlxm',
-        value: '护理项目'
+        value: '护理项目',
+        componentName: "SingleSelect",
+        keyName: "rass",
     },
     {
         key: 'jchl',
-        value: '血气分析'
+        value: '血气分析',
+        componentName: "SingleSelect",
+        keyName: "rass"
     },
     {
         key: 'msxt',
-        value: '末梢血糖'
+        value: '末梢血糖',
+        componentName: "SingleSelect",
+        keyName: "rass"
     },
     {
         key: 'bqgc',
-        value: '病情观察'
+        value: '病情观察',
+        componentName: "SingleSelect",
+        keyName: "rass"
     },
     {
         key: 'qm',
-        value: '签名'
+        value: '签名',
+        componentName: "SingleSelect",
+        keyName: "rass"
     }
 ]
 
@@ -171,6 +269,6 @@ export const mock = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(json);
-        }, 1000)
+        }, 100)
     }); 
 }
