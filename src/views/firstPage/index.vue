@@ -71,9 +71,16 @@ export default {
     methods:{
         rowdblclick(row){
             console.log(row)
-            // this.$router.push('nursinglist')
-            this.setTab('test');
-
+            this.addNewRouter({
+                name: 'test',
+            });
+         
+            this.setTab({
+                name: 'test',
+                title: 'test',
+            });
+                
+            
         }
     }
     

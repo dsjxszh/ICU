@@ -20,6 +20,5 @@ export default {
     "ICU床位": "icuBed",
     "角色维护": "role",
     "人员维护": "people",
-    "工作站维护": "workstation",
-    "test": "nursinglist"
+    "工作站维护": "workstation"
 }

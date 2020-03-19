@@ -5,14 +5,16 @@ export default {
     ...mapState({
         editableTabs: state => state.editableTabs,
         currentTab: state => state.currentTab,
-        closable: state => state.closable
+        closable: state => state.closable,
+        pages: state => state.pages
     })
   },
   methods: {
     ...mapActions([
         'setTab',
         'removeTab',
-        'changeCurrentTab'
+        'changeCurrentTab',
+        'addNewRouter'
     ])
   }
 };
