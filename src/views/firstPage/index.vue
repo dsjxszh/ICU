@@ -46,25 +46,13 @@ export default {
             ],
             tableData:[
                 {
-                roomName: '上海市普陀区金沙江路 1518 弄',
-                patientName: '2016-05-02',
+                roomName: '1',
+                patientName: '王进玉',
                 inpNo: '王小虎',
                 sex: '上海',
                 diagnose: '普陀区',
                 inTime: '上海市普陀区金沙江路 1518 弄',
                 },
-                {
-                roomName: '上海市普陀区金沙江路 1518 弄',
-                // bqzt: '2016-05-02',
-                // hljb: '王小虎',
-                // yksch: '上海',
-                // previousDepartment: '普陀区',
-                // chuangwei: '上海市普陀区金沙江路 1518 弄',
-                // name: 200333,
-                // createDate: '家',
-                // objectType: 200333,
-                // severityName: '家'
-                }
             ],
         }
     },
@@ -72,12 +60,12 @@ export default {
         rowdblclick(row){
             console.log(row)
             this.addNewRouter({
-                name: 'test',
+                name: row.roomName+row.inpNo,
             });
          
             this.setTab({
-                name: 'test',
-                title: 'test',
+                name: row.roomName+row.inpNo,
+                title: row.roomName+row.inpNo,  
             });
                 
             
