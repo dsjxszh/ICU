@@ -49,9 +49,9 @@ export default {
                 roomName: '1',
                 patientName: '王进玉',
                 inpNo: '王小虎',
-                sex: '上海',
-                diagnose: '普陀区',
-                inTime: '上海市普陀区金沙江路 1518 弄',
+                sex: '男',
+                diagnose: '多发伤术后 脑梗死恢复期 肺部感染 下肢静脉血栓 继发性血小板增多症',
+                inTime: '2019-12-10',
                 },
             ],
         }
