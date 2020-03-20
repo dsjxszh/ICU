@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="nursing-list">
-                <nursing-form :params="params"></nursing-form>
+                <nursing-form :params="params" v-for="i in 12" :key="i + new Date()"></nursing-form>
             </div>
         </div>
     </div>

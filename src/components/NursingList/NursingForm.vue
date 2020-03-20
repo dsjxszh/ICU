@@ -3,9 +3,10 @@
         <div
             class="component"
             v-for="(item, index) in params"
-            :key="index"
+            :key="index + item.componentName + new Date()"
         >
-            <component :is="item.componentName" v-bind="item" />
+            <!-- <component :is="item.componentName" v-bind="item" /> -->
+            <div class="c"></div>
         </div>
     </div>
 </template>
@@ -38,5 +39,14 @@ export default {
         }
         
     }
+}
+
+.c {
+    // background-color: lightgray;
+    width: 140px;
+    height: 30px;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    box-sizing: border-box;
 }
 </style>
