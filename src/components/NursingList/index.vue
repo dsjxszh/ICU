@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="nursing-list">
-                <nursing-form :params="params" v-for="i in 12" :key="params[i].keyName + new Date()"></nursing-form>
+                <nursing-form :params="params" v-for="i in 12" :key="params[i].key + new Date()" :idx="i"></nursing-form>
             </div>
         </div>
     </div>
@@ -52,12 +52,12 @@ export default {
         return {
             form: {},
             hasChildren: '',
+            columns: [1,2,3,4,5,6,7,8,9,10,11,12]
         }
     },
     methods: {
         leftHeight(children) {
-            let length = children ? children.length : 1
-            // console.log('children:', children, 'height:', 30 * length);
+            let length = children ? children.length : 1;
             return 30 * length
         }
     },
@@ -69,7 +69,7 @@ export default {
     width: 100%;
     height: 100%;
     .nursing-list {
-        max-width: 1200px;
+        // max-width: 1200px;
         overflow-x: scroll;
         overflow-y: none;
         display: flex;
