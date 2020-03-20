@@ -47,22 +47,25 @@ export default {
 </script>
 
 <style lang="scss">
-.el-select {
-    .el-input {
-        width: 100px;
+.single-select {
+    .el-select {
+        .el-input {
+            width: 100px;
+        }
+    } 
+    .el-input__suffix {
+        width: 0;
+        display: none;
     }
-} 
-.el-input__suffix {
-    width: 0;
-    display: none;
+
+    .el-input__inner {
+        height: 25px;
+        line-height: 25px;
+        border-width: 0;
+        background-color: transparent;
+    }
 }
 
-.el-input__inner {
-    height: 25px;
-    line-height: 25px;
-    border-width: 0;
-    background-color: transparent;
-}
 </style>
 
 <style lang="scss" scoped>
@@ -73,7 +76,9 @@ export default {
     align-items: center;
     width: 140px;
     height: 30px;
-    border: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box;
     img {
         width: 15px;
         height: 15px;

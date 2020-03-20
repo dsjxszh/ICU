@@ -67,8 +67,6 @@ export default {
                 name: row.roomName+row.inpNo,
                 title: row.roomName+row.inpNo,  
             });
-                
-            
         }
     }
     

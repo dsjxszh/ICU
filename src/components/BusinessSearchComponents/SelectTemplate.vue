@@ -16,7 +16,7 @@
         v-for="item in salepreInfo"
         :key="item.id"
         :label="item.name"
-        :value="item.name"
+        :value="item.id"
       ></el-option>
     </template>
     <template v-else>
@@ -142,16 +142,18 @@ export default {
 };
 </script>
 <style lang="scss">
-
-.el-select{
-  width: 100%;
-  .el-input__inner {
-      border: 0px !important;
-      box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset !important;
-      background: transparent !important;
-      border-radius: 6px;
+.select-outline {
+  .el-select{
+    width: 100%;
+    .el-input__inner {
+        border: 0px !important;
+        box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset !important;
+        background: transparent !important;
+        border-radius: 6px;
+    }
   }
 }
+
  
 </style>
 <style lang="scss" scoped>
