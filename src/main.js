@@ -5,6 +5,8 @@ import store from './store'
 import router from './router'
 import './style.scss'
 console.log('router:', router)
+import PinyinMatch from 'pinyin-match';
+Vue.prototype.$pinyinmatch = PinyinMatch;
 
 Vue.config.productionTip = false
 

@@ -7,11 +7,13 @@
     :multiple-limit="multipleLimit"
     clearable="clearable" 
     filterable="filterable"
+    :filter-method="filterByPY"
+    @visible-change="arrayDataF"
     @change="selectChang">
     <template v-if="identical">
       <el-option v-if="multiple" :value="selectChangF">{{selectChangF}}</el-option>
       <el-option
-        v-for="item in arrayData"
+        v-for="item in salepreInfo"
         :key="item.id"
         :label="item.name"
         :value="item.id"
@@ -20,7 +22,7 @@
     <template v-else>
       <el-option v-if="multiple" :value="selectChangF">{{selectChangF}}</el-option>
       <el-option
-      v-for="item in arrayData"
+      v-for="item in salepreInfo"
       :key="item.id"
       :label="item.name"
       :value="item.id"
@@ -71,9 +73,14 @@ export default {
     return{
       clearable:true,
       filterable:true,
+      reservekeyword:true,
       selectChangF:"全选",
-      selectData:[]
+      selectData:[],
+      salepreInfo: [],
     }
+  },
+  mounted(){
+    this.salepreInfo=this.arrayData;
   },
   created(){//进入组件只执行一次
     this.arrayData.map(item => {
@@ -82,6 +89,27 @@ export default {
     });
   },
   methods:{
+    arrayDataF(t){
+      if(t) this.salepreInfo=this.arrayData;
+      console.log(this.arrayData)
+    },
+    filterByPY(val){
+      console.log('****')
+      let PinyinMatch = this.$pinyinmatch;
+      
+      if (val) {
+        let result = [];
+        this.arrayData.forEach(i => {
+         // console.log(val)
+          let m = PinyinMatch.match(i.name, val);
+          if (m) {
+            result.push(i);
+          }
+        });
+        this.salepreInfo = result;
+        //console.log(this.salepreInfo)
+      }
+    },
     selectChang(value){
       if(this.multiple){
         let q=value.filter(item => {
@@ -102,13 +130,15 @@ export default {
         }else if(result){
           this.selectChangF ="取消全选";
         }
+        this.salepreInfo=this.arrayData;
         //  console.log("result"+result)
         //  console.log("valueNEW:"+valueNEW)
         //  console.log("value:"+value)
         //  console.log("selectData:"+this.selectData)
       }
     }
-  }
+  },
+  
 };
 </script>
 <style lang="scss">
