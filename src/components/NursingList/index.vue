@@ -8,13 +8,21 @@
                     </div>
                     <template v-if="item.list">
                         <ul :key="item.value">
-                            <li class="li" v-for="child in item.list" :key="child.value">{{child.value}}</li>
+                            <li class="li" v-for="child in item.list" :key="child.value">
+                                
+                                <p>{{child.value}}</p>
+                                <template v-if="child.list" >
+                                    <p v-for="grand in child.list" :key="grand.key">
+                                        {{grand.value}}
+                                    </p>
+                                </template>
+                            </li>
                         </ul>
                     </template>
                 </div>
             </div>
             <div class="nursing-list">
-                <nursing-form :params="params" v-for="i in 12" :key="params[i].key + new Date()" :idx="i"></nursing-form>
+                <nursing-form :params="params" v-for="i in 12" :key="i + new Date()" :idx="i"></nursing-form>
             </div>
         </div>
     </div>

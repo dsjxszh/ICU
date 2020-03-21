@@ -30,7 +30,8 @@ export default {
                     item.list.forEach(child => {
                         params.push({
                             componentName: child.componentName,
-                            key: child.key
+                            key: child.key,
+                            list: child.list || []
                         })
                     })
                 } else {
