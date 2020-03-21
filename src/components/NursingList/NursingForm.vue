@@ -8,6 +8,7 @@
             @keyup.right="right"
             @keyup.up="top"
             @keyup.down="down"
+            @focus="parentfocus"
         >
             <template v-if="item.componentName != 'NursingTime' && item.show === false">
                 <seize-input :x="idx" :y="index" :componentName="item.componentName" @focus="focus"></seize-input>
@@ -107,6 +108,10 @@ export default {
             const { x, y } = this.position;
             if (y === this.formList.length) return;
             this.setPosition({x: x, y: y+1 })
+        },
+        parentfocus() {
+            // 父组件监听
+            console.log('父组件获得焦点')
         }
     }
 }

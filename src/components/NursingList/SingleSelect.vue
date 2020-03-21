@@ -1,7 +1,7 @@
 <template>
     <div :class="['single-select', select]" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
-        <el-select v-model="selectItem" @focus="focus" placeholder="">
+        <el-select ref="select" v-model="selectItem" @focus="focus" placeholder="">
             <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -51,16 +51,12 @@ export default {
                 } else {
                     this.select = ''
                 }
-                if (val.x !== this.x && val.y !== this.y) { //当不是焦点时，要收起弹出框
-                    // console.log(this.$refs.select);
+                if (val.x !== this.x || val.y !== this.y) { //当不是焦点时，要收起弹出框
+                    this.$refs.select && this.$refs.select.blur();
                 }
                 if (val.x === this.x && val.y === this.y) { //当是焦点时，就要弹出下拉框
-                    console.log('***************************获得焦点', val.x, val.y);
-                    console.log(this.$refs);
-                    // this.$refs.select.focus();
+                    console.log('***************************获得焦点', val.x, val.y, this.$refs.select);
                 }
-
-                // console.log('点击的位置改变了', val)
             }
         }
     },
