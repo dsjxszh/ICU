@@ -117,7 +117,6 @@ export default {
             const { x, y } = this.position;
             if (y === this.formList.length) return;
             this.setPosition({x: x, y: y+1 })
-<<<<<<< HEAD
         },
         enter() {
             const { x, y } = this.position;
@@ -126,8 +125,6 @@ export default {
         cellClick() {
             // this.$refs.input.focus();
             console.log('我被点击了')
-=======
->>>>>>> 247e0a13526458bebdb15e91c850eae63887a75e
         }
     }
 }
