@@ -7,9 +7,6 @@
                 name="first-page"
                 :closable="false"
             >
-                <div class="content first-page">
-                    <component :is="FirstPage" />
-                </div>
             </el-tab-pane>
             <el-tab-pane
                 v-for="item in editableTabs"
@@ -28,15 +25,15 @@
 
 <script>
 import LayoutMixins from '@/mixins/layout';
-import FirstPage from '@/views/firstPage';
+// import FirstPage from '@/views/firstPage';
 export default {
     mixins: [LayoutMixins],
     components: {
-        FirstPage
+        // FirstPage
     },
     data() {
         return {
-            FirstPage: 'FirstPage'
+            // FPage: 'FirstPage'
         }
     },
     watch: {

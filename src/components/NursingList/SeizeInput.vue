@@ -27,7 +27,6 @@ export default {
                 } else {
                     this.select = ''
                 }
-                // console.log('点击的位置改变了', val)
             }
         }
     },

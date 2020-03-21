@@ -4,11 +4,13 @@ export default {
   computed: {
     ...mapState({
         position: state => state.position,
+        enter: state => state.enterClick
     })
   },
   methods: {
     ...mapActions([
-        'setPosition'
+        'setPosition',
+        'setEnter'
     ])
   }
-};
+};12

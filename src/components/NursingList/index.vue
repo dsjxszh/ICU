@@ -1,5 +1,13 @@
 <template>
     <div class="nursinglist">
+        <input 
+            ref="input" 
+            class="holder" 
+            @keyup.left="left"
+            @keyup.right="right"
+            @keyup.up="top"
+            @keyup.down="down" 
+            @keyup.enter="enter" />
         <div class="bedbrowse">
             <div>
                 <div class="left" v-for="(item, index) in menu" :key="index">
@@ -14,7 +22,7 @@
                 </div>
             </div>
             <div class="nursing-list">
-                <nursing-form :params="params" v-for="i in 12" :key="params[i].key + new Date()" :idx="i"></nursing-form>
+                <nursing-form :params="params" v-for="i in 12" :key="i + new Date()" :idx="i"></nursing-form>
             </div>
         </div>
     </div>
@@ -22,12 +30,15 @@
 
 <script>
 import NursingForm from './NursingForm';
+import EventBus from '@/utils/event-bus';
+import NursingMixins from '@/mixins/nursing';
 export default {
     provide() {
         return {
             farther: this
         }
     },
+    mixins: [NursingMixins],
     components: {
         NursingForm
     },
@@ -46,7 +57,10 @@ export default {
         }
     },
     mounted() {
-        console.log('组件加载完毕...');
+        EventBus.$on('focus', 'nursinglist',({ x, y }) => {
+            console.log('***---选中的组件位置为:', x, y, this.$refs.input);
+            this.$refs.input.focus();
+        });
     },
     data() {
         return {
@@ -59,6 +73,30 @@ export default {
         leftHeight(children) {
             let length = children ? children.length : 1;
             return 30 * length
+        },
+        left() {
+            const { x, y } = this.position;
+            if (x === 1) return;
+            this.setPosition({x: x-1, y: y })
+        },
+        right() {
+            const { x, y } = this.position;
+            if (x === 12) return;
+            this.setPosition({x: x+1, y: y })
+        },
+        top() {
+            const { x, y } = this.position;
+            if (y === 1) return;
+            this.setPosition({x: x, y: y-1 })
+        },
+        down() {
+            const { x, y } = this.position;
+            if (y === 47) return;
+            this.setPosition({x: x, y: y+1 })
+        },
+        enter() {
+            const { x, y } = this.position;
+            console.log(`位置在x:${x}, y:${y}的组件按下了enter键` )
         }
     },
 }
@@ -68,10 +106,14 @@ export default {
 .nursinglist {
     width: 100%;
     height: 100%;
+    .holder {
+        position: absolute;
+        top: -1000px;
+    }
     .nursing-list {
         // max-width: 1200px;
         overflow-x: scroll;
-        overflow-y: none;
+        // overflow-y: none;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;

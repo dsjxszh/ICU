@@ -15,7 +15,7 @@
 
 <script>
 import selectIcon from '@/assets/image/f-selecticon@2x.png';
-// import EventBus from '@/utils/event-bus';
+import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
     props: {
@@ -51,11 +51,11 @@ export default {
                 } else {
                     this.select = ''
                 }
-                if (val.x !== this.x || val.y !== this.y) { //当不是焦点时，要收起弹出框
-                    this.$refs.select && this.$refs.select.blur();
-                }
+               
                 if (val.x === this.x && val.y === this.y) { //当是焦点时，就要弹出下拉框
-                    console.log('***************************获得焦点', val.x, val.y, this.$refs.select);
+                    // console.log('***************************获得焦点', val.x, val.y, this.$refs.select);
+                } else {
+                    this.$refs.select && this.$refs.select.blur();
                 }
             }
         }
@@ -81,9 +81,9 @@ export default {
             this.imgStyle = 'img';
         },
         focus() {
-            console.log('here,我在这里啊!');
-            this.setPosition({ x: this.x, y: this.y })
-            // EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+            // console.log('here,我在这里啊!');
+            this.setPosition({ x: this.x, y: this.y });
+            EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
         }
     }
 }

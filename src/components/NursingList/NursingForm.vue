@@ -1,15 +1,21 @@
 <template>
-    <div class="nursing-form">
-        <div
-            class="component"
-            v-for="(item, index) in formList"
-            :key="idx + index + item.componentName"
+    <div class="nursing-form"> 
+        <input 
+            ref="input" 
+            class="holder" 
             @keyup.left="left"
             @keyup.right="right"
             @keyup.up="top"
-            @keyup.down="down"
-            @focus="parentfocus"
-        >
+            @keyup.down="down" 
+            @keyup.enter="enter" />
+        <div
+            tabindex="0"
+            class="component"
+            v-for="(item, index) in formList"
+            :key="idx + index + item.componentName"
+            @click="cellClick"
+            
+        >   
             <template v-if="item.componentName != 'NursingTime' && item.show === false">
                 <seize-input :x="idx" :y="index" :componentName="item.componentName" @focus="focus"></seize-input>
             </template>
@@ -25,6 +31,7 @@ import AllComponents from '@/utils/components';
 import SeizeInput from './SeizeInput';
 import NursingMixins from '@/mixins/nursing';
 export default {
+
     inject: ["farther"],
     mixins: [NursingMixins],
     components: {
@@ -57,7 +64,7 @@ export default {
                 if (val.x === this.idx) {
                     // console.log('位置为:', val)
                     this.formList[val.y].show = true;
-                }
+                } 
             }
         }
     },
@@ -109,9 +116,13 @@ export default {
             if (y === this.formList.length) return;
             this.setPosition({x: x, y: y+1 })
         },
-        parentfocus() {
-            // 父组件监听
-            console.log('父组件获得焦点')
+        enter() {
+            const { x, y } = this.position;
+            console.log(`位置在x:${x}, y:${y}的组件按下了enter键` )
+        },
+        cellClick() {
+            // this.$refs.input.focus();
+            console.log('我被点击了')
         }
     }
 }
@@ -119,13 +130,29 @@ export default {
 
 <style lang="scss" scoped>
 .nursing-form {
+    position: relative;
+    .holder {
+        position: absolute;
+        top: -100px;
+    }
     width: 140px;
     // background-color: firebrick;
     .component {
+        position: relative;
         &:nth-child(even) {
             background-color: #F7F7F7;
         }
-        
+        .hidden {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            box-sizing: border-box;
+            display: none;
+            // z-index: -1;
+        }
     }
 }
 
