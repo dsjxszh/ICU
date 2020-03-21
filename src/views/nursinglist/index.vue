@@ -13,6 +13,7 @@ export default {
     components: {
         NursingList
     },
+    // mixins: [NursingMixins],
     data() {
         return {
             menu: [],
@@ -29,17 +30,18 @@ export default {
                     item.list.forEach(child => {
                         params.push({
                             componentName: child.componentName,
-                            keyName: child.keyName
+                            key: child.key
                         })
                     })
                 } else {
                     params.push({
                         componentName: item.componentName,
-                        keyName: item.keyName
+                        key: item.key
                     })
                 }
             })
             this.params = params;
+            console.log('params:', params);
             // console.log('params:', this.params)
         })
     }

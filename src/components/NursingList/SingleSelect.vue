@@ -1,7 +1,7 @@
 <template>
-    <div class="single-select" @mouseover="showSelect" @mouseleave="hideSelect">
+    <div :class="['single-select', select]" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
-        <el-select v-model="value" placeholder="">
+        <el-select v-model="selectItem" @focus="focus" placeholder="">
             <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -15,6 +15,8 @@
 
 <script>
 import selectIcon from '@/assets/image/f-selecticon@2x.png';
+// import EventBus from '@/utils/event-bus';
+import NursingMixins from '@/mixins/nursing';
 export default {
     props: {
         options: {
@@ -22,25 +24,70 @@ export default {
             default() {
                 return []
             }
+        },
+        value: {
+            type: String,
+            default: ''
+        }, 
+        x: {
+            type: Number
+        }, 
+        y: {
+            type: Number
         }
     },
+    watch: {
+        value: {
+            immediate: true,
+            handler(val) {
+                this.selectItem = val;
+            }
+        },
+        position: {
+            immediate: true,
+            handler(val) {
+                if (val.x === this.x || val.y === this.y) {
+                    this.select = 'select';
+                } else {
+                    this.select = ''
+                }
+                if (val.x !== this.x && val.y !== this.y) { //当不是焦点时，要收起弹出框
+                    // console.log(this.$refs.select);
+                }
+                if (val.x === this.x && val.y === this.y) { //当是焦点时，就要弹出下拉框
+                    console.log('***************************获得焦点', val.x, val.y);
+                    console.log(this.$refs);
+                    // this.$refs.select.focus();
+                }
+
+                // console.log('点击的位置改变了', val)
+            }
+        }
+    },
+    mixins: [NursingMixins],
     data() {
         return {
-            value: '',
+            selectItem: '',
             selectIcon,
             showImg: false,
-            imgStyle: 'img'
+            imgStyle: 'img',
+            select: ''
         }
     },
     methods: {
         clear() {
-            this.value = ''
+            this.selectItem = ''
         },
         showSelect() {
             this.imgStyle = '';
         },
         hideSelect() {
             this.imgStyle = 'img';
+        },
+        focus() {
+            console.log('here,我在这里啊!');
+            this.setPosition({ x: this.x, y: this.y })
+            // EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
         }
     }
 }
@@ -69,6 +116,9 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.select {
+    background-color: #FFE9CF;
+}
 .single-select {
     display: flex;
     flex-direction: row;
