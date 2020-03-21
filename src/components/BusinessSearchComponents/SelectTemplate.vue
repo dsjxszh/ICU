@@ -1,5 +1,5 @@
-<template>
-  <el-select v-model="farther.form[keyName]" 
+<template><div style="height:40px">
+  <el-select class="selectyangshi" v-model="farther.form[keyName]" 
     :placeholder="placeholder" 
     :disabled="disabled" 
     :allow-create="allowcreate"
@@ -29,6 +29,7 @@
     ></el-option>
     </template>
   </el-select>
+  </div>
 </template>
 
 <script>
@@ -142,19 +143,23 @@ export default {
 };
 </script>
 <style lang="scss">
-.select-outline {
-  .el-select{
-    width: 100%;
-    .el-input__inner {
-        border: 0px !important;
-        box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset !important;
-        background: transparent !important;
-        border-radius: 6px;
+.selectyangshi{
+    &.el-select{
+      width: 100%;
+      height: 100%;
+      .el-input{
+        height: 100%;
+        .el-input__inner {
+            border: 0px !important;
+            box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset !important;
+            background: transparent !important;
+            border-radius: 6px;
+          height: 100%;
+        }
+      }
     }
-  }
 }
 
- 
 </style>
 <style lang="scss" scoped>
 
