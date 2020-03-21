@@ -11,6 +11,7 @@ module.exports = {
     BusinessTable: () => import("@/components/BusinessSearchComponents/SettingBusinessTable"),
     Pagination: () => import("@/components/BusinessSearchComponents/Pagination"),
     NursingTime: () => import("@/components/NursingList/NursingTime"),
+    san: () => import("@/components/NursingList/san"),
     SingleSelect: () => import("@/components/NursingList/SingleSelect")
     // CascaderModel: () => import("@/components/BusinessSearchComponents/CascaderModel")
 };

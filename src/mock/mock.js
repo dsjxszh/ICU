@@ -11,8 +11,21 @@ let json = [
         list: [{
             key: 'ys',
             value: '意识',
-            componentName: "SingleSelect",
+            componentName: "san",
             keyName: "time",
+            list:[{
+                key: 'ys1',
+                value: '意识1',
+                componentName: "NursingTime",
+                keyName: "time1",
+
+            },{
+                key: 'ys2',
+                value: '意识2',
+                componentName: "NursingTime",
+                keyName: "time222",
+
+            }]
         },{
             key: 'rass',
             value: 'RASS镇静评分',

@@ -16,7 +16,15 @@
                     </div>
                     <template v-if="item.list">
                         <ul :key="item.value">
-                            <li class="li" v-for="child in item.list" :key="child.value">{{child.value}}</li>
+                            <li class="li" v-for="child in item.list" :key="child.value">
+                                
+                                <p>{{child.value}}</p>
+                                <template v-if="child.list" >
+                                    <p v-for="grand in child.list" :key="grand.key">
+                                        {{grand.value}}
+                                    </p>
+                                </template>
+                            </li>
                         </ul>
                     </template>
                 </div>

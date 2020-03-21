@@ -20,9 +20,11 @@
                 <seize-input :x="idx" :y="index" :componentName="item.componentName" @focus="focus"></seize-input>
             </template>
             <template v-else>
-                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, ...item}" />
+                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, list: item.list || [],  ...item}" />
+
             </template>
         </div>
+
     </div>
 </template>
 
@@ -115,6 +117,7 @@ export default {
             const { x, y } = this.position;
             if (y === this.formList.length) return;
             this.setPosition({x: x, y: y+1 })
+<<<<<<< HEAD
         },
         enter() {
             const { x, y } = this.position;
@@ -123,6 +126,8 @@ export default {
         cellClick() {
             // this.$refs.input.focus();
             console.log('我被点击了')
+=======
+>>>>>>> 247e0a13526458bebdb15e91c850eae63887a75e
         }
     }
 }
