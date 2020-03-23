@@ -1,7 +1,7 @@
 <template>
     <div class="nursinglist">
         <input 
-            ref="input" 
+            ref="ginput" 
             class="holder" 
             @keyup.left="left"
             @keyup.right="right"
@@ -17,13 +17,12 @@
                     <template v-if="item.list">
                         <ul :key="item.value">
                             <li class="li" v-for="child in item.list" :key="child.value">
-                                
-                                <p>{{child.value}}</p>
-                                <template v-if="child.list" >
+                                {{child.value}}
+                                <!-- <template v-if="child.list" >
                                     <p v-for="grand in child.list" :key="grand.key">
                                         {{grand.value}}
                                     </p>
-                                </template>
+                                </template> -->
                             </li>
                         </ul>
                     </template>
@@ -65,10 +64,21 @@ export default {
         }
     },
     mounted() {
-        EventBus.$on('focus', 'nursinglist',({ x, y }) => {
-            console.log('***---选中的组件位置为:', x, y, this.$refs.input);
-            this.$refs.input.focus();
+        EventBus.$on('focus', 'nursinglist',({x, y}) => {
+            console.log('***---选中的组件位置为:', x, y, this.$refs.ginput);
+            // this.$refs.input.click();
+            this.$refs.ginput.focus();
         });
+        EventBus.$on('blur', 'nursinglist',() => {
+            // console.log('***---选中的组件位置为:', x, y, this.$refs.input);
+            this.$refs.ginput.blur();
+        });
+        document.onkeydown = (e) => {
+            console.log(e);
+        }
+    },
+    destroyed() {
+        document.onkeydown = null;
     },
     data() {
         return {
@@ -103,8 +113,8 @@ export default {
             this.setPosition({x: x, y: y+1 })
         },
         enter() {
-            const { x, y } = this.position;
-            console.log(`位置在x:${x}, y:${y}的组件按下了enter键` )
+            console.log('监听到enter事件了，实在有点意外....')
+            this.setEnter(true);
         }
     },
 }

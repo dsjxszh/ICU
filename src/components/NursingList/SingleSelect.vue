@@ -1,8 +1,9 @@
 <template>
     <div :class="['single-select', select]" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
-        <el-select ref="select" v-model="selectItem" @focus="focus" placeholder="">
+        <el-select ref="select" v-model="selectItem" @focus="focus" placeholder="test" @keydown.enter.native="enter">
             <el-option
+                ref="options"
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
@@ -19,12 +20,12 @@ import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
     props: {
-        options: {
-            type: Array,
-            default() {
-                return []
-            }
-        },
+        // options: {
+        //     type: Array,
+        //     default() {
+        //         return []
+        //     }
+        // },
         value: {
             type: String,
             default: ''
@@ -40,7 +41,8 @@ export default {
         value: {
             immediate: true,
             handler(val) {
-                this.selectItem = val;
+                console.log('外部传入的值为:', val)
+                // this.selectItem = val;
             }
         },
         position: {
@@ -52,10 +54,24 @@ export default {
                     this.select = ''
                 }
                
-                if (val.x === this.x && val.y === this.y) { //当是焦点时，就要弹出下拉框
-                    // console.log('***************************获得焦点', val.x, val.y, this.$refs.select);
-                } else {
+                if (val.x !== this.x || val.y !== this.y) { //当是焦点时，就要弹出下拉框
                     this.$refs.select && this.$refs.select.blur();
+                } 
+            }
+        },
+        enterClick: {
+            immediate: true,
+            handler(val, oldVal) {
+                if (val && !oldVal) {
+                    if (val === true && this.position.x === this.x && this.position.y === this.y) { // 要同时按下enter键并且位置相同才能触发
+                        // console.log('****当enter按下时的动作:', val, this.$refs.select);
+                        console.log('-----*****&&&&&&', val);
+                        this.$refs.select.$el.click();
+                        this.$refs.select.setSoftFocus();
+                        // this.$$refs.select.focus();
+                        // this.setEnter(false);
+                        this.setEnter(false);
+                    }
                 }
             }
         }
@@ -67,7 +83,17 @@ export default {
             selectIcon,
             showImg: false,
             imgStyle: 'img',
-            select: ''
+            select: '',
+            options: [
+                {
+                    label: '选项一',
+                    value: '选项一'
+                },
+                {
+                    label: '选项二',
+                    value: '选项二'
+                }
+            ],
         }
     },
     methods: {
@@ -81,10 +107,22 @@ export default {
             this.imgStyle = 'img';
         },
         focus() {
-            // console.log('here,我在这里啊!');
             this.setPosition({ x: this.x, y: this.y });
             EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+        },
+        enter() {
+            console.log('本地enter键入', { x: this.x, y: this.y });
+           
+            this.$refs.select && this.$refs.select.blur();
+
+            setTimeout(() => {
+                EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+            }, 500)
+            
         }
+    },
+    mounted() {
+
     }
 }
 </script>

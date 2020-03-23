@@ -1,30 +1,18 @@
 <template>
     <div class="nursing-form"> 
-        <input 
-            ref="input" 
-            class="holder" 
-            @keyup.left="left"
-            @keyup.right="right"
-            @keyup.up="top"
-            @keyup.down="down" 
-            @keyup.enter="enter" />
         <div
             tabindex="0"
             class="component"
             v-for="(item, index) in formList"
             :key="idx + index + item.componentName"
-            @click="cellClick"
-            
         >   
             <template v-if="item.componentName != 'NursingTime' && item.show === false">
                 <seize-input :x="idx" :y="index" :componentName="item.componentName" @focus="focus"></seize-input>
             </template>
             <template v-else>
                 <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, list: item.list || [],  ...item}" />
-
             </template>
         </div>
-
     </div>
 </template>
 
@@ -33,7 +21,6 @@ import AllComponents from '@/utils/components';
 import SeizeInput from './SeizeInput';
 import NursingMixins from '@/mixins/nursing';
 export default {
-
     inject: ["farther"],
     mixins: [NursingMixins],
     components: {
@@ -64,7 +51,6 @@ export default {
             immediate: true,
             handler(val) {
                 if (val.x === this.idx) {
-                    // console.log('位置为:', val)
                     this.formList[val.y].show = true;
                 } 
             }
@@ -97,34 +83,6 @@ export default {
         },
         componentFocus() {
             // console.log('我被选中啦...!');
-        },
-        left() {
-            const { x, y } = this.position;
-            if (x === 1) return;
-            this.setPosition({x: x-1, y: y })
-        },
-        right() {
-            const { x, y } = this.position;
-            if (x === 12) return;
-            this.setPosition({x: x+1, y: y })
-        },
-        top() {
-            const { x, y } = this.position;
-            if (y === 1) return;
-            this.setPosition({x: x, y: y-1 })
-        },
-        down() {
-            const { x, y } = this.position;
-            if (y === this.formList.length) return;
-            this.setPosition({x: x, y: y+1 })
-        },
-        enter() {
-            const { x, y } = this.position;
-            console.log(`位置在x:${x}, y:${y}的组件按下了enter键` )
-        },
-        cellClick() {
-            // this.$refs.input.focus();
-            console.log('我被点击了')
         }
     }
 }

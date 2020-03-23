@@ -4,7 +4,7 @@ export default {
   computed: {
     ...mapState({
         position: state => state.position,
-        enter: state => state.enterClick
+        enterClick: state => state.enterClick
     })
   },
   methods: {
