@@ -10,23 +10,7 @@
             @keyup.enter="enter" />
         <div class="bedbrowse">
             <div>
-                <div class="left" v-for="(item, index) in menu" :key="index">
-                    <div :class="['parent', item.list ? 'parent-children': '']" :style="{height: leftHeight(item.list) + 'px'}">
-                        <p>{{item.value}}</p>
-                    </div>
-                    <template v-if="item.list">
-                        <ul :key="item.value">
-                            <li class="li" v-for="child in item.list" :key="child.value">
-                                {{child.value}}
-                                <!-- <template v-if="child.list" >
-                                    <p v-for="grand in child.list" :key="grand.key">
-                                        {{grand.value}}
-                                    </p>
-                                </template> -->
-                            </li>
-                        </ul>
-                    </template>
-                </div>
+                <nursing-menu :menu="menu" />
             </div>
             <div class="nursing-list">
                 <nursing-form :params="params" v-for="i in 12" :key="i + new Date()" :idx="i"></nursing-form>
@@ -36,6 +20,7 @@
 </template>
 
 <script>
+import NursingMenu from './menu';
 import NursingForm from './NursingForm';
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
@@ -47,7 +32,8 @@ export default {
     },
     mixins: [NursingMixins],
     components: {
-        NursingForm
+        NursingForm,
+        NursingMenu
     },
     props: {
         menu: {
@@ -84,22 +70,38 @@ export default {
         return {
             form: {},
             hasChildren: '',
-            columns: [1,2,3,4,5,6,7,8,9,10,11,12]
+        }
+    },
+    watch: {
+        currentComIsSan: {
+            immediate: true,
+            handler(val) {
+                val && console.log('当前的组件为多级菜单...');
+
+            }
         }
     },
     methods: {
-        leftHeight(children) {
-            let length = children ? children.length : 1;
-            return 30 * length
-        },
         left() {
             const { x, y } = this.position;
-            if (x === 1) return;
+            if (x === 1) {
+                this.setPosition({
+                    x: 12,
+                    y
+                })
+                return
+            }
             this.setPosition({x: x-1, y: y })
         },
         right() {
             const { x, y } = this.position;
-            if (x === 12) return;
+            if (x === 12) {
+                this.setPosition({
+                    x: 1,
+                    y
+                })
+                return;
+            }
             this.setPosition({x: x+1, y: y })
         },
         top() {
@@ -109,12 +111,20 @@ export default {
         },
         down() {
             const { x, y } = this.position;
+            // if (this.currentComIsSan) {
+
+            //     return;
+            // }
+            
             if (y === 47) return;
             this.setPosition({x: x, y: y+1 })
         },
         enter() {
-            console.log('监听到enter事件了，实在有点意外....')
+            // console.log('监听到enter事件了，实在有点意外....')
             this.setEnter(true);
+        },
+        isMainCor() {
+            // 判断当前坐标是否为主坐标
         }
     },
 }
@@ -147,43 +157,7 @@ export default {
         flex-direction: row;
         border: 1px solid lightgray;
         // margin: 20px;
-        .left {
-            display: flex;
-            flex-direction: row;
-            .parent {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 192px;
-                height: 30px;
-                line-height: 100%;
-                border-bottom: 1px solid lightgray;
-                border-right: 1px solid lightgray;
-                box-sizing: border-box;
-            }
-            .parent-children {
-                width: 40px;
-                height: 100%;
-                padding: 0 20px;
-                line-height: 30px;
-                box-sizing: border-box;
-            }
-            ul {
-                padding: 0;
-                margin: 0;
-            }
-            .li {
-                height: 30px;
-                line-height: 30px;
-                // border: 1px solid lightgray;
-                border-bottom: 1px solid lightgray;
-                border-right: 1px solid lightgray;
-                list-style-type: none;
-                width: 151px;
-                box-sizing: border-box;
-            }
-        }
+        
     }
 }
 

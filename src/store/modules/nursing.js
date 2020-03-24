@@ -3,7 +3,13 @@ const state = {
         x: 0,
         y: 0
     },
-    enterClick: false
+    subPosition: {  //子坐标
+        x: 0,
+        y: '-1'
+    },
+    currentComIsSan: false, //判断当前聚焦的组件是否为多级组件
+    enterClick: false,
+    sanshow: {}
 };
 
 const mutations = {
@@ -12,6 +18,12 @@ const mutations = {
     },
     SET_ENTER: (state, enter) => {
         state.enterClick = enter;
+    },
+    SET_SHOW: (state, show) => {
+        state.sanshow = show;
+    },
+    SET_CURRENT: (state, current) => {
+        state.currentComIsSan = current;
     }
 };
 
@@ -23,6 +35,14 @@ const actions = {
     // 设置enter是否按下
     setEnter({ commit }, enter) {
         commit("SET_ENTER", enter);
+    },
+    // 设置三级标题是否展开
+    setSanShow({ commit }, show) {
+        commit("SET_SHOW", show);
+    },
+    // 设置当前组件是否为多级组件
+    setCurrentCom({ commit }, current) {
+        commit("SET_CURRENT", current);
     }
   };
   

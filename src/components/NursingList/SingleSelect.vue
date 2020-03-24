@@ -1,7 +1,7 @@
 <template>
     <div :class="['single-select', select]" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
-        <el-select ref="select" v-model="selectItem" @focus="focus" placeholder="test" @keydown.enter.native="enter">
+        <el-select ref="select" v-model="selectItem" @focus="focus" placeholder="" @keydown.enter.native="enter">
             <el-option
                 ref="options"
                 v-for="item in options"
@@ -35,14 +35,27 @@ export default {
         }, 
         y: {
             type: Number
+        },
+        suby: {
+            type: String,
+            default: '-1'
         }
     },
     watch: {
         value: {
             immediate: true,
-            handler(val) {
-                console.log('外部传入的值为:', val)
+            handler() {
+                // console.log('外部传入的值为:', val)
                 // this.selectItem = val;
+            }
+        },
+        suby: {
+            immediate: true,
+            handler(val) {
+                if (val !== '-1') {
+                    console.log('子坐标的位置为:',val);
+                }
+                
             }
         },
         position: {
@@ -56,7 +69,10 @@ export default {
                
                 if (val.x !== this.x || val.y !== this.y) { //当是焦点时，就要弹出下拉框
                     this.$refs.select && this.$refs.select.blur();
-                } 
+                } else {
+                    this.setCurrentCom(false);
+                }
+
             }
         },
         enterClick: {
@@ -64,13 +80,12 @@ export default {
             handler(val, oldVal) {
                 if (val && !oldVal) {
                     if (val === true && this.position.x === this.x && this.position.y === this.y) { // 要同时按下enter键并且位置相同才能触发
-                        // console.log('****当enter按下时的动作:', val, this.$refs.select);
-                        console.log('-----*****&&&&&&', val);
-                        this.$refs.select.$el.click();
-                        this.$refs.select.setSoftFocus();
-                        // this.$$refs.select.focus();
-                        // this.setEnter(false);
-                        this.setEnter(false);
+                        if (this.$refs.select) {
+                            this.$refs.select.$el.click();
+                            this.$refs.select.setSoftFocus();
+                            this.setEnter(false);
+                        }
+                        
                     }
                 }
             }
@@ -111,7 +126,7 @@ export default {
             EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
         },
         enter() {
-            console.log('本地enter键入', { x: this.x, y: this.y });
+            // console.log('本地enter键入', { x: this.x, y: this.y });
            
             this.$refs.select && this.$refs.select.blur();
 

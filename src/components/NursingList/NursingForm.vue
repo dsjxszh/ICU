@@ -6,11 +6,11 @@
             v-for="(item, index) in formList"
             :key="idx + index + item.componentName"
         >   
-            <template v-if="item.componentName != 'NursingTime' && item.show === false">
+            <template v-if="item.componentName != 'NursingTime' && item.componentName != 'san' && item.show === false">
                 <seize-input :x="idx" :y="index" :componentName="item.componentName" @focus="focus"></seize-input>
             </template>
             <template v-else>
-                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, list: item.list || [],  ...item}" />
+                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, list: item.list || [], keyTab: item.key,  ...item}" />
             </template>
         </div>
     </div>
@@ -81,9 +81,6 @@ export default {
             this.x = x;
             this.y = y;
         },
-        componentFocus() {
-            // console.log('我被选中啦...!');
-        }
     }
 }
 </script>

@@ -42,7 +42,7 @@ export default {
                 }
             })
             this.params = params;
-            console.log('params:', params);
+            console.log('**********params:', params);
             // console.log('params:', this.params)
         })
     }
