@@ -1,9 +1,9 @@
 <template>
     <div @click="showM" :class="['cc']">
-        <InputTemplate style="height:30px" :class="[select]">三级</InputTemplate> 
-        <div v-show="show" :class="[subSelect]">
+        <div style="height:30px" :class="[select, 'border']">三级</div> 
+        <div v-show="show">
             <template v-for="(com, index) in list">
-                <component :is="com.componentName" :key="com.keyName" v-bind="{suby: y + '-' + index, x: x}" />
+                <component :is="com.componentName" :key="com.keyName" v-bind="{y: y, x: x, z: index + 1}" />
             </template>
         </div>
     </div>
@@ -27,13 +27,13 @@ export default {
                 return []
             }
         },
-        keyTab: {
-            type: String
-        },
         x: {
             type: Number
         }, 
         y: {
+            type: Number
+        },
+        z: {
             type: Number
         }
     },
@@ -42,9 +42,7 @@ export default {
             immediate: true,
             deep: true,
             handler(val) {
-                // console.log('外界传入的值为:', val);
-                this.show = val[this.keyTab];
-
+                this.show = val[this.y];
             }
         },
         position: {
@@ -55,13 +53,10 @@ export default {
                 } else {
                     this.select = ''
                 }
-                if (val.x === this.x) {
-                    this.subSelect = 'select';
-                } else {
-                    this.subSelect = '';
-                }
                 if (val.x === this.x && val.y === this.y) {
-                    this.setCurrentCom(true);
+                    // this.setCurrentCom(true);
+                    // // 这里要设置当前节点下面一共要有多少个子节点(y, length)
+                    // this.setSubDomLength(this.list.length);
                 }
             }
         },
@@ -80,23 +75,34 @@ export default {
             ss: '',
             show: false,
             select: '',
-            subSelect: ''
         }
     },
     methods: {
         showM() {
-            // this.ss = this.ss ==='show' ? '' : 'show';
             EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
             this.setSanShow({
-                [this.keyTab]: !this.show
+                [this.y]: !this.show
             })
         }
     },
     mounted() {
-        // console.log('加载完成:', this.$props)
+        let obj = {
+            y: this.y,
+            len: this.list.length,
+        }
+        if (this.sanArray.length === 0) {
+            this.setSanArray([obj]);
+        } else {
+            let duplicate = false;
+            this.sanArray.forEach(element => {
+                if (element.y === this.y) {
+                    duplicate = true;
+                }
+            });
+            !duplicate && this.setSanArray([obj, ...this.sanArray]);
+        }
         this.setSanShow({
-            [this.keyTab]: false,
-            ...this.sanShow
+            [this.y]: this.show
         })
     }
 }
@@ -109,6 +115,10 @@ export default {
 .cc {
     // background-color: lightcoral;
     // display: none;
+    .border {
+        border-bottom: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+    }
     .sub {
         display: none;
     }

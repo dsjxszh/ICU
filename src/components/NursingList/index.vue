@@ -52,11 +52,9 @@ export default {
     mounted() {
         EventBus.$on('focus', 'nursinglist',({x, y}) => {
             console.log('***---选中的组件位置为:', x, y, this.$refs.ginput);
-            // this.$refs.input.click();
             this.$refs.ginput.focus();
         });
         EventBus.$on('blur', 'nursinglist',() => {
-            // console.log('***---选中的组件位置为:', x, y, this.$refs.input);
             this.$refs.ginput.blur();
         });
         document.onkeydown = (e) => {
@@ -79,52 +77,75 @@ export default {
                 val && console.log('当前的组件为多级菜单...');
 
             }
+        },
+        position: {
+            immediate: true,
+            handler(val) {
+                console.log('位置信息变为:', val)
+            }
         }
     },
     methods: {
         left() {
-            const { x, y } = this.position;
+            const { x, y, z } = this.position;
             if (x === 1) {
                 this.setPosition({
                     x: 12,
-                    y
+                    y,
+                    z
                 })
                 return
             }
-            this.setPosition({x: x-1, y: y })
+            this.setPosition({x: x-1, y: y, z })
         },
         right() {
-            const { x, y } = this.position;
+            const { x, y, z } = this.position;
             if (x === 12) {
                 this.setPosition({
                     x: 1,
-                    y
+                    y,
+                    z
                 })
                 return;
             }
-            this.setPosition({x: x+1, y: y })
+            this.setPosition({x: x+1, y, z })
         },
+        // 判断上下时的策略
         top() {
-            const { x, y } = this.position;
-            if (y === 1) return;
-            this.setPosition({x: x, y: y-1 })
+            const { x, y, z } = this.position;
+            if (z === 0) {
+                let info = this.sanArray.filter(item => item.y === y - 1)
+                if (info.length > 0) {
+                    if (this.sanShow[y-1]) {
+                        this.setPosition({x, y: y - 1, z: info[0].len})
+                        return
+                    }
+                }
+                if (y === 1) return;
+                this.setPosition({x: x, y: y-1, z: 0 })
+            } else {
+                if (z > 0) {
+                    this.setPosition({x: x, y: y, z: z-1 })
+                }
+            }
         },
         down() {
-            const { x, y } = this.position;
-            // if (this.currentComIsSan) {
-
-            //     return;
-            // }
-            
+            const { x, y, z } = this.position;
+            let info = this.sanArray.filter(item => item.y === y) //筛选并判断是否是多级组件
+            if (info.length > 0) {  //说明当前的位置在多级组件的位置中
+                // console.log('*******info:', info, this.sanShow, z);
+                if (this.sanShow[y] && z < info[0].len) { //当是展开状态并且长度小于指定的长度时
+                    this.setPosition({x, y, z: z + 1})
+                    // console.log('*********')
+                    return;
+                }
+            }
             if (y === 47) return;
-            this.setPosition({x: x, y: y+1 })
+            this.setPosition({x: x, y: y+1, z: 0 })
         },
         enter() {
             // console.log('监听到enter事件了，实在有点意外....')
             this.setEnter(true);
-        },
-        isMainCor() {
-            // 判断当前坐标是否为主坐标
         }
     },
 }

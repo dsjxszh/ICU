@@ -11,8 +11,18 @@ let json = [
         list: [{
             key: 'ys',
             value: '意识',
-            componentName: "san",
+            componentName: "SingleSelect",
             keyName: "time",
+        },{
+            key: 'rass',
+            value: 'RASS镇静评分',
+            componentName: "SingleSelect",
+            keyName: "rass",
+        },{
+            key: 'gcs',
+            value: 'GCS昏迷评分',
+            componentName: "san",
+            keyName: "rass",
             list: [{
                 value: '意识一', 
                 componentName: 'SingleSelect',
@@ -22,16 +32,6 @@ let json = [
                 componentName: 'SingleSelect',
                 keyName: 'ys2'
             }]
-        },{
-            key: 'rass',
-            value: 'RASS镇静评分',
-            componentName: "SingleSelect",
-            keyName: "rass",
-        },{
-            key: 'gcs',
-            value: 'GCS昏迷评分',
-            componentName: "SingleSelect",
-            keyName: "rass",
         },{
             key: 'tky',
             value: '瞳孔右',

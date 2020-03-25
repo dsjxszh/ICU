@@ -36,9 +36,8 @@ export default {
         y: {
             type: Number
         },
-        suby: {
-            type: String,
-            default: '-1'
+        z: {
+            type: Number
         }
     },
     watch: {
@@ -49,19 +48,10 @@ export default {
                 // this.selectItem = val;
             }
         },
-        suby: {
-            immediate: true,
-            handler(val) {
-                if (val !== '-1') {
-                    console.log('子坐标的位置为:',val);
-                }
-                
-            }
-        },
         position: {
             immediate: true,
             handler(val) {
-                if (val.x === this.x || val.y === this.y) {
+                if ((val.y === this.y || val.x === this.x)) {
                     this.select = 'select';
                 } else {
                     this.select = ''
@@ -70,16 +60,19 @@ export default {
                 if (val.x !== this.x || val.y !== this.y) { //当是焦点时，就要弹出下拉框
                     this.$refs.select && this.$refs.select.blur();
                 } else {
-                    this.setCurrentCom(false);
+                    // this.setCurrentCom(false);
                 }
 
+                if (val.x === this.x && val.y === this.y && val.z === this.z) {
+                    this.select = 'z-select';
+                }
             }
         },
         enterClick: {
             immediate: true,
             handler(val, oldVal) {
                 if (val && !oldVal) {
-                    if (val === true && this.position.x === this.x && this.position.y === this.y) { // 要同时按下enter键并且位置相同才能触发
+                    if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
                         if (this.$refs.select) {
                             this.$refs.select.$el.click();
                             this.$refs.select.setSoftFocus();
@@ -122,7 +115,7 @@ export default {
             this.imgStyle = 'img';
         },
         focus() {
-            this.setPosition({ x: this.x, y: this.y });
+            this.setPosition({ x: this.x, y: this.y, z: this.z });
             EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
         },
         enter() {
@@ -167,6 +160,9 @@ export default {
 <style lang="scss" scoped>
 .select {
     background-color: #FFE9CF;
+}
+.z-select {
+    background-color: lightskyblue;
 }
 .single-select {
     display: flex;

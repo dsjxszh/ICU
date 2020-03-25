@@ -14,6 +14,9 @@ export default {
         y: {
             type: Number
         },
+        z: {
+            type: Number
+        },
         componentName: {
             type: String
         }
@@ -22,7 +25,7 @@ export default {
         position: {
             immediate: true,
             handler(val) {
-                if (val.x === this.x || val.y === this.y) {
+                if (val.y === this.y || val.x === this.x) {
                     this.select = 'select';
                 } else {
                     this.select = ''

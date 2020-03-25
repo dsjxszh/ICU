@@ -1,14 +1,11 @@
 const state = {
     position: {
         x: 0,
-        y: 0
+        y: 0,
+        z: 0
     },
-    subPosition: {  //子坐标
-        x: 0,
-        y: '-1'
-    },
-    currentComIsSan: false, //判断当前聚焦的组件是否为多级组件
     enterClick: false,
+    sanArray: [], //保存所有三级组件的y轴坐标系
     sanshow: {}
 };
 
@@ -22,8 +19,8 @@ const mutations = {
     SET_SHOW: (state, show) => {
         state.sanshow = show;
     },
-    SET_CURRENT: (state, current) => {
-        state.currentComIsSan = current;
+    SET_ARRAY: (state, arr) => {
+        state.sanArray = arr;
     }
 };
 
@@ -40,9 +37,9 @@ const actions = {
     setSanShow({ commit }, show) {
         commit("SET_SHOW", show);
     },
-    // 设置当前组件是否为多级组件
-    setCurrentCom({ commit }, current) {
-        commit("SET_CURRENT", current);
+    //保存当前坐标轴相关信息
+    setSanArray({ commit }, arr) {
+        commit("SET_ARRAY", arr);
     }
   };
   

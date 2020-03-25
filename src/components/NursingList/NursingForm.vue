@@ -10,7 +10,7 @@
                 <seize-input :x="idx" :y="index" :componentName="item.componentName" @focus="focus"></seize-input>
             </template>
             <template v-else>
-                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, list: item.list || [], keyTab: item.key,  ...item}" />
+                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, list: item.list || [],  ...item}" />
             </template>
         </div>
     </div>
