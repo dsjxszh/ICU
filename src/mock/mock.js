@@ -11,8 +11,16 @@ let json = [
         list: [{
             key: 'ys',
             value: '意识',
-            componentName: "SingleSelect",
+            componentName: "PopupInput",
             keyName: "time",
+            list:[
+                {
+                    key: 'rass1',
+                    value: 'RASS镇静评分1',
+                    componentName: "DialogPFHL",
+                    keyName: "rass1",
+                }
+            ]
         },{
             key: 'rass',
             value: 'RASS镇静评分',
@@ -21,18 +29,39 @@ let json = [
         },{
             key: 'gcs',
             value: 'GCS昏迷评分',
-            componentName: "SingleSelect",
+            componentName: "NuminputNursing",
             keyName: "rass",
+            ControlAttribute:{
+                DuoJiGaoJin:[
+                    {
+                        min:2,
+                        max:5,
+                        color:"#000"
+                    }
+                ],
+
+            }
         },{
             key: 'tky',
             value: '瞳孔右',
-            componentName: "SingleSelect",
+            componentName: "NuminputNursing",
             keyName: "rass",
         },{
             key: 'tkz',
             value: '瞳孔左',
-            componentName: "SingleSelect",
+            componentName: "CheckboxNursing",
             keyName: "rass",
+            ControlAttribute:{
+                arrayData:[
+                    {
+                        value:"name1",
+                        name:"name1",
+                        label:"",
+                        fiesdlname:"青霉素1",
+                
+                    }
+                ]
+            }
         },{
             key: 'zdgfy',
             value: '左对光反应',
