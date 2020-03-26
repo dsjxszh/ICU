@@ -1,17 +1,14 @@
 <template><div style="height:40px">
-  <el-select class="selectyangshi" v-model="farther.form[keyName]" 
+  <el-select ref="select" class="selectyangshi" v-model="selectItem" 
     :placeholder="placeholder" 
     :disabled="disabled" 
     :allow-create="allowcreate"
-    :multiple="multiple" 
-    :multiple-limit="multipleLimit"
     clearable="clearable" 
     filterable="filterable"
     :filter-method="filterByPY"
-    @visible-change="arrayDataF"
-    @change="selectChang">
+    @focus="focus"
+    @keydown.enter.native="enter">
     <template v-if="identical">
-      <el-option v-if="multiple" :value="selectChangF">{{selectChangF}}</el-option>
       <el-option
         v-for="item in salepreInfo"
         :key="item.id"
@@ -20,7 +17,6 @@
       ></el-option>
     </template>
     <template v-else>
-      <el-option v-if="multiple" :value="selectChangF">{{selectChangF}}</el-option>
       <el-option
       v-for="item in salepreInfo"
       :key="item.id"
@@ -34,111 +30,118 @@
 
 <script>
 //  护理单表格中的搜索下拉框
+import EventBus from '@/utils/event-bus';
+import NursingMixins from '@/mixins/nursing';
 export default {
-  inject: ["farther"],
   props: {
-    keyName: {
-      type: String
-    },
-    arrayData:{
-        type:Array,
-        default(){
-            return []
+        value: {
+            type: String,
+            default: ''
+        }, 
+        x: {
+            type: Number
+        }, 
+        y: {
+            type: Number
+        },
+        z: {
+            type: Number
+        },
+        attr:{
+          type:Object
+        }
+  },
+  watch: {
+        position: {
+            immediate: true,
+            handler(val) {
+                if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
+                    this.active = 'active';
+                } else {
+                    this.active = ''
+                }
+               
+                if (val.x !== this.x || val.y !== this.y) { //当是焦点时，就要弹出下拉框
+                    this.$refs.select && this.$refs.select.blur();
+                } else {
+                    // this.setCurrentCom(false);
+                }
+
+                if (val.x === this.x && val.y === this.y && val.z === this.z) {
+                    this.active = 'z-active';
+                }
+            }
+        },
+        enterClick: {
+            immediate: true,
+            handler(val, oldVal) {
+                if (val && !oldVal) {
+                    if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
+                        if (this.$refs.select) {
+                            this.$refs.select.$el.click();
+                            this.$refs.select.setSoftFocus();
+                            this.setEnter(false);
+                        }
+                        
+                    }
+                }
+            }
         }
     },
-    multiple: {//是否多选
-      type: Boolean,
-      default:false
-    },
-    multipleLimit: {//多选的最多条目控制
-      type: Number,
-      default:0
-    },
-    placeholder: {//提示内容
-      type: String,
-      default:"请选择"
-    },
-    allowcreate: {//是否允许用户创建新条目
-      type: Boolean,
-      default:false
-    },
-    disabled: {//是否禁用
-      type: Boolean,
-      default:false
-    },
-    identical:{//判断选项value与text值是否一样
-        type:Boolean,
-        default:false
-    }
-  },
+    mixins: [NursingMixins],
   data(){
     return{
       clearable:true,
       filterable:true,
       reservekeyword:true,
-      selectChangF:"全选",
-      selectData:[],
       salepreInfo: [],
+      arrayData: [],
+      placeholder:"请选择",
+      allowcreate:false,
+      disabled:false,
+      identical:false,
+      active:"",
+      selectItem:""
     }
   },
   mounted(){
-    this.salepreInfo=this.arrayData;
-  },
-  created(){//进入组件只执行一次
-    this.arrayData.map(item => {
-      if(this.identical) this.selectData.push(item.name);
-      else this.selectData.push(item.id);
-    });
+    // placeholder: {//提示内容
+    // allowcreate: {//是否允许用户创建新条目
+    // disabled: {//是否禁用
+    // identical:{//判断选项value与text值是否一样
+    const{arrayData,placeholder="请选择",allowcreate=false,disabled=false,identical=false}=this.attr;
+      this.salepreInfo=arrayData;
+      this.arrayData=arrayData;
+      this.placeholder=placeholder;
+      this.allowcreate=allowcreate;
+      this.disabled=disabled;
+      this.identical=identical;
   },
   methods:{
-    arrayDataF(t){
-      if(t) this.salepreInfo=this.arrayData;
-      console.log(this.arrayData)
-    },
     filterByPY(val){
-      console.log('****')
       let PinyinMatch = this.$pinyinmatch;
-      
       if (val) {
         let result = [];
         this.arrayData.forEach(i => {
-         // console.log(val)
           let m = PinyinMatch.match(i.name, val);
           if (m) {
             result.push(i);
           }
         });
         this.salepreInfo = result;
-        //console.log(this.salepreInfo)
       }
     },
-    selectChang(value){
-      if(this.multiple){
-        let q=value.filter(item => {
-            return item === "全选" || item === "取消全选"   
-        })
-        let valueNEW=value.filter(item => {
-            return item != "全选" || item != "取消全选"   
-        })
-        const result = valueNEW.length === this.selectData.length && valueNEW.every(a => this.selectData.some(b => a === b)) && this.selectData.every(_b => valueNEW.some(_a => _a === _b));
-        if(q[0]=="全选"){
-          this.farther.form[this.keyName] =this.selectData;
-          this.selectChangF ="取消全选";
-        }else if(q[0]=="取消全选"){
-          this.farther.form[this.keyName] = [];
-          this.selectChangF ="全选";
-        }else if(!result){
-          this.selectChangF ="全选";
-        }else if(result){
-          this.selectChangF ="取消全选";
+        focus() {
+            this.setPosition({ x: this.x, y: this.y, z: this.z });
+            EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
+        },
+        enter() {
+            this.$refs.select && this.$refs.select.blur();
+            setTimeout(() => {
+                EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+            }, 500)
+            
         }
-        this.salepreInfo=this.arrayData;
-        //  console.log("result"+result)
-        //  console.log("valueNEW:"+valueNEW)
-        //  console.log("value:"+value)
-        //  console.log("selectData:"+this.selectData)
-      }
-    }
   },
   
 };

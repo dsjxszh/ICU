@@ -3,7 +3,7 @@
         <div @click="showM" style="height:30px" :class="[select, 'border']">三级</div> 
         <div v-show="show">
             <template v-for="(com, index) in list">
-                <component :is="com.componentName" :key="com.keyName" v-bind="{y: y, x: x, z: index + 1}" />
+                <component :is="com.componentName" :key="com.keyName" v-bind="{y: y, x: x, z: index + 1, attr: com.attr || {}}" />
             </template>
         </div>
     </div>

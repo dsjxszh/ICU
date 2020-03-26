@@ -23,6 +23,9 @@ import NursingMixins from '@/mixins/nursing';
             y: {
                 type: Number
             },
+            z: {
+                type: Number
+            },
         },
         mixins: [NursingMixins],
         data(){
@@ -36,7 +39,7 @@ import NursingMixins from '@/mixins/nursing';
                 // console.log("this.x："+this.x+"*****this.position.y："+this.y);
                 // console.log(this.setPosition)
                 // this.setPosition({ x:  this.x, y:  this.y });
-                EventBus.$emit('focus', 'nursinglist', { x:  this.x, y: this.y });
+                EventBus.$emit('focus', 'nursinglist', { x:  this.x, y: this.y,z:this.z });
             }
         }
     }
