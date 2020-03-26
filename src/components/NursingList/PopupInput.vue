@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter">123</el-button>
+        <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter">{{value}}</el-button>
     </div>
 </template>
 
@@ -21,43 +21,31 @@ import DialogPFHL from './DialogPFHL';
             y: {
                 type: Number
             },
-            list:{
-                type:Array,
-                default(){
-                    return []
-                }
+            z: {
+                type: Number
             }
         },
         watch: {
-            value: {
-                immediate: true,
-                handler(val) {
-                    console.log('外部传入的value:', val)
-                }
-            },
             position: {
                 immediate: true,
                 handler(val) {
-                    if (val.x === this.x || val.y === this.y) {
+                    if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
                         this.active = 'active';
                     } else {
                         this.active = ''
                     }
-                
-                    // if (val.x !== this.x || val.y !== this.y) { //当是焦点时，就要弹出下拉框
-                    //     this.$refs.button && this.$refs.button.blur();
-                    // } 
+                    if (val.x === this.x && val.y === this.y && val.z === this.z) {
+                        this.active = 'z-active';
+                    }
+
                 }
             },
             enterClick: {
                 immediate: true,
                 handler(val, oldVal) {
                     if (val && !oldVal) {
-                        if (val === true && this.position.x === this.x && this.position.y === this.y) { // 要同时按下enter键并且位置相同才能触发
-                        // console.log("打开对话框：val"+val+"*****oldVal"+oldVal)
-                        // console.log("this.position.x："+this.position.x+"*****this.position.y："+this.position.y)
-                        // console.log("this.x："+this.x+"*****this.position.y："+this.x)
-                            this.OpenPopup1 =  Popups(DialogPFHL, {x:this.x,y:this.y});//打开对话框
+                        if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
+                            this.OpenPopup1 =  Popups(DialogPFHL, {x:this.x,y:this.y,z:this.z});//打开对话框
                             this.setEnter(false);
                         }
                     }
@@ -65,18 +53,6 @@ import DialogPFHL from './DialogPFHL';
             }
         },
         mixins: [NursingMixins],
-        mounted() {
-            // EventBus.$on('ClosePopup', 'nursinglist',() => {
-                
-            //     if(this.OpenPopup1!=null){
-            //         console.log("关闭模态框")
-            //         this.OpenPopup1.remove();
-            //         this.OpenPopup1=null;
-            //     }
-                
-                    
-            // });
-        },
         data(){
             return{
                 active:"",
@@ -85,14 +61,13 @@ import DialogPFHL from './DialogPFHL';
         },
         methods: {
             focus() {
-                this.setPosition({ x: this.x, y: this.y });
-                EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y });
-                this.OpenPopup1 =  Popups(DialogPFHL, {x:this.x,y:this.y});
+                this.setPosition({ x: this.x, y: this.y,z:this.z });
+                EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y,z:this.z });
+                this.OpenPopup1 =  Popups(DialogPFHL, {x:this.x,y:this.y,z:this.z});
             },
             enter() {
-                // console.log('本地enter键入', { x: this.x, y: this.y });
                 setTimeout(() => {
-                    EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+                    EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y,z:this.z })
                 }, 500)
                 
             }
@@ -112,6 +87,9 @@ import DialogPFHL from './DialogPFHL';
     color: #666;
     &.active {
         background-color: #FFE9CF;
+    }
+    &.z-active{
+        background-color: #37B8FF;
     }
 }
 

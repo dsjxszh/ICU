@@ -21,7 +21,11 @@ let json = [
         },{
             key: 'rass',
             value: 'RASS镇静评分',
-            componentName: "SingleSelect",
+            componentName: "NuminputNursing",
+            keyName: "rass",
+            attr:{
+                WenBen:true
+            }
         },{
             key: 'gcs',
             value: 'GCS昏迷评分',
@@ -34,7 +38,6 @@ let json = [
                         color:"#000"
                     }
                 ],
-
             }
         },{
             key: 'tky',
@@ -44,7 +47,8 @@ let json = [
             key: 'tkz',
             value: '瞳孔左',
             componentName: "CheckboxNursing",
-            ControlAttribute:{
+            keyName: "rass",
+            attr:{
                 arrayData:[
                     {
                         value:"name1",
@@ -64,9 +68,45 @@ let json = [
                 componentName: 'SingleSelect',
                 key: 'ys1'
             },{
+                value: '意识一', 
+                componentName: 'SelectSearchNursing',
+                keyName: 'ys4',
+                attr:{
+                    arrayData:[
+                        {
+                            value:"name1",
+                            name:"name1",
+                            label:"复选1",
+                            fiesdlname:"青霉素1",
+                    
+                        },{
+                            value:"name2",
+                            name:"name2",
+                            fiesdlname:"青霉素",
+                            label:"复选2"
+                    
+                        }
+                    ]
+                }
+            },{
                 value: '意识二',
-                componentName: 'SingleSelect',
+                componentName: 'NuminputNursing',
                 key: 'ys2'
+            },{
+                value: '意识二',
+                componentName: 'CheckboxNursing',
+                key: 'ys3',
+                attr:{
+                    arrayData:[
+                        {
+                            value:"1",
+                            name:"name1",
+                            label:"",
+                            fiesdlname:"青霉素1",
+                    
+                        }
+                    ]
+                }
             }]
         },{
             key: 'ydgfy',

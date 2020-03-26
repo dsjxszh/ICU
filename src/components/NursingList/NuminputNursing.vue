@@ -15,9 +15,6 @@ import EventBus from '@/utils/event-bus';
     export default {
         inject:['farther'],
         props:{
-            // keyName:{
-            //     type:String
-            // },
             value: {
                 type: String,
                 default: ''
@@ -26,6 +23,9 @@ import EventBus from '@/utils/event-bus';
                 type: Number
             }, 
             y: {
+                type: Number
+            },
+            z: {
                 type: Number
             },
             attr:{
@@ -45,24 +45,19 @@ import EventBus from '@/utils/event-bus';
                     this.clearNoNum(val)
                 }
             },
-            value: {
-                immediate: true,
-                handler(val) {
-                    this.inputText = val;
-                }
-            },
+    
             position: {
                 immediate: true,
                 handler(val) {
-                    if (val.x === this.x || val.y === this.y) {
+                    if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
                         this.active = 'active';
                     } else {
                         this.active = ''
                     }
                 
-                    if (val.x === this.x && val.y === this.y && this.position.z === this.z) { //当是焦点时，就要获取光标
-                        // this.focus();
+                    if (val.x === this.x && val.y === this.y && val.z === this.z) {
                         this.$refs.Numininput&&this.$refs.Numininput.focus()
+                        this.active = 'z-active';
                     }
                 }
             },
@@ -85,6 +80,7 @@ import EventBus from '@/utils/event-bus';
             // FuShu:{//是否可输入负数
             // WenBen:{
             clearNoNum(value){
+                console.log('+++++++:', this.attr)
                 const {DuoJiGaoJin=[],WenBen=false,precision=0,XieGang=false,Ja=false,Jian=false,JaJian=false,FuShu=false}=this.attr;
                 if(!WenBen){
                     if(precision==0){
@@ -144,27 +140,66 @@ import EventBus from '@/utils/event-bus';
                 // console.log('外界绑定的表单为:', this.farther.form)
             },
             focusss() {
-                this.setPosition({ x: this.x, y: this.y });
+                this.setPosition({ x: this.x, y: this.y, z: this.z });
             },
             left() {
-                if (this.x === 1) return;
-                this.setPosition({x: this.x-1, y: this.y });
+                if (this.x === 1) {
+                    this.setPosition({
+                        x: 12,
+                        y: this.y,
+                        z:this.z
+                    })
+                    return
+                }
+                this.setPosition({x: this.x-1, y: this.y, z:this.z })
               
             },
             right() {
-                if (this.x === 12) return;
-                this.setPosition({x: this.x+1, y: this.y });
+                if (this.x === 12) {
+                    this.setPosition({
+                        x: 1,
+                        y: this.y,
+                        z:this.z
+                    })
+                    return;
+                }
+                this.setPosition({x: this.x+1, y: this.y, z:this.z })
                
             },
             top() {
-                if (this.y === 1) return;
-                this.setPosition({x: this.x, y: this.y-1 });
-                EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y-1 })
+                if (this.z === 0) {
+                    let info = this.sanArray.filter(item => item.y === this.y - 1)
+                    if (info.length > 0) {
+                        if (this.sanShow[this.y-1]) {
+                            this.setPosition({x:this.x, y: this.y - 1, z: info[0].len});
+                           EventBus.$emit('focus', 'nursinglist', {x:this.x, y: this.y - 1, z: info[0].len})
+                            return
+                        }
+                    }
+                    if (this.y === 1) return;
+                    this.setPosition({x: this.x, y: this.y-1, z: 0 });
+                    EventBus.$emit('focus', 'nursinglist', {x: this.x, y: this.y-1, z: 0 })
+                } else {
+                    if (this.z > 0) {
+                        this.setPosition({x: this.x, y: this.y, z: this.z-1 });
+                        EventBus.$emit('focus', 'nursinglist', {x: this.x, y: this.y, z: this.z-1 })
+                    }
+                }
+
             },
             down() {
+                let info = this.sanArray.filter(item => item.y === this.y) //筛选并判断是否是多级组件
+                if (info.length > 0) {  //说明当前的位置在多级组件的位置中
+                    console.log('*******info:', info, this.sanShow, this.z);
+                    if (this.sanShow[this.y] && this.z < info[0].len) { //当是展开状态并且长度小于指定的长度时
+                        this.setPosition({x:this.x, y:this.y, z: this.z + 1});
+                        EventBus.$emit('focus', 'nursinglist',{x:this.x, y:this.y, z: this.z + 1});
+                        return;
+                    }
+                }
                 if (this.y === 47) return;
-                this.setPosition({x: this.x, y: this.y+1 });
-                EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y+1 })
+                this.setPosition({x: this.x, y: this.y+1, z: 0 });
+                EventBus.$emit('focus', 'nursinglist',{x: this.x, y: this.y+1, z: 0 })
             },
         }
     }
@@ -187,6 +222,9 @@ import EventBus from '@/utils/event-bus';
     width: 100%;
     &.active {
         background-color: #FFE9CF;
+    }
+    &.z-active{
+        background-color: #37B8FF;
     }
 }
 </style>

@@ -18,12 +18,14 @@ import EventBus from '@/utils/event-bus';
         props:{
             value: {
                 type: String,
-                default: '0'
             }, 
             x: {
                 type: Number
             }, 
             y: {
+                type: Number
+            },
+            z: {
                 type: Number
             },
             attr:{
@@ -47,10 +49,13 @@ import EventBus from '@/utils/event-bus';
             position: {
                 immediate: true,
                 handler(val) {
-                    if (val.x === this.x || val.y === this.y) {
+                    if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
                         this.active = 'active';
                     } else {
                         this.active = ''
+                    }
+                    if (val.x === this.x && val.y === this.y && val.z === this.z) {
+                        this.active = 'z-active';
                     }
                 }
             },
@@ -58,10 +63,7 @@ import EventBus from '@/utils/event-bus';
                 immediate: true,
                 handler(val, oldVal) {
                     if (val && !oldVal) {
-                        if (val === true && this.position.x === this.x && this.position.y === this.y) { // 要同时按下enter键并且位置相同才能触发
-                        // console.log("打开对话框：val"+val+"*****oldVal"+oldVal)
-                        // console.log("this.position.x："+this.position.x+"*****this.position.y："+this.position.y)
-                        // console.log("this.x："+this.x+"*****this.position.y："+this.x)
+                        if (this.position.x === this.x && this.position.y === this.y&& this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
                             this.checked =  !this.checked;//选中复选框
                             this.setEnter(false);
                         }
@@ -73,21 +75,18 @@ import EventBus from '@/utils/event-bus';
         data(){
             return{
                 arrayData:[],
-                eee:[],
                 active: '',
                 checked:false,
-                checked2:false,
-                checked1:true
             }
         },
         methods:{
             focus() {
-                this.setPosition({ x: this.x, y: this.y });
-                EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y });
+                this.setPosition({ x: this.x, y: this.y,z:this.z });
+                EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y,z:this.z });
             },
             enter() {
                 setTimeout(() => {
-                    EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+                    EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y,z:this.z })
                 }, 500)
                 
             }
@@ -133,6 +132,9 @@ import EventBus from '@/utils/event-bus';
     background: transparent;
     &.active {
         background-color: #FFE9CF;
+    }
+    &.z-active{
+        background-color: #37B8FF;
     }
 }
 </style>
