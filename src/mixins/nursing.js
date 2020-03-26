@@ -4,13 +4,17 @@ export default {
   computed: {
     ...mapState({
         position: state => state.position,
-        enterClick: state => state.enterClick
+        enterClick: state => state.enterClick,
+        sanShow: state => state.sanshow,
+        sanArray: state => state.sanArray
     })
   },
   methods: {
     ...mapActions([
         'setPosition',
-        'setEnter'
+        'setEnter',
+        'setSanShow',
+        'setSanArray'
     ])
   }
 };

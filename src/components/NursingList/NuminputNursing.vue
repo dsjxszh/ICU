@@ -28,7 +28,7 @@ import EventBus from '@/utils/event-bus';
             y: {
                 type: Number
             },
-            ControlAttribute:{
+            attr:{
                 type:Object,
             }
         },
@@ -85,7 +85,7 @@ import EventBus from '@/utils/event-bus';
             // FuShu:{//是否可输入负数
             // WenBen:{
             clearNoNum(value){
-                const {DuoJiGaoJin=[],WenBen=false,precision=0,XieGang=false,Ja=false,Jian=false,JaJian=false,FuShu=false}=this.ControlAttribute;
+                const {DuoJiGaoJin=[],WenBen=false,precision=0,XieGang=false,Ja=false,Jian=false,JaJian=false,FuShu=false}=this.attr;
                 if(!WenBen){
                     if(precision==0){
                         if(XieGang ==true)

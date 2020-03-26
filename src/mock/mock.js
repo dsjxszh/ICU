@@ -31,7 +31,7 @@ let json = [
             value: 'GCS昏迷评分',
             componentName: "NuminputNursing",
             keyName: "rass",
-            ControlAttribute:{
+            attr:{
                 DuoJiGaoJin:[
                     {
                         min:2,
@@ -65,8 +65,17 @@ let json = [
         },{
             key: 'zdgfy',
             value: '左对光反应',
-            componentName: "SingleSelect",
-            keyName: "rass"
+            componentName: "san",
+            keyName: "rass",
+            list: [{
+                value: '意识一', 
+                componentName: 'SingleSelect',
+                keyName: 'ys1'
+            },{
+                value: '意识二',
+                componentName: 'SingleSelect',
+                keyName: 'ys2'
+            }]
         },{
             key: 'ydgfy',
             value: '右对光反应',

@@ -10,23 +10,7 @@
             @keyup.enter="enter" />
         <div class="bedbrowse">
             <div>
-                <div class="left" v-for="(item, index) in menu" :key="index">
-                    <div :class="['parent', item.list ? 'parent-children': '']" :style="{height: leftHeight(item.list) + 'px'}">
-                        <p>{{item.value}}</p>
-                    </div>
-                    <template v-if="item.list">
-                        <ul :key="item.value">
-                            <li class="li" v-for="child in item.list" :key="child.value">
-                                {{child.value}}
-                                <!-- <template v-if="child.list" >
-                                    <p v-for="grand in child.list" :key="grand.key">
-                                        {{grand.value}}
-                                    </p>
-                                </template> -->
-                            </li>
-                        </ul>
-                    </template>
-                </div>
+                <nursing-menu :menu="menu" />
             </div>
             <div class="nursing-list">
                 <nursing-form :params="params" v-for="i in 12" :key="i + new Date()" :idx="i"></nursing-form>
@@ -36,6 +20,7 @@
 </template>
 
 <script>
+import NursingMenu from './menu';
 import NursingForm from './NursingForm';
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
@@ -47,7 +32,8 @@ export default {
     },
     mixins: [NursingMixins],
     components: {
-        NursingForm
+        NursingForm,
+        NursingMenu
     },
     props: {
         menu: {
@@ -64,56 +50,88 @@ export default {
         }
     },
     mounted() {
-        EventBus.$on('focus', 'nursinglist',({x, y}) => {
-            console.log('***---选中的组件位置为:', x, y, this.$refs.ginput);
-            // this.$refs.input.click();
+        EventBus.$on('focus', 'nursinglist',({x, y, z}) => {
+            console.log('***---选中的组件位置为:', x, y, z);
             this.$refs.ginput.focus();
         });
         EventBus.$on('blur', 'nursinglist',() => {
-            // console.log('***---选中的组件位置为:', x, y, this.$refs.input);
             this.$refs.ginput.blur();
         });
-        document.onkeydown = (e) => {
-            console.log(e);
-        }
-    },
-    destroyed() {
-        document.onkeydown = null;
     },
     data() {
         return {
             form: {},
             hasChildren: '',
-            columns: [1,2,3,4,5,6,7,8,9,10,11,12]
+        }
+    },
+    watch: {
+        position: {
+            immediate: true,
+            handler(val) {
+                console.log('位置信息变为:', val)
+            }
         }
     },
     methods: {
-        leftHeight(children) {
-            let length = children ? children.length : 1;
-            return 30 * length
-        },
         left() {
-            const { x, y } = this.position;
-            if (x === 1) return;
-            this.setPosition({x: x-1, y: y })
+            const { x, y, z } = this.position;
+            if (x === 1) {
+                this.setPosition({
+                    x: 12,
+                    y,
+                    z
+                })
+                return
+            }
+            this.setPosition({x: x-1, y: y, z })
         },
         right() {
-            const { x, y } = this.position;
-            if (x === 12) return;
-            this.setPosition({x: x+1, y: y })
+            const { x, y, z } = this.position;
+            if (x === 12) {
+                this.setPosition({
+                    x: 1,
+                    y,
+                    z
+                })
+                return;
+            }
+            this.setPosition({x: x+1, y, z })
         },
+        // 判断上下时的策略
         top() {
-            const { x, y } = this.position;
-            if (y === 1) return;
-            this.setPosition({x: x, y: y-1 })
+            const { x, y, z } = this.position;
+            if (z === 0) {
+                let info = this.sanArray.filter(item => item.y === y - 1)
+                if (info.length > 0) {
+                    if (this.sanShow[y-1]) {
+                        this.setPosition({x, y: y - 1, z: info[0].len})
+                        return
+                    }
+                }
+                if (y === 1) return;
+                this.setPosition({x: x, y: y-1, z: 0 })
+            } else {
+                if (z > 0) {
+                    this.setPosition({x: x, y: y, z: z-1 })
+                }
+            }
         },
         down() {
-            const { x, y } = this.position;
+            const { x, y, z } = this.position;
+            let info = this.sanArray.filter(item => item.y === y) //筛选并判断是否是多级组件
+            if (info.length > 0) {  //说明当前的位置在多级组件的位置中
+                // console.log('*******info:', info, this.sanShow, z);
+                if (this.sanShow[y] && z < info[0].len) { //当是展开状态并且长度小于指定的长度时
+                    this.setPosition({x, y, z: z + 1})
+                    // console.log('*********')
+                    return;
+                }
+            }
             if (y === 47) return;
-            this.setPosition({x: x, y: y+1 })
+            this.setPosition({x: x, y: y+1, z: 0 })
         },
         enter() {
-            console.log('监听到enter事件了，实在有点意外....')
+            // console.log('监听到enter事件了，实在有点意外....')
             this.setEnter(true);
         }
     },
@@ -147,43 +165,7 @@ export default {
         flex-direction: row;
         border: 1px solid lightgray;
         // margin: 20px;
-        .left {
-            display: flex;
-            flex-direction: row;
-            .parent {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 192px;
-                height: 30px;
-                line-height: 100%;
-                border-bottom: 1px solid lightgray;
-                border-right: 1px solid lightgray;
-                box-sizing: border-box;
-            }
-            .parent-children {
-                width: 40px;
-                height: 100%;
-                padding: 0 20px;
-                line-height: 30px;
-                box-sizing: border-box;
-            }
-            ul {
-                padding: 0;
-                margin: 0;
-            }
-            .li {
-                height: 30px;
-                line-height: 30px;
-                // border: 1px solid lightgray;
-                border-bottom: 1px solid lightgray;
-                border-right: 1px solid lightgray;
-                list-style-type: none;
-                width: 151px;
-                box-sizing: border-box;
-            }
-        }
+        
     }
 }
 

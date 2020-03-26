@@ -1,9 +1,12 @@
 const state = {
     position: {
         x: 0,
-        y: 0
+        y: 0,
+        z: 0
     },
-    enterClick: false
+    enterClick: false,
+    sanArray: [], //保存所有三级组件的y轴坐标系
+    sanshow: {}
 };
 
 const mutations = {
@@ -12,6 +15,12 @@ const mutations = {
     },
     SET_ENTER: (state, enter) => {
         state.enterClick = enter;
+    },
+    SET_SHOW: (state, show) => {
+        state.sanshow = show;
+    },
+    SET_ARRAY: (state, arr) => {
+        state.sanArray = arr;
     }
 };
 
@@ -23,6 +32,14 @@ const actions = {
     // 设置enter是否按下
     setEnter({ commit }, enter) {
         commit("SET_ENTER", enter);
+    },
+    // 设置三级标题是否展开
+    setSanShow({ commit }, show) {
+        commit("SET_SHOW", show);
+    },
+    //保存当前坐标轴相关信息
+    setSanArray({ commit }, arr) {
+        commit("SET_ARRAY", arr);
     }
   };
   
