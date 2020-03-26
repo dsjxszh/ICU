@@ -3,7 +3,7 @@
         <div @click="showM" style="height:30px" :class="[select, 'border']">三级</div> 
         <div v-show="show">
             <template v-for="(com, index) in list">
-                <component :is="com.componentName" :key="com.keyName" v-bind="{y: y, x: x, z: index + 1, keyName: com.key}" />
+                <component :is="com.componentName" :key="com.keyName" v-bind="{y: y, x: x, z: index + 1, keyName: com.key, attr: com.attr }" />
             </template>
         </div>
     </div>
@@ -15,6 +15,7 @@ import NursingMixins from '@/mixins/nursing';
 import EventBus from '@/utils/event-bus';
 import InputTemplate from '@/components/BusinessSearchComponents/InputTemplate';
 export default {
+    inject: ['farther'],
     components: {
         ...AllComponents,
         InputTemplate

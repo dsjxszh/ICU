@@ -49,6 +49,15 @@ export default {
             }
         }
     },
+    watch: {
+        formData: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                console.log('******************form表单中的数据为:', val);
+            }
+        }
+    },
     mounted() {
         EventBus.$on('focus', 'nursinglist',({x, y, z}) => {
             console.log('***---选中的组件位置为:', x, y, z);
@@ -60,7 +69,20 @@ export default {
     },
     data() {
         return {
-            form: {},
+            formData: {
+                1: {},
+                2: {},
+                3: {},
+                4: {},
+                5: {},
+                6: {},
+                7: {},
+                8: {},
+                9: {},
+                10: {},
+                11: {},
+                12: {}
+            },
             hasChildren: '',
         }
     },

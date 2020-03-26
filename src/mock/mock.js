@@ -62,11 +62,11 @@ let json = [
             list: [{
                 value: '意识一', 
                 componentName: 'SingleSelect',
-                keyName: 'ys1'
+                key: 'ys1'
             },{
                 value: '意识二',
                 componentName: 'SingleSelect',
-                keyName: 'ys2'
+                key: 'ys2'
             }]
         },{
             key: 'ydgfy',

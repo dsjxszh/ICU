@@ -19,6 +19,7 @@ import selectIcon from '@/assets/image/f-selecticon@2x.png';
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
+    inject: ['farther'],
     props: {
         // options: {
         //     type: Array,
@@ -72,9 +73,18 @@ export default {
                             this.$refs.select.setSoftFocus();
                             this.setEnter(false);
                         }
-                        
                     }
                 }
+            }
+        },
+        selectItem: {
+            immediate: true,
+            handler(val) {
+                if (this.farther.formData && this.x && this.keyName) {
+                    this.farther.formData[this.x][this.keyName] = val;
+                }
+                
+                console.log('选中的项目名称为:', this.farther.formData, this.keyName, val);
             }
         }
     },

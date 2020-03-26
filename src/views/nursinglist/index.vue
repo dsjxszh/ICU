@@ -18,20 +18,6 @@ export default {
         return {
             menu: [],
             params: [],
-            formData: {
-                0: {},
-                1: {},
-                2: {},
-                3: {},
-                4: {},
-                5: {},
-                6: {},
-                7: {},
-                8: {},
-                9: {},
-                10: {},
-                11: {}
-            }
         }
     },
     methods: {},
@@ -45,14 +31,14 @@ export default {
                         params.push({
                             componentName: child.componentName,
                             key: child.key,
-                            ControlAttribute: child.ControlAttribute||{},
+                            attr: child.attr||{},
                             list: child.list || []
                         })
                     })
                 } else {
                     params.push({
                         componentName: item.componentName,
-                        ControlAttribute: item.ControlAttribute||{},
+                        attr: item.attr||{},
                         key: item.key
                     })
                 }

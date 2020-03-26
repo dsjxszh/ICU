@@ -26,12 +26,12 @@ import EventBus from '@/utils/event-bus';
             y: {
                 type: Number
             },
-            ControlAttribute:{
+            attr:{
                 type:Object,
             }
         },
         mounted(){
-            const{arrayData=[]}=this.ControlAttribute;
+            const{arrayData=[]}=this.attr;
             this.arrayData=arrayData
         },
         watch: {

@@ -33,7 +33,7 @@ import EventBus from '@/utils/event-bus';
             }
         },
         mounted(){
-            if (this.position.x === this.x && this.position.y === this.y) { //当是焦点时，就要获取光标
+            if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { //当是焦点时，就要获取光标
                 // this.focus();
                 this.$refs.Numininput&&this.$refs.Numininput.focus()
             }
@@ -60,7 +60,7 @@ import EventBus from '@/utils/event-bus';
                         this.active = ''
                     }
                 
-                    if (val.x === this.x && val.y === this.y) { //当是焦点时，就要获取光标
+                    if (val.x === this.x && val.y === this.y && this.position.z === this.z) { //当是焦点时，就要获取光标
                         // this.focus();
                         this.$refs.Numininput&&this.$refs.Numininput.focus()
                     }
