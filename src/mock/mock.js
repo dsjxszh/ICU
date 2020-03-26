@@ -10,7 +10,14 @@ let json = [
         list: [{
             key: 'ys',
             value: '意识',
-            componentName: "SingleSelect",
+            componentName: "PopupInput",
+            list:[
+                {
+                    key: 'rass1',
+                    value: 'RASS镇静评分1',
+                    componentName: "DialogPFHL",
+                }
+            ]
         },{
             key: 'rass',
             value: 'RASS镇静评分',
@@ -18,29 +25,49 @@ let json = [
         },{
             key: 'gcs',
             value: 'GCS昏迷评分',
-            componentName: "san",
-            list: [{
-                key: 'ys1',
-                value: '意识一', 
-                componentName: 'SingleSelect',
-            },{
-                
-                key: 'ys2',
-                value: '意识二',
-                componentName: 'SingleSelect',
-            }]
+            componentName: "NuminputNursing",
+            attr:{
+                DuoJiGaoJin:[
+                    {
+                        min:2,
+                        max:5,
+                        color:"#000"
+                    }
+                ],
+
+            }
         },{
             key: 'tky',
             value: '瞳孔右',
-            componentName: "SingleSelect",
+            componentName: "NuminputNursing",
         },{
             key: 'tkz',
             value: '瞳孔左',
-            componentName: "SingleSelect",
+            componentName: "CheckboxNursing",
+            ControlAttribute:{
+                arrayData:[
+                    {
+                        value:"name1",
+                        name:"name1",
+                        label:"",
+                        fiesdlname:"青霉素1",
+                
+                    }
+                ]
+            }
         },{
             key: 'zdgfy',
             value: '左对光反应',
-            componentName: "SingleSelect",
+            componentName: "san",
+            list: [{
+                value: '意识一', 
+                componentName: 'SingleSelect',
+                keyName: 'ys1'
+            },{
+                value: '意识二',
+                componentName: 'SingleSelect',
+                keyName: 'ys2'
+            }]
         },{
             key: 'ydgfy',
             value: '右对光反应',

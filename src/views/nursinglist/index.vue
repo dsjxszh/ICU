@@ -45,12 +45,14 @@ export default {
                         params.push({
                             componentName: child.componentName,
                             key: child.key,
+                            ControlAttribute: child.ControlAttribute||{},
                             list: child.list || []
                         })
                     })
                 } else {
                     params.push({
                         componentName: item.componentName,
+                        ControlAttribute: item.ControlAttribute||{},
                         key: item.key
                     })
                 }

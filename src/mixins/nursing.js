@@ -17,4 +17,4 @@ export default {
         'setSanArray'
     ])
   }
-};12
+};
