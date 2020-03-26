@@ -64,14 +64,6 @@ export default {
             hasChildren: '',
         }
     },
-    watch: {
-        position: {
-            immediate: true,
-            handler(val) {
-                console.log('位置信息变为:', val)
-            }
-        }
-    },
     methods: {
         left() {
             const { x, y, z } = this.position;
@@ -120,7 +112,6 @@ export default {
             const { x, y, z } = this.position;
             let info = this.sanArray.filter(item => item.y === y) //筛选并判断是否是多级组件
             if (info.length > 0) {  //说明当前的位置在多级组件的位置中
-                // console.log('*******info:', info, this.sanShow, z);
                 if (this.sanShow[y] && z < info[0].len) { //当是展开状态并且长度小于指定的长度时
                     this.setPosition({x, y, z: z + 1})
                     // console.log('*********')

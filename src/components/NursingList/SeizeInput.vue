@@ -17,6 +17,9 @@ export default {
         z: {
             type: Number
         },
+        keyName: {
+            type: String
+        },
         componentName: {
             type: String
         }
