@@ -1,6 +1,6 @@
 <template>
-    <div @click="showM" :class="['cc']">
-        <div style="height:30px" :class="[select, 'border']">三级</div> 
+    <div :class="['cc']">
+        <div @click="showM" style="height:30px" :class="[select, 'border']">三级</div> 
         <div v-show="show">
             <template v-for="(com, index) in list">
                 <component :is="com.componentName" :key="com.keyName" v-bind="{y: y, x: x, z: index + 1}" />
@@ -48,22 +48,23 @@ export default {
         position: {
             immediate: true,
             handler(val) {
-                if (val.x === this.x || val.y === this.y) {
+                if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
                     this.select = 'select';
                 } else {
                     this.select = ''
                 }
-                if (val.x === this.x && val.y === this.y) {
+                if (val.x === this.x && val.y === this.y && val.z === this.z) {
                     // this.setCurrentCom(true);
                     // // 这里要设置当前节点下面一共要有多少个子节点(y, length)
                     // this.setSubDomLength(this.list.length);
+                    this.select = 'z-select';
                 }
             }
         },
         enterClick: {
             immediate: true,
             handler(val) {
-                if (val && this.position.x === this.x && this.position.y === this.y) { // 要同时按下enter键并且位置相同才能触发
+                if (val && this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
                     this.showM();
                     this.setEnter(false);
                 }
@@ -111,6 +112,10 @@ export default {
 <style lang="scss" scoped>
 .select {
     background-color: #FFE9CF;
+}
+
+.z-select {
+    background-color: lightskyblue;
 }
 .cc {
     // background-color: lightcoral;

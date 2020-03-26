@@ -50,19 +50,13 @@ export default {
         }
     },
     mounted() {
-        EventBus.$on('focus', 'nursinglist',({x, y}) => {
-            console.log('***---选中的组件位置为:', x, y, this.$refs.ginput);
+        EventBus.$on('focus', 'nursinglist',({x, y, z}) => {
+            console.log('***---选中的组件位置为:', x, y, z);
             this.$refs.ginput.focus();
         });
         EventBus.$on('blur', 'nursinglist',() => {
             this.$refs.ginput.blur();
         });
-        document.onkeydown = (e) => {
-            console.log(e);
-        }
-    },
-    destroyed() {
-        document.onkeydown = null;
     },
     data() {
         return {
@@ -71,13 +65,6 @@ export default {
         }
     },
     watch: {
-        currentComIsSan: {
-            immediate: true,
-            handler(val) {
-                val && console.log('当前的组件为多级菜单...');
-
-            }
-        },
         position: {
             immediate: true,
             handler(val) {

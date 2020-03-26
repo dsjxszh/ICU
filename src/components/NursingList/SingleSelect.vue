@@ -51,7 +51,7 @@ export default {
         position: {
             immediate: true,
             handler(val) {
-                if ((val.y === this.y || val.x === this.x)) {
+                if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
                     this.select = 'select';
                 } else {
                     this.select = ''
@@ -116,7 +116,7 @@ export default {
         },
         focus() {
             this.setPosition({ x: this.x, y: this.y, z: this.z });
-            EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+            EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
         },
         enter() {
             // console.log('本地enter键入', { x: this.x, y: this.y });
