@@ -38,16 +38,12 @@ export default {
         },
         z: {
             type: Number
+        },
+        keyName: {
+            type: String
         }
     },
     watch: {
-        value: {
-            immediate: true,
-            handler() {
-                // console.log('外部传入的值为:', val)
-                // this.selectItem = val;
-            }
-        },
         position: {
             immediate: true,
             handler(val) {
@@ -57,13 +53,11 @@ export default {
                     this.select = ''
                 }
                
-                if (val.x !== this.x || val.y !== this.y) { //当是焦点时，就要弹出下拉框
+                if (val.x !== this.x || val.y !== this.y) { //当不是焦点时，就要弹出下拉框
                     this.$refs.select && this.$refs.select.blur();
-                } else {
-                    // this.setCurrentCom(false);
-                }
+                } 
 
-                if (val.x === this.x && val.y === this.y && val.z === this.z) {
+                if (val.x === this.x && val.y === this.y && val.z === this.z) { //
                     this.select = 'z-select';
                 }
             }
@@ -119,7 +113,6 @@ export default {
             EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
         },
         enter() {
-            // console.log('本地enter键入', { x: this.x, y: this.y });
            
             this.$refs.select && this.$refs.select.blur();
 
@@ -130,7 +123,7 @@ export default {
         }
     },
     mounted() {
-
+        this.selectItem = this.value;
     }
 }
 </script>

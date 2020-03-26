@@ -7,10 +7,10 @@
             :key="idx + index + item.componentName"
         >   
             <template v-if="item.componentName != 'NursingTime' && item.componentName != 'san' && item.show === false">
-                <seize-input :x="idx" :y="index" :componentName="item.componentName" @focus="focus"></seize-input>
+                <seize-input :x="idx" :y="index" :componentName="item.componentName"  :keyName="item.key" @focus="focus"></seize-input>
             </template>
             <template v-else>
-                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index,z: 0, list: item.list,attr:item.attr,  ...item}" />
+                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, z: 0, list: item.list || [], keyName: item.key, attr:item.attr,  ...item}" />
             </template>
         </div>
     </div>

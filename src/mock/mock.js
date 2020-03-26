@@ -3,7 +3,6 @@ let json = [
         key: 'SJ', 
         value: '时间',
         componentName: "NursingTime",
-        keyName: "time"
     },
     {
         key: 'SZ',
@@ -12,13 +11,11 @@ let json = [
             key: 'ys',
             value: '意识',
             componentName: "PopupInput",
-            keyName: "time",
             list:[
                 {
                     key: 'rass1',
                     value: 'RASS镇静评分1',
                     componentName: "DialogPFHL",
-                    keyName: "rass1",
                 }
             ]
         },{
@@ -33,7 +30,6 @@ let json = [
             key: 'gcs',
             value: 'GCS昏迷评分',
             componentName: "NuminputNursing",
-            keyName: "rass",
             attr:{
                 DuoJiGaoJin:[
                     {
@@ -47,7 +43,6 @@ let json = [
             key: 'tky',
             value: '瞳孔右',
             componentName: "NuminputNursing",
-            keyName: "rass",
         },{
             key: 'tkz',
             value: '瞳孔左',
@@ -68,7 +63,6 @@ let json = [
             key: 'zdgfy',
             value: '左对光反应',
             componentName: "san",
-            keyName: "rass",
             list: [{
                 value: '意识一', 
                 componentName: 'SingleSelect',
@@ -118,7 +112,6 @@ let json = [
             key: 'ydgfy',
             value: '右对光反应',
             componentName: "SingleSelect",
-            keyName: "rass"
         }]
     },
     {
@@ -128,101 +121,82 @@ let json = [
             key: 'tw',
             value: '体温',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'xl',
             value: '心率',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'xll',
             value: '心律',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'ssywc',
             value: '收缩压(无创)',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'szywc',
             value: '舒张压(无创)',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'ssyyc',
             value: '收缩压(有创)',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'szyyc',
             value: '舒张压(有创)',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'map',
             value: 'MAP',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'cvp',
             value: 'CVP',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'bjsz',
             value: '报警设置',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'bjtl',
             value: '报警调零',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'hx',
             value: '呼吸',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'spo2',
             value: 'SPO2',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'gyfs',
             value: '给氧方式',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'yll',
             value: '氧流量',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'lldw',
             value: '流量单位',
             componentName: "SingleSelect",
-            keyName: "rass"
         }]
     },
     {
         key: 'jxtq',
         value: '机械通气',
         componentName: "SingleSelect",
-        keyName: "rass"
     },
     {
         key: 'ysqm',
         value: '医生签名',
         componentName: "SingleSelect",
-        keyName: "rass"
     },
     {
         key: 'rl',
         value: '入量',
         componentName: "SingleSelect",
-        keyName: "rass"
     },
     {
         key: 'cl',
@@ -231,27 +205,22 @@ let json = [
             key: 'yly',
             value: '引流液',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'dbys',
             value: '大便颜色',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'dbl',
             value: '大便量',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'nyys',
             value: '尿液颜色',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'msnl',
             value: '每时尿量',
             componentName: "SingleSelect",
-            keyName: "rass"
         }]
     },
     {
@@ -261,83 +230,68 @@ let json = [
             key: 'bardenpf',
             value: 'Braden评分',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'ddzcpf',
             value: '跌倒坠床评分',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'ADLpf',
             value: 'ADL评分',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'nrsttpf',
             value: 'NRS疼痛评分',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'cpotttpf',
             value: 'Cpot疼痛评分',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'vtepfwk',
             value: 'VTE评分-外科',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'vtepfnk',
             value: 'VTE评分-内科',
             componentName: "SingleSelect",
-            keyName: "rass"
         },{
             key: 'yypf',
             value: '营养评分',
             componentName: "SingleSelect",
-            keyName: "rass",
         },{
             key: 'aldretepf',
             value: 'Aldrete评分',
             componentName: "SingleSelect",
-            keyName: "rass",
         },{
             key: 'ylxssyhpf',
             value: '压力性损伤愈合评分',
             componentName: "SingleSelect",
-            keyName: "rass",
         }]
     },
     {
         key: 'hlxm',
         value: '护理项目',
         componentName: "SingleSelect",
-        keyName: "rass",
     },
     {
         key: 'jchl',
         value: '血气分析',
         componentName: "SingleSelect",
-        keyName: "rass"
     },
     {
         key: 'msxt',
         value: '末梢血糖',
         componentName: "SingleSelect",
-        keyName: "rass"
     },
     {
         key: 'bqgc',
         value: '病情观察',
         componentName: "SingleSelect",
-        keyName: "rass"
     },
     {
         key: 'qm',
         value: '签名',
         componentName: "SingleSelect",
-        keyName: "rass"
     }
 ]
 
