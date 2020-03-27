@@ -245,8 +245,8 @@ export default {
                 }
                 this.select.push(item)
             });
-                console.log(this.select)
-                console.log(this.form)
+                // console.log(this.select)
+                // console.log(this.form)
             // delete this.form[keyName]
 
             // return {

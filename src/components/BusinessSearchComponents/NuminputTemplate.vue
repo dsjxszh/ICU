@@ -36,7 +36,7 @@
            inputText: {
                immediate: true,
                handler(val) {
-                   console.log('监听中...',  val)
+                //    console.log('监听中...',  val)
                    this.clearNoNum(val)
                }
            }

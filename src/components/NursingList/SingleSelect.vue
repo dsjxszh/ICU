@@ -78,8 +78,13 @@ export default {
             deep: true,
             handler(val) {
                 if (val[this.x-1] && val[this.x-1][this.keyName]) {
-                    // console.log('x的坐标为:', this.x)
                     this.selectItem = val[this.x-1][this.keyName]
+                } 
+
+                if (val[this.x -1]) {
+                    this.xid = val[this.x - 1].xid;
+                } else {
+                    this.xid = null;
                 }
             }
         }
@@ -102,16 +107,15 @@ export default {
                     value: '选项二'
                 }
             ],
+            xid: null //保存当前列对应的id
         }
     },
     methods: {
         clear() {
-            // console.log('值发生了改变', val)
-            let data = {
-                ...this.formData[this.x - 1]
-            };
-            // console.log('获取到的表单数据为:', formData)
-            data[this.keyName] = '';
+            if (this.selectItem === '') return;
+            this.farther.currentFormData.xid = this.xid
+            this.farther.currentFormData[this.keyName] = '';
+            console.log('获取到的表单数据为:', this.farther.currentFormData)
             this.selectItem = '';
         },
         showSelect() {
@@ -133,8 +137,9 @@ export default {
             
         },
         change(val) {
-
-            // console.log('获取到的表单数据为:', data)
+            this.farther.currentFormData.xid = this.xid
+            this.farther.currentFormData[this.keyName] = val;
+            console.log('获取到的表单数据为:', this.farther.currentFormData)
             this.selectItem = val;
         }
     },

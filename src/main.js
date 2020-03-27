@@ -4,7 +4,7 @@ import './plugins/element.js'
 import store from './store'
 import router from './router'
 import './style.scss'
-console.log('router:', router)
+// console.log('router:', router)
 import PinyinMatch from 'pinyin-match';
 Vue.prototype.$pinyinmatch = PinyinMatch;
 

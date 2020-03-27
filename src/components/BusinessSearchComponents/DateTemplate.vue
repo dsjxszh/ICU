@@ -38,11 +38,11 @@ export default {
     }
   },methods:{
     startchange(time){
-      console.log(time)
+      // console.log(time)
       this.start=time;
     },
     endchange(time){
-      console.log(time)
+      // console.log(time)
       this.end=time;
     },
   }

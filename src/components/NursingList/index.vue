@@ -25,11 +25,7 @@ import NursingForm from './NursingForm';
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
-    provide() {
-        return {
-            farther: this
-        }
-    },
+    
     mixins: [NursingMixins],
     components: {
         NursingForm,
@@ -50,8 +46,8 @@ export default {
         }
     },
     mounted() {
-        EventBus.$on('focus', 'nursinglist',({x, y, z}) => {
-            console.log('***---选中的组件位置为:', x, y, z);
+        EventBus.$on('focus', 'nursinglist',() => {
+            // console.log('***---选中的组件位置为:', x, y, z);
             this.$refs.ginput.focus();
         });
         EventBus.$on('blur', 'nursinglist',() => {

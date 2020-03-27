@@ -53,7 +53,7 @@ export default {
     name: "Login",
     methods: {
         handleLogin() {
-            console.log(this.form);
+            // console.log(this.form);
             this.$router.push({ path: '/dashboard' })
         },
         clearName() {

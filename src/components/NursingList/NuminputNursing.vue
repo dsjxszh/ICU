@@ -38,7 +38,7 @@ import EventBus from '@/utils/event-bus';
                 this.$refs.Numininput&&this.$refs.Numininput.focus()
 
                 if (this.formData[this.x - 1] && this.formData[this.x - 1][this.keyName]) {
-                    console.log('******', this.formData[this.x - 1][this.keyName])
+                    // console.log('******', this.formData[this.x - 1][this.keyName])
                     this.inputText = this.formData[this.x - 1][this.keyName]
                 }
             }
@@ -47,7 +47,7 @@ import EventBus from '@/utils/event-bus';
             inputText: {
                 immediate: true,
                 handler(val) {
-                    console.log('inputText:', val)
+                    // console.log('inputText:', val)
                     this.clearNoNum(val)
                 }
             },

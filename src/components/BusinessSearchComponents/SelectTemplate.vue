@@ -92,10 +92,10 @@ export default {
   methods:{
     arrayDataF(t){
       if(t) this.salepreInfo=this.arrayData;
-      console.log(this.arrayData)
+      // console.log(this.arrayData)
     },
     filterByPY(val){
-      console.log('****')
+      // console.log('****')
       let PinyinMatch = this.$pinyinmatch;
       
       if (val) {

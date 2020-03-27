@@ -7,7 +7,6 @@
     filterable="filterable"
     :filter-method="filterByPY"
     @focus="focus"
-    @change="change"
     @keydown.enter.native="enter">
     <template v-if="identical">
       <el-option
@@ -82,12 +81,6 @@ export default {
                 }
             }
         },
-        selectItem:{
-          immediate:true,
-          handler(val){
-            console.log("$$$$$$$$selectItem："+val)
-          }
-        }
     },
     mixins: [NursingMixins],
   data(){
@@ -111,7 +104,7 @@ export default {
     // disabled: {//是否禁用
     // identical:{//判断选项value与text值是否一样
     const{arrayData=[],placeholder="请选择",allowcreate=false,disabled=false,identical=false}=this.attr;
-    console.log("请选择",arrayData)
+    // console.log("请选择",arrayData)
       this.salepreInfo=arrayData;
       this.arrayData=arrayData;
       this.placeholder=placeholder;
@@ -144,9 +137,9 @@ export default {
             }, 500)
             
         },
-        change(val){
-            console.log("************"+val)
-        }
+        // change(val){
+        //     // console.log("************"+val)
+        // }
   },
   
 };
