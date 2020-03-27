@@ -8,23 +8,25 @@ let json = [
         key: 'SZ',
         value: '神志',
         list: [{
-            key: 'ys',
-            value: '意识',
-            componentName: "PopupInput",
-            list:[
-                {
-                    key: 'rass1',
-                    value: 'RASS镇静评分1',
-                    componentName: "DialogPFHL",
-                }
-            ]
-        },{
             key: 'rass',
             value: 'RASS镇静评分',
             componentName: "NuminputNursing",
             keyName: "rass",
             attr:{
                 WenBen:true
+            }
+        },{
+            key: 'ys',
+            value: '意识',
+            componentName: "PopupInput",
+            attr:{
+                DuoJiGaoJin:[
+                    {
+                        min:2,
+                        max:5,
+                        color:"#000"
+                    }
+                ],
             }
         },{
             key: 'gcs',
@@ -74,16 +76,14 @@ let json = [
                 attr:{
                     arrayData:[
                         {
-                            value:"name1",
-                            name:"name1",
-                            label:"复选1",
-                            fiesdlname:"青霉素1",
+                            id:"1",
+                            name:"选项一",
+                            fields1:"青霉素1",
                     
                         },{
-                            value:"name2",
-                            name:"name2",
-                            fiesdlname:"青霉素",
-                            label:"复选2"
+                            id:"2",
+                            name:"选项2",
+                            fields1:"青霉素2",
                     
                         }
                     ]

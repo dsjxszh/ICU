@@ -34,7 +34,8 @@ export default {
     mixins: [NursingMixins],
     data() {
         return {
-            show: {}
+            show: {},
+            y:0
         }
     },
     methods: {

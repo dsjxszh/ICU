@@ -1,7 +1,6 @@
 <template>
-    <div>
-        <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter">{{value}}</el-button>
-    </div>
+   <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter"></el-button>
+    
 </template>
 
 <script>
@@ -77,14 +76,16 @@ import DialogPFHL from './DialogPFHL';
 
 <style lang="scss" scoped>
 .button{
-    padding: 0px;
     height: 30px;
+    line-height: 30px;
     box-sizing: border-box;
     border-bottom: 1px solid lightgray;
-    width: 100%;
     border-right: 1px solid lightgray;
-    border-radius: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    width: 100%;
     color: #666;
+    cursor: pointer;
     &.active {
         background-color: #FFE9CF;
     }
@@ -92,5 +93,4 @@ import DialogPFHL from './DialogPFHL';
         background-color: #37B8FF;
     }
 }
-
 </style>

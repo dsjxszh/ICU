@@ -81,6 +81,7 @@ export default {
     },
     methods: {
         showM() {
+            this.setPosition({ x: this.x, y: this.y,z:this.z });
             EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
             this.setSanShow({
                 [this.y]: !this.show
@@ -119,11 +120,10 @@ export default {
     background-color: lightskyblue;
 }
 .cc {
-    // background-color: lightcoral;
-    // display: none;
     .border {
         border-bottom: 1px solid lightgray;
         border-right: 1px solid lightgray;
+        box-sizing: border-box;
     }
     .sub {
         display: none;

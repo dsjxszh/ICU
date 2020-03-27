@@ -44,9 +44,8 @@ export default {
                         return
                     }
                     if (val.length === 2 && this.minute === '') {
-                        this.$refs.min.focus();
-                        console.log(this.$refs.min.select)
-                        // this.minute = '00';
+                        this.minute = '00';
+                        this.$refs.min.focus(this.$event);
                     }
                     // 长度校验(如果原先的值为两位数，添加不可，删除则可)
                     if (oldValue && oldValue.length === 2 && val.length >= 2 ) {

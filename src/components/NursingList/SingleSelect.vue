@@ -1,5 +1,5 @@
 <template>
-    <div :class="['single-select', select]" @mouseover="showSelect" @mouseleave="hideSelect">
+    <div :class="['single-select', active]" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
         <el-select ref="select" :value="selectItem" @change="change"  @focus="focus" placeholder="" @keydown.enter.native="enter">
             <el-option
@@ -45,9 +45,9 @@ export default {
             immediate: true,
             handler(val) {
                 if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
-                    this.select = 'select';
+                    this.active = 'active';
                 } else {
-                    this.select = ''
+                    this.active = ''
                 }
                
                 if (val.x !== this.x || val.y !== this.y) { //当不是焦点时，就要弹出下拉框
@@ -55,7 +55,7 @@ export default {
                 } 
 
                 if (val.x === this.x && val.y === this.y && val.z === this.z) { //
-                    this.select = 'z-select';
+                    this.active = 'z-active';
                 }
             }
         },
@@ -91,7 +91,7 @@ export default {
             selectIcon,
             showImg: false,
             imgStyle: 'img',
-            select: '',
+            active: '',
             options: [
                 {
                     label: '选项一',
@@ -167,10 +167,10 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.select {
+.active {
     background-color: #FFE9CF;
 }
-.z-select {
+.z-active {
     background-color: lightskyblue;
 }
 .single-select {
