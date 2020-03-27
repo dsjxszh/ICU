@@ -6,10 +6,10 @@
             </div>
             <template v-if="item.list">
                 <ul :key="item.value">
-                    <li class="li" v-for="child in item.list" :key="child.value">
+                    <li class="li" v-for="(child) in item.list" :key="child.value">
                         <p>{{child.value}}</p>
                         <template v-if="child.list">
-                            <p v-for="grand in child.list" :key="grand.key" v-show="sanShow[position.y] || false">
+                            <p v-for="grand in child.list" :key="grand.key" v-show="sanShow[child.idx] || false">
                                 {{grand.value}}
                             </p>
                         </template>

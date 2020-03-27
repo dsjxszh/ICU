@@ -1,13 +1,14 @@
 <template>
     <div class="nursinglist">
-        <input 
+        <!-- <input 
             ref="ginput" 
             class="holder" 
+            
             @keyup.left="left"
             @keyup.right="right"
             @keyup.up="top"
             @keyup.down="down" 
-            @keyup.enter="enter" />
+            @keyup.enter="enter" /> -->
         <div class="bedbrowse">
             <div>
                 <nursing-menu :menu="menu" />
@@ -22,7 +23,7 @@
 <script>
 import NursingMenu from './menu';
 import NursingForm from './NursingForm';
-import EventBus from '@/utils/event-bus';
+// import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
     
@@ -46,18 +47,44 @@ export default {
         }
     },
     mounted() {
-        EventBus.$on('focus', 'nursinglist',() => {
-            // console.log('***---选中的组件位置为:', x, y, z);
-            this.$refs.ginput.focus();
-        });
-        EventBus.$on('blur', 'nursinglist',() => {
-            this.$refs.ginput.blur();
-        });
+        // EventBus.$on('focus', 'nursinglist',() => {
+        //     // console.log('***---选中的组件位置为:', x, y, z);
+        //     this.$refs.ginput.focus();
+        // });
+        // EventBus.$on('blur', 'nursinglist',() => {
+        //     this.$refs.ginput.blur();
+        // });
+
+        window.onkeydown = (e) => {
+            const { code } = e;
+            if (code) {
+                switch(code) {
+                    case 'ArrowRight':
+                        this.right();
+                        break;
+                    case 'ArrowLeft':
+                        this.left();
+                        break;
+                    case 'ArrowUp':
+                        this.top();
+                        break;
+                    case 'ArrowDown':
+                        this.down();
+                        break;
+                    case 'Enter':
+                        console.log('@@@@')
+                        this.enter();
+                        break;
+                }
+            }
+            
+            console.log(e)
+        }
     },
     data() {
         return {
             hasChildren: '',
-            currentX: -1,
+            currentX: -1
         }
     },
     methods: {
@@ -131,7 +158,7 @@ export default {
     height: 100%;
     .holder {
         position: absolute;
-        top: -1000px;
+        top: -1px;
     }
     .nursing-list {
         // max-width: 1200px;

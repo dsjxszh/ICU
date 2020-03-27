@@ -7,7 +7,7 @@
     filterable="filterable"
     :filter-method="filterByPY"
     @focus="focus"
-    @keydown.enter.native="enter">
+    @keydown.enter.native.stop="enter">
     <template v-if="identical">
       <el-option
         v-for="item in salepreInfo"
@@ -30,7 +30,7 @@
 
 <script>
 //  护理单表格中的搜索下拉框
-import EventBus from '@/utils/event-bus';
+// import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
   props: {
@@ -128,13 +128,13 @@ export default {
     },
         focus() {
             this.setPosition({ x: this.x, y: this.y, z: this.z });
-            EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
+            // EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
         },
         enter() {
             this.$refs.select && this.$refs.select.blur();
-            setTimeout(() => {
-                EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
-            }, 500)
+            // setTimeout(() => {
+            //     EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+            // }, 500)
             
         },
         // change(val){

@@ -1,7 +1,7 @@
 <template>
     <div :class="['single-select', active]" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
-        <el-select ref="select" :value="selectItem" @change="change"  @focus="focus" placeholder="" @keydown.enter.native="enter">
+        <el-select ref="select" :value="selectItem" @change="change"  @focus="focus" placeholder="" @keydown.enter.native.stop="enter">
             <el-option
                 ref="options"
                 v-for="item in options"
@@ -16,7 +16,7 @@
 
 <script>
 import selectIcon from '@/assets/image/f-selecticon@2x.png';
-import EventBus from '@/utils/event-bus';
+// import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
     inject: ['farther'],
@@ -126,14 +126,14 @@ export default {
         },
         focus() {
             this.setPosition({ x: this.x, y: this.y, z: this.z });
-            EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
+            // EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
         },
         enter() {
             this.$refs.select && this.$refs.select.blur();
 
-            setTimeout(() => {
-                EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
-            }, 500)
+            // setTimeout(() => {
+            //     EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+            // }, 500)
             
         },
         change(val) {

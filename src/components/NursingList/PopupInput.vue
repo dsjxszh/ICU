@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import EventBus from '@/utils/event-bus';
+// import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 import Popups from '@/utils/Popup';
 import DialogPFHL from './DialogPFHL';
@@ -60,14 +60,8 @@ import DialogPFHL from './DialogPFHL';
         methods: {
             focus() {
                 this.setPosition({ x: this.x, y: this.y,z:this.z });
-                EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y,z:this.z });
+                // EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y,z:this.z });
                 this.OpenPopup1 =  Popups(DialogPFHL, {x:this.x,y:this.y,z:this.z});
-            },
-            enter() {
-                setTimeout(() => {
-                    EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y,z:this.z })
-                }, 500)
-                
             }
         }
     }

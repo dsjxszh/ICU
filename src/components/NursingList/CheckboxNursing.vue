@@ -13,7 +13,7 @@
 <script>
 //  护理单表格中的复选框
 import NursingMixins from '@/mixins/nursing';
-import EventBus from '@/utils/event-bus';
+// import EventBus from '@/utils/event-bus';
     export default {
         props:{
             value: {
@@ -82,14 +82,9 @@ import EventBus from '@/utils/event-bus';
         methods:{
             focus() {
                 this.setPosition({ x: this.x, y: this.y,z:this.z });
-                EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y,z:this.z });
+                // EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y,z:this.z });
             },
-            enter() {
-                setTimeout(() => {
-                    EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y,z:this.z })
-                }, 500)
-                
-            }
+            
         }
     }
 </script>
