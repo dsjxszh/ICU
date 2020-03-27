@@ -27,10 +27,6 @@ export default {
         //         return []
         //     }
         // },
-        value: {
-            type: String,
-            default: ''
-        }, 
         x: {
             type: Number
         }, 
@@ -79,12 +75,22 @@ export default {
         },
         selectItem: {
             immediate: true,
-            handler(val) {
-                if (this.farther.formData && this.x && this.keyName) {
-                    this.farther.formData[this.x][this.keyName] = val;
-                }
+            handler() {
+                // if (this.farther.formData && this.x && this.keyName) {
+                //     this.farther.formData[this.x][this.keyName] = val;
+                // }
                 
-                console.log('选中的项目名称为:', this.farther.formData, this.keyName, val);
+                // console.log('选中的项目名称为:', this.farther.formData, this.keyName, val);
+            }
+        },
+        formData: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                // console.log('全局数据池中的数据为:', val);
+                if (val[this.x] && val[this.x][this.keyName]) {
+                    this.selectItem = val[this.x][this.keyName]
+                }
             }
         }
     },
@@ -133,7 +139,7 @@ export default {
         }
     },
     mounted() {
-        this.selectItem = this.value;
+        // this.selectItem = this.value;
     }
 }
 </script>

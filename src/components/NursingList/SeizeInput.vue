@@ -1,12 +1,14 @@
 <template>
     <div :class="['c', select]">
-        <div @mouseover="focus" />
+        <div @mouseover="focus">{{value}}</div>
     </div>
 </template>
 
 <script>
 import NursingMixins from '@/mixins/nursing';
+// import EventBus from '@/utils/event-bus';
 export default {
+    inject: ['farther'],
     props: {
         x: {
             type: Number,
@@ -34,12 +36,31 @@ export default {
                     this.select = ''
                 }
             }
+        },
+        value: {
+            immediate: true,
+            handler() {
+                // if (this.farther.formData && this.x && this.keyName) {
+                //     this.farther.formData[this.x][this.keyName] = val;
+                // }
+                // console.log('选中的项目名称为:', this.farther.formData, this.keyName, val);
+            }
+        },
+        formData: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                if (val[this.x] && val[this.x][this.keyName]) {
+                    this.value = val[this.x][this.keyName]
+                }
+            }
         }
     },
     mixins: [NursingMixins],
     data() {
         return {
-            select: 'select'
+            select: 'select',
+            value: ''
         }
     },
     methods: {

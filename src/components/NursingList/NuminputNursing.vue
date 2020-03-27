@@ -15,10 +15,6 @@ import EventBus from '@/utils/event-bus';
     export default {
         inject:['farther'],
         props:{
-            value: {
-                type: String,
-                default: ''
-            }, 
             x: {
                 type: Number
             }, 
@@ -30,18 +26,27 @@ import EventBus from '@/utils/event-bus';
             },
             attr:{
                 type:Object,
+            },
+            keyName: {
+                type: String
             }
         },
         mounted(){
             if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { //当是焦点时，就要获取光标
                 // this.focus();
                 this.$refs.Numininput&&this.$refs.Numininput.focus()
+
+                if (this.formData[this.x] && this.formData[this.x][this.keyName]) {
+                    console.log('******', this.formData[this.x][this.keyName])
+                    this.inputText = this.formData[this.x][this.keyName]
+                }
             }
         },
         watch: {
             inputText: {
                 immediate: true,
                 handler(val) {
+                    console.log('inputText:', val)
                     this.clearNoNum(val)
                 }
             },
@@ -61,6 +66,17 @@ import EventBus from '@/utils/event-bus';
                     }
                 }
             },
+
+            formData: {
+                immediate: true,
+                deep: true,
+                handler(val) {
+                    // console.log('全局数据池中的数据为:', val);
+                    if (val[this.x] && val[this.x][this.keyName]) {
+                        this.inputText = val[this.x][this.keyName]
+                    }
+                }
+            }
         },
         mixins: [NursingMixins],
         data() {
@@ -80,7 +96,7 @@ import EventBus from '@/utils/event-bus';
             // FuShu:{//是否可输入负数
             // WenBen:{
             clearNoNum(value){
-                console.log('+++++++:', this.attr)
+                //console.log('+++++++:', this.attr)
                 const {DuoJiGaoJin=[],WenBen=false,precision=0,XieGang=false,Ja=false,Jian=false,JaJian=false,FuShu=false}=this.attr;
                 if(!WenBen){
                     if(precision==0){
@@ -190,7 +206,7 @@ import EventBus from '@/utils/event-bus';
             down() {
                 let info = this.sanArray.filter(item => item.y === this.y) //筛选并判断是否是多级组件
                 if (info.length > 0) {  //说明当前的位置在多级组件的位置中
-                    console.log('*******info:', info, this.sanShow, this.z);
+                    // console.log('*******info:', info, this.sanShow, this.z);
                     if (this.sanShow[this.y] && this.z < info[0].len) { //当是展开状态并且长度小于指定的长度时
                         this.setPosition({x:this.x, y:this.y, z: this.z + 1});
                         EventBus.$emit('focus', 'nursinglist',{x:this.x, y:this.y, z: this.z + 1});

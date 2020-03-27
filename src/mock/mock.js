@@ -302,3 +302,29 @@ export const mock = () => {
         }, 100)
     }); 
 }
+
+let response = [
+    {
+        SJ: '08:00',
+        gcs: '12',
+        xl: '选项一'
+    },
+    {
+        SJ: '10:00',
+        gcs: '13',
+        xl: '选项一'
+    },
+    {
+        SJ: '09:00',
+        gcs: '19',
+        xl: '选项一'
+    }
+]
+
+export const getResponse = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(response)
+        }, 100)
+    })
+}

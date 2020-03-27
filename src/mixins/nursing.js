@@ -6,7 +6,8 @@ export default {
         position: state => state.position,
         enterClick: state => state.enterClick,
         sanShow: state => state.sanshow,
-        sanArray: state => state.sanArray
+        sanArray: state => state.sanArray,
+        formData: state => state.formData
     })
   },
   methods: {
@@ -14,7 +15,8 @@ export default {
         'setPosition',
         'setEnter',
         'setSanShow',
-        'setSanArray'
+        'setSanArray',
+        'setFormData'
     ])
   }
 };
