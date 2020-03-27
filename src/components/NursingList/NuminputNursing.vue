@@ -217,7 +217,6 @@ import EventBus from '@/utils/event-bus';
     box-sizing: border-box;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
-    box-sizing: border-box;
     background: transparent;
     width: 100%;
     &.active {

@@ -1,4 +1,4 @@
-<template><div style="height:40px">
+<template><div class="select" :class="active">
   <el-select ref="select" class="selectyangshi" v-model="selectItem" 
     :placeholder="placeholder" 
     :disabled="disabled" 
@@ -7,6 +7,7 @@
     filterable="filterable"
     :filter-method="filterByPY"
     @focus="focus"
+    @change="change"
     @keydown.enter.native="enter">
     <template v-if="identical">
       <el-option
@@ -60,14 +61,8 @@ export default {
                 } else {
                     this.active = ''
                 }
-               
-                if (val.x !== this.x || val.y !== this.y) { //当是焦点时，就要弹出下拉框
-                    this.$refs.select && this.$refs.select.blur();
-                } else {
-                    // this.setCurrentCom(false);
-                }
-
                 if (val.x === this.x && val.y === this.y && val.z === this.z) {
+                    //this.$refs.select&&this.$refs.select.focus()
                     this.active = 'z-active';
                 }
             }
@@ -86,6 +81,12 @@ export default {
                     }
                 }
             }
+        },
+        selectItem:{
+          immediate:true,
+          handler(val){
+            console.log("$$$$$$$$selectItem："+val)
+          }
         }
     },
     mixins: [NursingMixins],
@@ -101,7 +102,7 @@ export default {
       disabled:false,
       identical:false,
       active:"",
-      selectItem:""
+      selectItem:[]
     }
   },
   mounted(){
@@ -109,7 +110,8 @@ export default {
     // allowcreate: {//是否允许用户创建新条目
     // disabled: {//是否禁用
     // identical:{//判断选项value与text值是否一样
-    const{arrayData,placeholder="请选择",allowcreate=false,disabled=false,identical=false}=this.attr;
+    const{arrayData=[],placeholder="请选择",allowcreate=false,disabled=false,identical=false}=this.attr;
+    console.log("请选择",arrayData)
       this.salepreInfo=arrayData;
       this.arrayData=arrayData;
       this.placeholder=placeholder;
@@ -141,6 +143,9 @@ export default {
                 EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
             }, 500)
             
+        },
+        change(val){
+            console.log("************"+val)
         }
   },
   
@@ -164,7 +169,27 @@ export default {
     }
 }
 
+.selectyangshi.el-select{
+    width: 90%;
+    height: 80%;
+    .el-input__icon {
+        line-height: 23px;
+    }
+}
 </style>
 <style lang="scss" scoped>
-
+.select{
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    box-sizing: border-box;
+    background: transparent;
+    &.active {
+        background-color: #FFE9CF;
+    }
+    &.z-active{
+        background-color: #37B8FF;
+    }
+}
 </style>
