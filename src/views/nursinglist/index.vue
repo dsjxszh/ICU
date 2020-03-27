@@ -54,6 +54,32 @@ export default {
         },
         saveData() {
 
+        },
+        encode() {
+            // 对menu中的各项进行编码
+            let num = 0;
+            this.menu = this.menu.map((item) => {
+                if (item.list) {
+                    // 说明下面会有多个二级菜单
+                    let originList = [ ...item.list ];
+                    originList = originList.map(child => {
+                        return {
+                            idx: num++,
+                            ...child
+                        }
+                    })
+                    return {
+                        ...item,
+                        list: originList
+                    }
+                } else {
+                    return {    //说明是一级
+                        idx: num++,
+                        ...item
+                    }
+                }
+            })
+            console.log('编码出来的菜单为:', this.menu)
         }
     },
     mounted() {
@@ -79,7 +105,7 @@ export default {
                 }
             })
             this.params = params;
-            // console.log('**********params:', params);
+            this.encode(this.menu);
             // console.log('params:', this.params)
         })
     }

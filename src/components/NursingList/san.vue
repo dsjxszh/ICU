@@ -14,7 +14,7 @@
 <script>
 import AllComponents from '@/utils/components';
 import NursingMixins from '@/mixins/nursing';
-import EventBus from '@/utils/event-bus';
+// import EventBus from '@/utils/event-bus';
 import InputTemplate from '@/components/BusinessSearchComponents/InputTemplate';
 export default {
     inject: ['farther'],
@@ -87,7 +87,7 @@ export default {
     methods: {
         showM() {
             this.setPosition({ x: this.x, y: this.y,z:this.z });
-            EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
+            // EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
             this.setSanShow({
                 [this.y]: !this.show
             })
