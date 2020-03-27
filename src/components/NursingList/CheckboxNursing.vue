@@ -33,7 +33,7 @@ import EventBus from '@/utils/event-bus';
             }
         },
         mounted(){
-            const{arrayData}=this.attr;
+            const{arrayData=[]}=this.attr;
             this.arrayData=arrayData
         },
         watch: {

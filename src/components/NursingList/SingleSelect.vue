@@ -19,6 +19,7 @@ import selectIcon from '@/assets/image/f-selecticon@2x.png';
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
+    inject: ['farther'],
     props: {
         // options: {
         //     type: Array,
@@ -26,10 +27,6 @@ export default {
         //         return []
         //     }
         // },
-        value: {
-            type: String,
-            default: ''
-        }, 
         x: {
             type: Number
         }, 
@@ -72,8 +69,27 @@ export default {
                             this.$refs.select.setSoftFocus();
                             this.setEnter(false);
                         }
-                        
                     }
+                }
+            }
+        },
+        selectItem: {
+            immediate: true,
+            handler() {
+                // if (this.farther.formData && this.x && this.keyName) {
+                //     this.farther.formData[this.x][this.keyName] = val;
+                // }
+                
+                // console.log('选中的项目名称为:', this.farther.formData, this.keyName, val);
+            }
+        },
+        formData: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                // console.log('全局数据池中的数据为:', val);
+                if (val[this.x] && val[this.x][this.keyName]) {
+                    this.selectItem = val[this.x][this.keyName]
                 }
             }
         }
@@ -123,7 +139,7 @@ export default {
         }
     },
     mounted() {
-        this.selectItem = this.value;
+        // this.selectItem = this.value;
     }
 }
 </script>

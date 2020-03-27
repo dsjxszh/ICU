@@ -1,6 +1,7 @@
 <template>
     <div class="nursinglist">
         <div class="list">
+            <button @click="getData">获取数据</button>
             <nursing-list :menu="menu" :params="params"></nursing-list>
         </div>
     </div>
@@ -8,33 +9,34 @@
 
 <script>
 import NursingList from '@/components/NursingList';
-import { mock } from '@/mock/mock';
+import { mock, getResponse } from '@/mock/mock';
+import NursingMixins from '@/mixins/nursing';
 export default {
     components: {
         NursingList
     },
-    // mixins: [NursingMixins],
+    mixins: [NursingMixins],
     data() {
         return {
             menu: [],
             params: [],
-            formData: {
-                0: {},
-                1: {},
-                2: {},
-                3: {},
-                4: {},
-                5: {},
-                6: {},
-                7: {},
-                8: {},
-                9: {},
-                10: {},
-                11: {}
-            }
+            // formData: []
         }
     },
-    methods: {},
+    methods: {
+        getData() {
+            getResponse().then(response => {
+                let formData = response.map((item, index) => {
+                    return {
+                        index: index + 1,
+                        ...item
+                    }
+                })
+                this.setFormData(formData)
+                console.log('获得的数据为:', formData);
+            })
+        }
+    },
     mounted() {
         mock().then(res => {
             this.menu = res
@@ -58,7 +60,7 @@ export default {
                 }
             })
             this.params = params;
-            console.log('**********params:', params);
+            // console.log('**********params:', params);
             // console.log('params:', this.params)
         })
     }

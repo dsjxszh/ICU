@@ -68,7 +68,7 @@ let json = [
             list: [{
                 value: '意识一', 
                 componentName: 'SingleSelect',
-                keyName: 'ys1'
+                key: 'ys1'
             },{
                 value: '意识一', 
                 componentName: 'SelectSearchNursing',
@@ -91,11 +91,11 @@ let json = [
             },{
                 value: '意识二',
                 componentName: 'NuminputNursing',
-                keyName: 'ys2'
+                key: 'ys2'
             },{
                 value: '意识二',
                 componentName: 'CheckboxNursing',
-                keyName: 'ys3',
+                key: 'ys3',
                 attr:{
                     arrayData:[
                         {
@@ -301,4 +301,30 @@ export const mock = () => {
             resolve(json);
         }, 100)
     }); 
+}
+
+let response = [
+    {
+        SJ: '08:00',
+        gcs: '12',
+        xl: '选项一'
+    },
+    {
+        SJ: '10:00',
+        gcs: '13',
+        xl: '选项一'
+    },
+    {
+        SJ: '09:00',
+        gcs: '19',
+        xl: '选项一'
+    }
+]
+
+export const getResponse = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(response)
+        }, 100)
+    })
 }

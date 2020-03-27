@@ -15,6 +15,7 @@ import NursingMixins from '@/mixins/nursing';
 import EventBus from '@/utils/event-bus';
 import InputTemplate from '@/components/BusinessSearchComponents/InputTemplate';
 export default {
+    inject: ['farther'],
     components: {
         ...AllComponents,
         InputTemplate

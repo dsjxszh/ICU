@@ -6,7 +6,8 @@ const state = {
     },
     enterClick: false,
     sanArray: [], //保存所有三级组件的y轴坐标系
-    sanshow: {}
+    sanshow: {},
+    formData: [], //保存当前页所有的数据
 };
 
 const mutations = {
@@ -21,6 +22,9 @@ const mutations = {
     },
     SET_ARRAY: (state, arr) => {
         state.sanArray = arr;
+    },
+    SET_DATA: (state, data) => {
+        state.formData = data;
     }
 };
 
@@ -40,6 +44,10 @@ const actions = {
     //保存当前坐标轴相关信息
     setSanArray({ commit }, arr) {
         commit("SET_ARRAY", arr);
+    },
+    // 保存接口返回的数据
+    setFormData({ commit }, data) {
+        commit("SET_DATA", data)
     }
   };
   
