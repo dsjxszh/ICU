@@ -160,7 +160,6 @@ export default {
         height: 100%;
         .el-input__inner {
             border: 0px !important;
-            box-shadow: 0px 1px 1px 0px #fff, 0px 1px 3px 0px rgba(0,0,0,0.5) inset !important;
             background: transparent !important;
             border-radius: 6px;
           height: 100%;
@@ -189,7 +188,8 @@ export default {
         background-color: #FFE9CF;
     }
     &.z-active{
-        background-color: #37B8FF;
+        background-color: #fff;
+        border:2px solid rgba(0,164,255,1);
     }
 }
 </style>

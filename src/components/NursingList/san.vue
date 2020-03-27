@@ -1,9 +1,11 @@
 <template>
-    <div :class="['cc']">
-        <div @click="showM" style="height:30px" :class="[select, 'border']">三级</div> 
-        <div v-show="show">
+    <div :class="['ErJi']">
+        <div @click="showM" class="ErJiTitle" :class="[ErJiTitlezhankai,active, 'border']">三级</div> 
+        <div class="ZiJiBeiJing" v-show="show">
             <template v-for="(com, index) in list">
-                <component :is="com.componentName" :key="com.keyName" v-bind="{y: y, x: x, z: index + 1, attr: com.attr || {}, keyName: com.key}" />
+                <div :class="com.componentName" :key="com.keyName">
+                    <component :is="com.componentName" v-bind="{y: y, x: x, z: index + 1, attr: com.attr || {}, keyName: com.key}" />
+                </div>
             </template>
         </div>
     </div>
@@ -44,21 +46,23 @@ export default {
             deep: true,
             handler(val) {
                 this.show = val[this.y];
+                if(this.show) this.ErJiTitlezhankai="ErJiTitlezhankai"
+                else this.ErJiTitlezhankai=""
             }
         },
         position: {
             immediate: true,
             handler(val) {
                 if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
-                    this.select = 'select';
+                    this.active = 'active';
                 } else {
-                    this.select = ''
+                    this.active = ''
                 }
                 if (val.x === this.x && val.y === this.y && val.z === this.z) {
                     // this.setCurrentCom(true);
                     // // 这里要设置当前节点下面一共要有多少个子节点(y, length)
                     // this.setSubDomLength(this.list.length);
-                    this.select = 'z-select';
+                    this.active = 'z-active';
                 }
             }
         },
@@ -76,7 +80,8 @@ export default {
         return {
             ss: '',
             show: false,
-            select: '',
+            active: '',
+            ErJiTitlezhankai:""
         }
     },
     methods: {
@@ -112,14 +117,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.select {
-    background-color: #FFE9CF;
-}
-
-.z-select {
-    background-color: lightskyblue;
-}
-.cc {
+.ErJi {
+    .ErJiTitle{
+        height: 30px;
+        line-height: 30px;
+        position: relative;
+        &::before{
+            content: "";
+            position: absolute;
+            top:0px;
+            left: 5px;
+            width: 14px;
+            height: 30px;
+            background-image: url(../../assets/image/hebing@2x.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        &.ErJiTitlezhankai::before{
+            background-image: url(../../assets/image/zhankai@2x.png);
+        }
+    }
     .border {
         border-bottom: 1px solid lightgray;
         border-right: 1px solid lightgray;
@@ -130,6 +148,32 @@ export default {
     }
     .show {
         display: block;
+    }
+    .active {
+        background-color: #FFE9CF;
+    }
+    .z-active{
+        background-color: #fff;
+        border:2px solid rgba(0,164,255,1);
+    }
+    .ZiJiBeiJing{
+        background:rgba(233,247,255,1);
+        
+        .SelectSearchNursing{
+            position: relative;
+            &::before{
+                content: "";
+                position: absolute;
+                top:0px;
+                left: 5px;
+                width: 14px;
+                height: 30px;
+                background-image: url(../../assets/image/xialakuang@2x.png);
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center;
+            }
+        }
     }
 }
 </style>

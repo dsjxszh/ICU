@@ -63,6 +63,11 @@
         img{
             height: 24px;
         }
+        &.singleClass30{
+            img{
+                height: 30px;
+            }
+        }
     }
     .button{
         color: #666;
@@ -95,8 +100,8 @@
             }
         }
         img{
-            width: 18px;
-            margin-top: 6px;
+            width: 13px;
+            margin-top: 8px;
             float: left;
             padding-right: 5px;
         }

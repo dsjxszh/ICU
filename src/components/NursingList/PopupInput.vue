@@ -1,6 +1,5 @@
 <template>
    <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter"></el-button>
-    
 </template>
 
 <script>
@@ -81,8 +80,9 @@ import DialogPFHL from './DialogPFHL';
     box-sizing: border-box;
     border-bottom: 1px solid lightgray;
     border-right: 1px solid lightgray;
-    border-left: 0px;
-    border-top: 0px;
+    border-radius: 0px;
+    padding-left: 24px;
+    text-align: left;
     width: 100%;
     color: #666;
     cursor: pointer;
@@ -90,7 +90,8 @@ import DialogPFHL from './DialogPFHL';
         background-color: #FFE9CF;
     }
     &.z-active{
-        background-color: #37B8FF;
+        background-color: #fff;
+        border:2px solid rgba(0,164,255,1);
     }
 }
 </style>

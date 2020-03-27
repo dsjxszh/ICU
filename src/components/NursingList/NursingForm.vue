@@ -3,6 +3,7 @@
         <div
             tabindex="0"
             class="component"
+            :class="item.componentName"
             v-for="(item, index) in formList"
             :key="idx + index + item.componentName"
         >   
@@ -98,6 +99,18 @@ export default {
         position: relative;
         &:nth-child(even) {
             background-color: #F7F7F7;
+        }
+        &.PopupInput::before{
+            content: "";
+            position: absolute;
+            top:0px;
+            left: 5px;
+            width: 14px;
+            height: 30px;
+            background-image: url(../../assets/image/duihuakuang@2x.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
         }
         .hidden {
             position: absolute;

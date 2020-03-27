@@ -167,12 +167,6 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.active {
-    background-color: #FFE9CF;
-}
-.z-active {
-    background-color: lightskyblue;
-}
 .single-select {
     display: flex;
     flex-direction: row;
@@ -183,6 +177,13 @@ export default {
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
     box-sizing: border-box;
+    &.active {
+        background-color: #FFE9CF;
+    }
+    &.z-active {
+        background-color: #fff;
+        border:2px solid rgba(0,164,255,1);
+    }
     img {
         width: 15px;
         height: 15px;

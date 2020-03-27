@@ -137,13 +137,20 @@ export default {
                 },
                 {
                     text: "查询4",
-                    iconName: "SS",
+                    iconName: "CaiJi",
                     className: "buttonIcon",
                     func: this.sear
                 },
                 {
                     text: "查询5",
                     iconName: "BJ",
+                    single:true,
+                    func: this.sear
+                },
+                {
+                    text: "查询6",
+                    iconName: "BaoCun",
+                    className: "singleClass30",
                     single:true,
                     func: this.sear
                 },

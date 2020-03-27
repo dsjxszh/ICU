@@ -134,7 +134,8 @@ import EventBus from '@/utils/event-bus';
         background-color: #FFE9CF;
     }
     &.z-active{
-        background-color: #37B8FF;
+        background-color: #fff;
+        border:2px solid rgba(0,164,255,1);
     }
 }
 </style>
