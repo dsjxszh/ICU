@@ -26,15 +26,12 @@ export default {
     methods: {
         getData() {
             getResponse().then(response => {
-                let formData = response.map((item, index) => {
-                    return {
-                        index: index + 1,
-                        ...item
-                    }
-                })
-                this.setFormData(formData)
-                console.log('获得的数据为:', formData);
+                this.setFormData(response)
+                console.log('获得的数据为:', response);
             })
+        },
+        saveData() {
+            
         }
     },
     mounted() {

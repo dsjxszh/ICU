@@ -50,8 +50,8 @@ export default {
             immediate: true,
             deep: true,
             handler(val) {
-                if (val[this.x] && val[this.x][this.keyName]) {
-                    this.value = val[this.x][this.keyName]
+                if (val[this.x - 1] && val[this.x - 1][this.keyName]) {
+                    this.value = val[this.x - 1][this.keyName]
                 }
             }
         }
