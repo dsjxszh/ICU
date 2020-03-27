@@ -1,7 +1,7 @@
 <template>
     <div :class="['single-select', active]" @mouseover="showSelect" @mouseleave="hideSelect">
         <img :src="selectIcon" :class="imgStyle" />
-        <el-select ref="select" v-model="selectItem" @focus="focus" placeholder="" @keydown.enter.native="enter">
+        <el-select ref="select" :value="selectItem" @change="change"  @focus="focus" placeholder="" @keydown.enter.native="enter">
             <el-option
                 ref="options"
                 v-for="item in options"
@@ -73,23 +73,18 @@ export default {
                 }
             }
         },
-        selectItem: {
-            immediate: true,
-            handler() {
-                // if (this.farther.formData && this.x && this.keyName) {
-                //     this.farther.formData[this.x][this.keyName] = val;
-                // }
-                
-                // console.log('选中的项目名称为:', this.farther.formData, this.keyName, val);
-            }
-        },
         formData: {
             immediate: true,
             deep: true,
             handler(val) {
-                // console.log('全局数据池中的数据为:', val);
-                if (val[this.x] && val[this.x][this.keyName]) {
-                    this.selectItem = val[this.x][this.keyName]
+                if (val[this.x-1] && val[this.x-1][this.keyName]) {
+                    this.selectItem = val[this.x-1][this.keyName]
+                } 
+
+                if (val[this.x -1]) {
+                    this.xid = val[this.x - 1].xid;
+                } else {
+                    this.xid = null;
                 }
             }
         }
@@ -112,11 +107,16 @@ export default {
                     value: '选项二'
                 }
             ],
+            xid: null //保存当前列对应的id
         }
     },
     methods: {
         clear() {
-            this.selectItem = ''
+            if (this.selectItem === '') return;
+            this.farther.currentFormData.xid = this.xid
+            this.farther.currentFormData[this.keyName] = '';
+            console.log('获取到的表单数据为:', this.farther.currentFormData)
+            this.selectItem = '';
         },
         showSelect() {
             this.imgStyle = '';
@@ -129,13 +129,18 @@ export default {
             EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y, z: this.z })
         },
         enter() {
-           
             this.$refs.select && this.$refs.select.blur();
 
             setTimeout(() => {
                 EventBus.$emit('focus', 'nursinglist', { x: this.x, y: this.y })
             }, 500)
             
+        },
+        change(val) {
+            this.farther.currentFormData.xid = this.xid
+            this.farther.currentFormData[this.keyName] = val;
+            console.log('获取到的表单数据为:', this.farther.currentFormData)
+            this.selectItem = val;
         }
     },
     mounted() {

@@ -34,7 +34,7 @@ const mutations = {
             } else {
                 if (tab === state.currentTab) { //如果删除的是被选中的项，则要切换选中的项
                     state.currentTab = (state.editableTabs[--index] || state.editableTabs[++index]).name
-                    console.log('删除后的当前项目是:', state.currentTab)
+                    // console.log('删除后的当前项目是:', state.currentTab)
                 }
             }
         })
@@ -49,7 +49,7 @@ const mutations = {
     SET_NEW_NURSING_LIST: (state, obj) => { //新增护理表单路由接口
         const { name, cb } = obj;
         state.pages[name] = 'nursinglist';
-        console.log('pages:', state.pages);
+        // console.log('pages:', state.pages);
         cb && cb();
     }
 };

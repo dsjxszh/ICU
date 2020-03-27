@@ -5,7 +5,8 @@
         @keyup.right="right"
         @keyup.up="top"
         @keyup.down="down"
-        v-model="inputText" />
+        :value="inputText"
+        @change="change" />
 </template>
 
 <script>
@@ -36,9 +37,9 @@ import EventBus from '@/utils/event-bus';
                 // this.focus();
                 this.$refs.Numininput&&this.$refs.Numininput.focus()
 
-                if (this.formData[this.x] && this.formData[this.x][this.keyName]) {
-                    console.log('******', this.formData[this.x][this.keyName])
-                    this.inputText = this.formData[this.x][this.keyName]
+                if (this.formData[this.x - 1] && this.formData[this.x - 1][this.keyName]) {
+                    // console.log('******', this.formData[this.x - 1][this.keyName])
+                    this.inputText = this.formData[this.x - 1][this.keyName]
                 }
             }
         },
@@ -46,7 +47,7 @@ import EventBus from '@/utils/event-bus';
             inputText: {
                 immediate: true,
                 handler(val) {
-                    console.log('inputText:', val)
+                    // console.log('inputText:', val)
                     this.clearNoNum(val)
                 }
             },
@@ -72,8 +73,8 @@ import EventBus from '@/utils/event-bus';
                 deep: true,
                 handler(val) {
                     // console.log('全局数据池中的数据为:', val);
-                    if (val[this.x] && val[this.x][this.keyName]) {
-                        this.inputText = val[this.x][this.keyName]
+                    if (val[this.x - 1] && val[this.x - 1][this.keyName]) {
+                        this.inputText = val[this.x - 1][this.keyName]
                     }
                 }
             }
@@ -87,6 +88,11 @@ import EventBus from '@/utils/event-bus';
             }
         },
         methods:{
+            change(val) {
+                let formData = this.formData;
+                formData[this.x - 1][this.keyName] = val.target.value;
+                this.setFormData(formData);
+            },
             // DuoJiGaoJin:{//多级告警数组min,max,color
             // precision:{//小数位数
             // XieGang:{//允不允许输入/

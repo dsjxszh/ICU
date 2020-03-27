@@ -58,7 +58,7 @@ export default {
     },
     methods:{
         rowdblclick(row){
-            console.log(row)
+            // console.log(row)
             this.addNewRouter({
                 name: row.roomName+row.inpNo,
             });

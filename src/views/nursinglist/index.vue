@@ -12,6 +12,11 @@ import NursingList from '@/components/NursingList';
 import { mock, getResponse } from '@/mock/mock';
 import NursingMixins from '@/mixins/nursing';
 export default {
+    provide() {
+        return {
+            farther: this
+        }
+    },
     components: {
         NursingList
     },
@@ -21,20 +26,34 @@ export default {
             menu: [],
             params: [],
             // formData: []
+            currentFormData: {}
+        }
+    },
+    watch: {
+        position: {
+            immediate: true,
+            handler(val, old) {
+                if ((val.x && old.x) && (val.x !== old.x)) {
+                    console.log('换行了!')
+                    if (Object.keys(this.currentFormData).length === 0) {
+                        console.log('没有更新数据')
+                    } else {
+                        console.log('需要去更新数据')
+                        this.currentFormData = {}
+                    }
+                }
+            }
         }
     },
     methods: {
         getData() {
             getResponse().then(response => {
-                let formData = response.map((item, index) => {
-                    return {
-                        index: index + 1,
-                        ...item
-                    }
-                })
-                this.setFormData(formData)
-                console.log('获得的数据为:', formData);
+                this.setFormData(response)
+                // console.log('获得的数据为:', response);
             })
+        },
+        saveData() {
+
         }
     },
     mounted() {

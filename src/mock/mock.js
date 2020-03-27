@@ -305,6 +305,27 @@ export const mock = () => {
 
 let response = [
     {
+        xid: 1,
+        SJ: '08:00',
+        gcs: '12',
+        xl: '选项一'
+    },
+    {
+        xid: 2,
+        SJ: '10:00',
+        gcs: '13',
+        xl: '选项一'
+    },
+    {
+        xid: 3,
+        SJ: '09:00',
+        gcs: '19',
+        xl: '选项一'
+    }
+]
+
+let newRes = [
+    {
         SJ: '08:00',
         gcs: '12',
         xl: '选项一'
@@ -318,6 +339,9 @@ let response = [
         SJ: '09:00',
         gcs: '19',
         xl: '选项一'
+    },
+    {
+        xl: '选项二'
     }
 ]
 
@@ -327,4 +351,10 @@ export const getResponse = () => {
             resolve(response)
         }, 100)
     })
+}
+
+export const save = () => {
+    return new Promise((resolve) => {
+        resolve(newRes);
+    }, 100)
 }

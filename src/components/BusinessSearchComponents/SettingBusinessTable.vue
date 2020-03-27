@@ -75,14 +75,6 @@ export default {
     components: {
         ...AllComponents
     },
-    watch:{
-        tableData:{
-            immediate: true,
-            handler(val) {
-                console.log(val)
-            }
-        }
-    },
     methods: {
         handleSelect(selection) {
             this.$emit("select", selection);
