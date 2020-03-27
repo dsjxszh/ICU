@@ -72,7 +72,7 @@ export default {
                         this.down();
                         break;
                     case 'Enter':
-                        console.log('@@@@')
+                        // console.log('@@@@')
                         this.enter();
                         break;
                 }
@@ -123,7 +123,7 @@ export default {
                         return
                     }
                 }
-                if (y === 1) return;
+                if (y === 0) return;
                 this.setPosition({x: x, y: y-1, z: 0 })
             } else {
                 if (z > 0) {
