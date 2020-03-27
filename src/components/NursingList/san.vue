@@ -159,7 +159,7 @@ export default {
     .ZiJiBeiJing{
         background:rgba(233,247,255,1);
         
-        .SelectSearchNursing{
+        .SelectSearchNursing,.SingleSelect{
             position: relative;
             &::before{
                 content: "";

@@ -1,39 +1,25 @@
 let json = [
     {
-        key: 'SJ', 
-        value: '时间',
-        componentName: "NursingTime",
+        key: 'SJ', //key值
+        value: '时间',//菜单名字
+        componentName: "NursingTime",//引用组件名NursingTime时间组件
     },
     {
         key: 'SZ',
         value: '神志',
-        list: [{
+        list: [{//二级菜单list
             key: 'rass',
             value: 'RASS镇静评分',
-            componentName: "NuminputNursing",
-            keyName: "rass",
-            attr:{
-                WenBen:true
-            }
-        },{
-            key: 'ys',
-            value: '意识',
-            componentName: "PopupInput",
-            attr:{
-                DuoJiGaoJin:[
-                    {
-                        min:2,
-                        max:5,
-                        color:"#000"
-                    }
-                ],
+            componentName: "NuminputNursing",//数值输入框和文本输入框组件
+            attr:{//数值输入框和文本输入框属性对象
+                WenBen:true//文本输入框WenBen属性传true，数值可以不传
             }
         },{
             key: 'gcs',
             value: 'GCS昏迷评分',
             componentName: "NuminputNursing",
             attr:{
-                DuoJiGaoJin:[
+                DuoJiGaoJin:[//数值输入框控制多级校验数组
                     {
                         min:2,
                         max:5,
@@ -45,27 +31,37 @@ let json = [
             key: 'tky',
             value: '瞳孔右',
             componentName: "NuminputNursing",
+            attr:{
+                precision:2,//数值输入框控制输入小数位数
+                // XieGang:{//允不允许输入/
+                // JaJian:{//是否可-或+
+                // Ja:{//是否可+或数字
+                // Jian:{//是否可-或数字
+                // FuShu:{//是否可输入负数
+            }
+        },{
+            key: 'ys',
+            value: '意识',
+            componentName: "PopupInput",//弹出框组件
+            attr:{
+                PopupName:"DialogPFHL"
+            }
         },{
             key: 'tkz',
             value: '瞳孔左',
-            componentName: "CheckboxNursing",
-            keyName: "rass",
+            componentName: "CheckboxNursing",//复选框组件
             attr:{
                 arrayData:[
                     {
-                        value:"name1",
-                        name:"name1",
-                        label:"",
-                        fiesdlname:"青霉素1",
-                
+                        name:"tkz",
                     }
                 ]
             }
         },{
             key: 'zdgfy',
             value: '左对光反应',
-            componentName: "san",
-            list: [{
+            componentName: "san",//有子级的组件
+            list: [{//三级list
                 value: '意识一', 
                 componentName: 'SingleSelect',
                 key: 'ys1'
@@ -74,7 +70,7 @@ let json = [
                 componentName: 'SelectSearchNursing',
                 keyName: 'ys4',
                 attr:{
-                    arrayData:[
+                    arrayData:[//下拉框选项数组
                         {
                             id:"1",
                             name:"选项一",
@@ -120,11 +116,29 @@ let json = [
         list: [{
             key: 'tw',
             value: '体温',
-            componentName: "SingleSelect",
+            componentName: "SelectSearchNursing",
+            attr:{
+                arrayData:[
+                    {
+                        id:"1",
+                        name:"选项一",
+                        fields1:"青霉素1",
+                
+                    },{
+                        id:"2",
+                        name:"选项2",
+                        fields1:"青霉素2",
+                
+                    }
+                ]
+            }
         },{
             key: 'xl',
             value: '心率',
-            componentName: "SingleSelect",
+            componentName: "PopupInput",//弹出框组件
+            attr:{
+                PopupName:"DialogPFHLwww"
+            }
         },{
             key: 'xll',
             value: '心律',
@@ -305,45 +319,25 @@ export const mock = () => {
 
 let response = [
     {
-        xid: 1,
+        recordId: 1,
         SJ: '08:00',
         gcs: '12',
         xl: '选项一'
     },
     {
-        xid: 2,
+        recordId: 2,
         SJ: '10:00',
         gcs: '13',
         xl: '选项一'
     },
     {
-        xid: 3,
+        recordId: 3,
         SJ: '09:00',
         gcs: '19',
         xl: '选项一'
     }
 ]
 
-let newRes = [
-    {
-        SJ: '08:00',
-        gcs: '12',
-        xl: '选项一'
-    },
-    {
-        SJ: '10:00',
-        gcs: '13',
-        xl: '选项一'
-    },
-    {
-        SJ: '09:00',
-        gcs: '19',
-        xl: '选项一'
-    },
-    {
-        xl: '选项二'
-    }
-]
 
 export const getResponse = () => {
     return new Promise((resolve) => {
@@ -351,10 +345,4 @@ export const getResponse = () => {
             resolve(response)
         }, 100)
     })
-}
-
-export const save = () => {
-    return new Promise((resolve) => {
-        resolve(newRes);
-    }, 100)
 }

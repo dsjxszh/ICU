@@ -7,7 +7,7 @@
             v-for="(item, index) in formList"
             :key="idx + index + item.componentName"
         >   
-            <template v-if="item.componentName != 'NursingTime' && item.componentName != 'san' && item.show === false">
+            <template v-if="item.componentName != 'NursingTime' && item.componentName != 'san' && item.componentName != 'CheckboxNursing' && item.show === false">
                 <seize-input :x="idx" :y="index" :componentName="item.componentName"  :keyName="item.key" @focus="focus"></seize-input>
             </template>
             <template v-else>
@@ -100,17 +100,22 @@ export default {
         &:nth-child(even) {
             background-color: #F7F7F7;
         }
-        &.PopupInput::before{
+        &::before{
             content: "";
             position: absolute;
             top:0px;
             left: 5px;
             width: 14px;
             height: 30px;
-            background-image: url(../../assets/image/duihuakuang@2x.png);
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center;
+        }
+        &.PopupInput::before{
+            background-image: url(../../assets/image/duihuakuang@2x.png);
+        }
+        &.SelectSearchNursing::before,&.SingleSelect::before{
+            background-image: url(../../assets/image/xialakuang@2x.png);
         }
         .hidden {
             position: absolute;

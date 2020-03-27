@@ -1,18 +1,13 @@
 <template>
-   <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter"></el-button>
+   <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter">{{value}}</el-button>
 </template>
 
 <script>
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 import Popups from '@/utils/Popup';
-import DialogPFHL from './DialogPFHL';
     export default {
         props:{
-            value: {
-                type: String,
-                default: ''
-            }, 
             x: {
                 type: Number
             }, 
@@ -21,7 +16,17 @@ import DialogPFHL from './DialogPFHL';
             },
             z: {
                 type: Number
+            },
+            attr:{
+                type:Object
+            },
+            keyName: {
+                type: String
             }
+        },
+        mounted(){
+            const {PopupName}=this.attr;
+            this.PopupName=PopupName
         },
         watch: {
             position: {
@@ -43,9 +48,24 @@ import DialogPFHL from './DialogPFHL';
                 handler(val, oldVal) {
                     if (val && !oldVal) {
                         if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
-                            this.OpenPopup1 =  Popups(DialogPFHL, {x:this.x,y:this.y,z:this.z});//打开对话框
+                             Popups(this.PopupName, {x:this.x,y:this.y,z:this.z});//打开对话框
                             this.setEnter(false);
                         }
+                    }
+                }
+            },
+            formData: {
+                immediate: true,
+                deep: true,
+                handler(val) {
+                    if (val[this.x-1] && val[this.x-1][this.keyName]) {
+                        this.value = val[this.x-1][this.keyName]
+                    } 
+
+                    if (val[this.x -1]) {
+                        this.recordId = val[this.x - 1].recordId;
+                    } else {
+                        this.recordId = null;
                     }
                 }
             }
@@ -54,14 +74,15 @@ import DialogPFHL from './DialogPFHL';
         data(){
             return{
                 active:"",
-                OpenPopup1:null
+                PopupName:"",
+                value:""
             }
         },
         methods: {
             focus() {
                 this.setPosition({ x: this.x, y: this.y,z:this.z });
                 EventBus.$emit('focus', 'nursinglist',{ x: this.x, y: this.y,z:this.z });
-                this.OpenPopup1 =  Popups(DialogPFHL, {x:this.x,y:this.y,z:this.z});
+                Popups(this.PopupName, {x:this.x,y:this.y,z:this.z});
             },
             enter() {
                 setTimeout(() => {

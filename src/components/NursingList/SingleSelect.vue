@@ -1,7 +1,6 @@
 <template>
     <div :class="['single-select', active]" @mouseover="showSelect" @mouseleave="hideSelect">
-        <img :src="selectIcon" :class="imgStyle" />
-        <el-select ref="select" :value="selectItem" @change="change"  @focus="focus" placeholder="" @keydown.enter.native="enter">
+        <el-select ref="select" :value="value" @change="change"  @focus="focus" placeholder="" @keydown.enter.native="enter">
             <el-option
                 ref="options"
                 v-for="item in options"
@@ -15,18 +14,11 @@
 </template>
 
 <script>
-import selectIcon from '@/assets/image/f-selecticon@2x.png';
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
     inject: ['farther'],
     props: {
-        // options: {
-        //     type: Array,
-        //     default() {
-        //         return []
-        //     }
-        // },
         x: {
             type: Number
         }, 
@@ -78,13 +70,13 @@ export default {
             deep: true,
             handler(val) {
                 if (val[this.x-1] && val[this.x-1][this.keyName]) {
-                    this.selectItem = val[this.x-1][this.keyName]
+                    this.value = val[this.x-1][this.keyName]
                 } 
 
                 if (val[this.x -1]) {
-                    this.xid = val[this.x - 1].xid;
+                    this.recordId = val[this.x - 1].recordId;
                 } else {
-                    this.xid = null;
+                    this.recordId = null;
                 }
             }
         }
@@ -92,8 +84,7 @@ export default {
     mixins: [NursingMixins],
     data() {
         return {
-            selectItem: '',
-            selectIcon,
+            value: '',
             showImg: false,
             imgStyle: 'img',
             active: '',
@@ -107,16 +98,16 @@ export default {
                     value: '选项二'
                 }
             ],
-            xid: null //保存当前列对应的id
+            recordId: null //保存当前列对应的id
         }
     },
     methods: {
         clear() {
             if (this.selectItem === '') return;
-            this.farther.currentFormData.xid = this.xid
+            this.farther.currentFormData.recordId = this.recordId
             this.farther.currentFormData[this.keyName] = '';
             console.log('获取到的表单数据为:', this.farther.currentFormData)
-            this.selectItem = '';
+            this.value = '';
         },
         showSelect() {
             this.imgStyle = '';
@@ -137,10 +128,9 @@ export default {
             
         },
         change(val) {
-            this.farther.currentFormData.xid = this.xid
+            this.farther.currentFormData.recordId = this.recordId
             this.farther.currentFormData[this.keyName] = val;
-            console.log('获取到的表单数据为:', this.farther.currentFormData)
-            this.selectItem = val;
+            this.value = val;
         }
     },
     mounted() {

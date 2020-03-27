@@ -38,7 +38,7 @@ export default {
                     if (Object.keys(this.currentFormData).length === 0) {
                         console.log('没有更新数据')
                     } else {
-                        console.log('需要去更新数据')
+                        console.log(this.currentFormData)
                         this.currentFormData = {}
                     }
                 }

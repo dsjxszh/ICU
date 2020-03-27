@@ -3,7 +3,6 @@
         <el-checkbox
             v-for="(item,index) in arrayData" 
             :key="index" :name="item.name" 
-            :label="item.value" 
             v-model="checked"
             @keydown.enter.native="enter"
             >{{item.label}}</el-checkbox>
@@ -130,6 +129,8 @@ import EventBus from '@/utils/event-bus';
     border-bottom: 1px solid lightgray;
     box-sizing: border-box;
     background: transparent;
+    text-align: left;
+    padding-left: 5px;
     &.active {
         background-color: #FFE9CF;
     }

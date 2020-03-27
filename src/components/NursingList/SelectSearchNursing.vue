@@ -1,5 +1,5 @@
 <template><div class="select" :class="active">
-  <el-select ref="select" class="selectyangshi" v-model="selectItem" 
+  <el-select ref="select" class="selectyangshi" :value="value" @change="change"
     :placeholder="placeholder" 
     :disabled="disabled" 
     :allow-create="allowcreate"
@@ -33,11 +33,8 @@
 import EventBus from '@/utils/event-bus';
 import NursingMixins from '@/mixins/nursing';
 export default {
+    inject: ['farther'],
   props: {
-        value: {
-            type: String,
-            default: ''
-        }, 
         x: {
             type: Number
         }, 
@@ -49,6 +46,9 @@ export default {
         },
         attr:{
           type:Object
+        },
+        keyName: {
+            type: String
         }
   },
   watch: {
@@ -81,6 +81,21 @@ export default {
                 }
             }
         },
+        formData: {
+            immediate: true,
+            deep: true,
+            handler(val) {
+                if (val[this.x-1] && val[this.x-1][this.keyName]) {
+                    this.value = val[this.x-1][this.keyName]
+                } 
+
+                if (val[this.x -1]) {
+                    this.recordId = val[this.x - 1].recordId;
+                } else {
+                    this.recordId = null;
+                }
+            }
+        }
     },
     mixins: [NursingMixins],
   data(){
@@ -95,7 +110,8 @@ export default {
       disabled:false,
       identical:false,
       active:"",
-      selectItem:[]
+      recordId:null,
+      value:""
     }
   },
   mounted(){
@@ -103,7 +119,7 @@ export default {
     // allowcreate: {//是否允许用户创建新条目
     // disabled: {//是否禁用
     // identical:{//判断选项value与text值是否一样
-    const{arrayData=[],placeholder="请选择",allowcreate=false,disabled=false,identical=false}=this.attr;
+    const{arrayData=[],placeholder="",allowcreate=false,disabled=false,identical=false}=this.attr;
     // console.log("请选择",arrayData)
       this.salepreInfo=arrayData;
       this.arrayData=arrayData;
@@ -137,9 +153,11 @@ export default {
             }, 500)
             
         },
-        // change(val){
-        //     // console.log("************"+val)
-        // }
+        change(val) {
+            this.farther.currentFormData.recordId = this.recordId
+            this.farther.currentFormData[this.keyName] = val;
+            this.value = val;
+        }
   },
   
 };
