@@ -1,9 +1,9 @@
 <template>
     <div :class="['time',active]">
         <div class="clock">
-            <input v-model="hour" ref="hour" @blur="handleHour" @focus="focus($event)" class="input"  />
+            <input v-model="hour" ref="hour" @blur="handleHour" @focus="focus($event)" class="input" @keydown.right.stop="right" />
             :
-            <input v-model="minute" ref="min" @blur="handleMinute" @focus="focus($event)" class="input" />
+            <input v-model="minute" ref="min" @blur="handleMinute" @focus="focus($event)" class="input" @keydown.left.stop="left" />
         </div>
         <el-date-picker
             class="picker"
@@ -60,7 +60,21 @@ export default {
 
                 if (val.x === this.x && val.y === this.y && val.z === this.z) { //
                     this.active = 'z-active';
-                    this.$refs.hour.focus();
+                    // this.$refs.hour.focus();
+                }
+            }
+        },
+        enterClick: {
+            immediate: true,
+            handler(val, oldVal) {
+                if (val && !oldVal) {
+                    if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
+                        if (this.$refs.hour) {
+                            // console.log('&&&&&:', this.$refs.hour)
+                            this.$refs.hour.focus();
+                            this.setEnter(false);
+                        }
+                    }
                 }
             }
         },
@@ -142,6 +156,14 @@ export default {
             this.minute = parseInt(minute) < 10 ? '0' + minute : minute;
             this.inputByDate = false;
         },
+        left() {
+            // console.log('****向左移动...');
+            this.$refs.hour.focus();
+        },
+        right() {
+            // console.log('*****向右移动...');
+            this.$refs.min.focus();
+        }
     }
 }
 </script>
