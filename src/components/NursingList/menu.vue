@@ -60,7 +60,7 @@ export default {
         height: 30px;
         line-height: 100%;
         border-bottom: 1px solid lightgray;
-        border-right: 1px solid lightgray;
+        // border-right: 1px solid lightgray;
         box-sizing: border-box;
     }
     .parent-children {
@@ -69,6 +69,7 @@ export default {
         padding: 0 20px;
         line-height: 30px;
         box-sizing: border-box;
+        // border-left: 1px solid lightgray;
     }
     ul {
         padding: 0;
@@ -86,6 +87,7 @@ export default {
             margin: 0px;
             box-sizing: border-box;
             border-bottom: 1px solid lightgray;
+            border-left: 1px solid lightgray;
         }
     }
 }

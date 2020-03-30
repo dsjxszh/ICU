@@ -1,9 +1,9 @@
 <template>
-    <div class="time">
+    <div :class="['time',active]">
         <div class="clock">
-            <input v-model="hour" ref="hour" @blur="handleHour" @focus="focus($event)" class="input"  />
+            <input v-model="hour" ref="hour" @blur="handleHour" @focus="focus($event)" class="input" @keydown.right.stop="right" />
             :
-            <input v-model="minute" ref="min" @blur="handleMinute" @focus="focus($event)" class="input" />
+            <input v-model="minute" ref="min" @blur="handleMinute" @focus="focus($event)" class="input" @keydown.left.stop="left" />
         </div>
         <el-date-picker
             class="picker"
@@ -20,19 +20,64 @@
 
 <script>
 import { isNumber } from '@/utils/validate'
+import NursingMixins from '@/mixins/nursing';
 export default {
     inject: ["farther"],
+    mixins: [NursingMixins],
+    props: {
+        x: {
+            type: Number
+        }, 
+        y: {
+            type: Number
+        },
+        z: {
+            type: Number
+        },
+        keyName: {
+            type: String
+        }
+    },
     data() {
         return {
             hour: '',
             minute: '',
-            active: false,
+            active: '',
             value1: '',
             defaultValue: new Date(),
             inputByDate: false
         }
     },
     watch: {
+        position: {
+            immediate: true,
+            handler(val) {
+                if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
+                    this.active = 'active';
+                } else {
+                    this.active = ''
+                }
+
+                if (val.x === this.x && val.y === this.y && val.z === this.z) { //
+                    this.active = 'z-active';
+                    // this.$refs.hour.focus();
+                }
+            }
+        },
+        enterClick: {
+            immediate: true,
+            handler(val, oldVal) {
+                if (val && !oldVal) {
+                    if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
+                        if (this.$refs.hour) {
+                            // console.log('&&&&&:', this.$refs.hour)
+                            this.$refs.hour.focus();
+                            this.setEnter(false);
+                        }
+                    }
+                }
+            }
+        },
         hour: {
             immediate: true,
             handler(val,oldValue) {
@@ -45,7 +90,7 @@ export default {
                     }
                     if (val.length === 2 && this.minute === '') {
                         this.minute = '00';
-                        this.$refs.min.focus(this.$event);
+                        this.$refs.min.focus();
                     }
                     // 长度校验(如果原先的值为两位数，添加不可，删除则可)
                     if (oldValue && oldValue.length === 2 && val.length >= 2 ) {
@@ -74,6 +119,7 @@ export default {
     methods: {
         focus:function(event){
             event.currentTarget.select();
+            this.setPosition({ x: this.x, y: this.y, z: this.z });
         },
         handleHour() {
             if (parseInt(this.hour) <= 9 && this.hour != '') {
@@ -110,6 +156,14 @@ export default {
             this.minute = parseInt(minute) < 10 ? '0' + minute : minute;
             this.inputByDate = false;
         },
+        left() {
+            // console.log('****向左移动...');
+            this.$refs.hour.focus();
+        },
+        right() {
+            // console.log('*****向右移动...');
+            this.$refs.min.focus();
+        }
     }
 }
 </script>
@@ -127,6 +181,13 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+    &.active {
+        background-color: #FFE9CF;
+    }
+    &.z-active {
+        background-color: #fff;
+        border:2px solid rgba(0,164,255,1);
+    }
     .picker {
         width: 0;
         height: 0;
