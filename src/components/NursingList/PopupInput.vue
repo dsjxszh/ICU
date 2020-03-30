@@ -90,7 +90,8 @@ import Popups from '@/utils/Popup';
 <style lang="scss" scoped>
 .button{
     height: 30px;
-    line-height: 30px;
+    line-height: 28px;
+    padding: 0px;
     box-sizing: border-box;
     border-bottom: 1px solid lightgray;
     border-right: 1px solid lightgray;
@@ -99,6 +100,7 @@ import Popups from '@/utils/Popup';
     text-align: left;
     width: 100%;
     color: #666;
+    font-size: 12px;
     cursor: pointer;
     &.active {
         background-color: #FFE9CF;

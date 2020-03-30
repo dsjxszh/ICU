@@ -135,6 +135,10 @@ export default {
     // background-color: lightgray;
     width: 140px;
     height: 30px;
+    line-height: 30px;
+    text-align: left;
+    color: #666;
+    padding-left: 24px;
     border-width: 0px;
     box-sizing: border-box;
     border-bottom: 1px solid lightgray;

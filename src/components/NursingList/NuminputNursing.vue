@@ -7,8 +7,7 @@
 
 <script>
     //  护理单表格中的数值校验文本输入框
-import NursingMixins from '@/mixins/nursing';
-// import EventBus from '@/utils/event-bus';
+import NursingMixins from '@/mixins/nursing';  
     export default {
         inject:['farther'],
         props:{
