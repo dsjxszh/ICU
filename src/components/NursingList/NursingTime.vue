@@ -171,8 +171,8 @@ export default {
 <style lang="scss" scoped>
 .time {
     position: relative;
-    width: 140px;
     height: 30px;
+    width: 100%;
     // border-top: 1px solid lightgray;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;

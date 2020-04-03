@@ -169,19 +169,24 @@ export default {
         position: absolute;
         top: -1px;
     }
-    .nursing-list {
-        overflow-x: scroll;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        left: 0;
-        margin: 0;
-        padding: 0;
-    }
     .bedbrowse {
         display: flex;
         flex-direction: row;
         border: 1px solid lightgray;
+        width: 100%;
+        .nursing-list {
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            width: calc(100% - 151px);
+            .nursing-form{
+                width: calc(100%/12);
+            }
+        }
     }
 }
 

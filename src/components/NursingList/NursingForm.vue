@@ -102,7 +102,7 @@ export default {
         position: absolute;
         top: -100px;
     }
-    width: 140px;
+    width: 100%;
     // background-color: firebrick;
     .component {
         position: relative;
@@ -140,29 +140,29 @@ export default {
     }
 }
 
-.c {
-    // background-color: lightgray;
-    width: 140px;
-    height: 30px;
-    line-height: 30px;
-    text-align: left;
-    color: #666;
-    padding-left: 24px;
-    border-width: 0px;
-    box-sizing: border-box;
-    border-bottom: 1px solid lightgray;
-    border-right: 1px solid lightgray;
-    &:nth-child(even) {
-        background-color: #F7F7F7;
-    }
-    input {
-        width: 100%;
-        height: 100%;
-        // border-bottom: 1px solid lightgray;
-        // border-right: 1px solid lightgray;
-        border-width: 0px;;
-        box-sizing: border-box;
-        background-color: transparent;
-    }
-}
+// .c {
+//     // background-color: lightgray;
+//     width: 140px;
+//     height: 30px;
+//     line-height: 30px;
+//     text-align: left;
+//     color: #666;
+//     padding-left: 24px;
+//     border-width: 0px;
+//     box-sizing: border-box;
+//     border-bottom: 1px solid lightgray;
+//     border-right: 1px solid lightgray;
+//     &:nth-child(even) {
+//         background-color: #F7F7F7;
+//     }
+//     input {
+//         width: 100%;
+//         height: 100%;
+//         // border-bottom: 1px solid lightgray;
+//         // border-right: 1px solid lightgray;
+//         border-width: 0px;;
+//         box-sizing: border-box;
+//         background-color: transparent;
+//     }
+// }
 </style>

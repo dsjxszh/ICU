@@ -43,17 +43,17 @@ export default {
             immediate: true,
             handler(val) {
                 
-                if (this.menu[val] && this.menu[val].list) {
-                    this.menuList=this.menu[val].list.map(item => {
-                        return {
-                            ...item
-                        }
-                    });
-                } else {
-                    this.menuList = [{value: this.menu[val].value}]
+                if (this.menu[val]) {
+                    if(this.menu[val].list){
+                        this.menuList=this.menu[val].list.map(item => {
+                            return {
+                                ...item
+                            }
+                        });
+                    }else{
+                        this.menuList = [{value: this.menu[val].value}]
+                    }
                 }
-                
-                console.log(this.menu[val])
             }
         },
     },

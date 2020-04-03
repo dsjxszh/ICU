@@ -166,7 +166,7 @@ export default {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 140px;
+    width: 100%;
     height: 30px;
     border-right: 1px solid lightgray;
     border-bottom: 1px solid lightgray;

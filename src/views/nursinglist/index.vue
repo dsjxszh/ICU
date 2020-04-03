@@ -1,5 +1,5 @@
 <template>
-    <div class="nursinglist">
+    <div class="nursinglist" style="padding-left:20px">
         <div class="list">
             <div class="form">
                 <date-template keyName="timerange" :defaultValue="defaultTime" valueformat="yyyy-MM-dd hh:mm:ss"></date-template>
@@ -260,9 +260,6 @@ export default {
 
 <style lang="scss" scoped>
 .nursinglist {
-    padding-left: 20px;
-    // width: 100%;
-    // height: 100%;
     .form {
         display: flex;
         flex-direction: row;

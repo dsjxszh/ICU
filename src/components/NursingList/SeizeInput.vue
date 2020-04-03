@@ -77,7 +77,7 @@ export default {
 }
 .c {
     // background-color: lightgray;
-    width: 140px;
+    width: 100%;
     height: 30px;
     border-width: 0px;
     box-sizing: border-box;
