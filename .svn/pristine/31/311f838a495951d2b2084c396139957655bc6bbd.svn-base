@@ -1,0 +1,49 @@
+<template>
+    <div>
+        <el-input v-model="valuetext" :placeholder="placeholder" @keydown.native.enter="$emit('enter', valuetext)"></el-input>
+    </div>
+</template>
+
+<script>
+    export default {
+        props:{
+            value:{
+                type:String,
+                default:""
+            },
+            placeholder:{
+                type:String,
+                default:""
+            }
+        },
+        watch:{
+            value: {
+               immediate: true,
+               handler(val) {
+                   this.valuetext=val;
+               }
+           }
+        },
+        methods: {
+            change(val) {
+                this.valuetext = val;
+            }
+        },
+        data(){
+            return{
+                valuetext:""
+            }
+        }
+    }
+</script>
+<style lang="scss">
+.el-input__inner{
+    height: 30px;
+    margin-left: 5px;
+    color: #999;
+    padding: 0px 5px;
+}
+</style>
+<style lang="scss" scoped>
+
+</style>

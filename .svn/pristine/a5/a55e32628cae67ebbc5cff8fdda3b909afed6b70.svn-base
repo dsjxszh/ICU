@@ -1,0 +1,159 @@
+<template>
+    <div class="nursing-form"> 
+        <div
+            tabindex="0"
+            class="component"
+            :class="item.componentName"
+            v-for="(item, index) in formList"
+            :key="idx + index + item.componentName"
+        >   
+            <template v-if="item.componentName != 'NursingTime' && item.componentName != 'san' && item.componentName != 'CheckboxNursing' && item.show === false">
+                <seize-input :x="idx" :y="index" :componentName="item.componentName"  :keyName="item.key" @focus="focus"></seize-input>
+            </template>
+            <template v-else>
+                <component :is="item.componentName" v-bind="{value: item.value, x: idx, y: index, z: 0, list: item.list || [], keyName: item.key, attr:item.attr,  ...item}" />
+            </template>
+        </div>
+    </div>
+</template>
+
+<script>
+import AllComponents from '@/utils/components';
+import SeizeInput from './SeizeInput';
+import NursingMixins from '@/mixins/nursing';
+export default {
+    inject: ["farther"],
+    mixins: [NursingMixins],
+    components: {
+        ...AllComponents,
+        SeizeInput
+    },
+    props: {
+        params: {
+          type: Array
+        },
+        idx: {
+            type: Number
+        },
+    },
+    watch: {
+        params: {
+            immediate: true,
+            handler(val) {
+                this.formList = val.map(item => {
+                    return {
+                        show: false,
+                        ...item
+                    }
+                });
+            }
+        },
+        position: {
+            immediate: true,
+            handler(val) {
+                if (val.x === this.idx) {
+                    this.formList[val.y].show = true;
+                } 
+            }
+        }
+    },
+    mounted() {
+        // EventBus.$on('focus', 'nursinglist',({ x, y }) => {
+        //     console.log('选中的组件位置为:', x, y, this.idx)
+        //     if (x === this.idx) {
+        //         this.select = 'select';
+        //     }
+        // });
+    },
+    data() {
+        return {
+            hot: false,
+            x: 0,
+            y: 0,
+            keyName: '',
+            formList: [],
+            select: ''
+        }
+    },
+    methods: {
+        focus(e) {
+            const { x, y } = e;
+            this.formList[y].show = true;
+            this.x = x;
+            this.y = y;
+        },
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.nursing-form {
+    position: relative;
+    .holder {
+        position: absolute;
+        top: -100px;
+    }
+    width: 140px;
+    // background-color: firebrick;
+    .component {
+        position: relative;
+        &:nth-child(even) {
+            background-color: #F7F7F7;
+        }
+        &::before{
+            content: "";
+            position: absolute;
+            top:0px;
+            left: 5px;
+            width: 14px;
+            height: 30px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        &.PopupInput::before{
+            background-image: url(../../assets/image/duihuakuang@2x.png);
+        }
+        &.SelectSearchNursing::before,&.SingleSelect::before{
+            background-image: url(../../assets/image/xialakuang@2x.png);
+        }
+        .hidden {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            box-sizing: border-box;
+            display: none;
+            // z-index: -1;
+        }
+    }
+}
+
+.c {
+    // background-color: lightgray;
+    width: 140px;
+    height: 30px;
+    line-height: 30px;
+    text-align: left;
+    color: #666;
+    padding-left: 24px;
+    border-width: 0px;
+    box-sizing: border-box;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    &:nth-child(even) {
+        background-color: #F7F7F7;
+    }
+    input {
+        width: 100%;
+        height: 100%;
+        // border-bottom: 1px solid lightgray;
+        // border-right: 1px solid lightgray;
+        border-width: 0px;;
+        box-sizing: border-box;
+        background-color: transparent;
+    }
+}
+</style>

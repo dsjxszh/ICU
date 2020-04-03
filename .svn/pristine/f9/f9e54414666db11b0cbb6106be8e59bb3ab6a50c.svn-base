@@ -1,0 +1,205 @@
+<template>
+    
+    <div>
+        <el-row class="header">
+            <el-col :span="6">
+                <dl class="grid-content getInfo">
+                    <dt>信息概览：</dt>
+                    <dd>今日转入：0</dd>
+                    <dd>今日转出：0</dd>
+                    <dd>当前在床：9</dd>
+                </dl>
+            </el-col>
+            <el-col :span="6" :offset="12">
+                <div class="grid-content">
+
+                </div>
+            </el-col>
+        </el-row>
+        <el-row style="padding:0px 10px" :gutter="16">
+            <el-col :span="14">
+                <div class="grid-content layout1">
+                    <div class="title">
+                        <span>收治患者一览</span>
+                    </div>
+                    <business-table :columns="tableColumns" :tableData="tableData" :border="border" @rowdblclick="rowdblclick"></business-table>
+                </div>
+            </el-col>
+            <el-col :span="10">
+                <div class="grid-content">
+                    <el-row :gutter="16">
+                        <el-col :span="24">
+                            <div class="grid-content layout1">
+                                <div class="title">
+                                    <span>收治患者一览</span>
+                                </div>
+                                <div class="shujulist">
+                                    <span>收治患者一览</span>
+                                    <span style="float:right">收治患者一览</span>
+                                </div>
+                                <div class="shujulist">
+                                    <span>收治患者一览</span>
+                                    <span style="float:right">收治患者一览</span>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col style="margin-top:16px" :span="24">
+                            <div class="grid-content layout1">
+                                <div class="title">
+                                    <span>收治患者一览</span>
+                                </div>
+                                <div class="shujulist">
+                                    <span>收治患者一览</span>
+                                    <span style="float:right">收治患者一览</span>
+                                </div>
+                                <div class="shujulist">
+                                    <span>收治患者一览</span>
+                                    <span style="float:right">收治患者一览</span>
+                                </div>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
+            </el-col>
+        </el-row>
+    </div>
+</template>
+
+<script>
+import AllComponents from '@/utils/components'
+import LayoutMixin from '@/mixins/layout'
+export default {
+    mixins: [LayoutMixin],
+    components: {
+        ...AllComponents
+    },
+    data(){
+        return{
+            params:{
+                componentName: "InputTemplate",
+                keyName: "name",
+                label: "姓名:"
+            },
+            paramsbutton:[
+                {
+                    text: "查询4",
+                    iconName: "CaiJi",
+                    className: "buttonIcon",
+                    func: this.sear
+                }
+            ],
+            border:false,
+            tableColumns: [
+                {
+                    label: "床位",
+                    prop: "roomName",
+                    width: 180
+                },
+                {
+                    label: "姓名",
+                    prop: "patientName",
+                    width: 180
+                },
+                {
+                    label: "住院号",
+                    prop: "inpNo",
+                    width: 180
+                },
+                {
+                    label: "性别",
+                    prop: "sex",
+                    width: 180
+                },
+                {
+                    label: "入科诊断",
+                    prop: "diagnose"
+                },
+                {
+                    label: "入科时间",
+                    prop: "inTime"
+                }
+            ],
+            tableData:[
+                {
+                    roomName: '1',
+                    patientName: '王进玉',
+                    inpNo: '王小虎',
+                    sex: '男',
+                    diagnose: '多发伤术后 脑梗死恢复期 肺部感染 下肢静脉血栓 继发性血小板增多症',
+                    inTime: '2019-12-10',
+                },
+                {
+                roomName: '1',
+                patientName: '王进玉',
+                inpNo: '王小虎',
+                sex: '男',
+                diagnose: '多发伤术后 脑梗死恢复期 肺部感染 下肢静脉血栓 继发性血小板增多症',
+                inTime: '2019-12-10',
+                },
+            ],
+        }
+    },
+    methods:{
+        rowdblclick(row){
+            // console.log(row)
+            this.addNewRouter({
+                name: row.roomName+row.inpNo,
+            });
+         
+            this.setTab({
+                name: row.roomName+row.inpNo,
+                title: row.roomName+row.inpNo,  
+            });
+        }
+    }
+    
+}
+</script>
+<style lang="scss" scoped>
+.layout1{
+    position: relative;
+    padding-top:10px;
+    background:rgba(247,247,247,1);
+    border:1px solid rgba(210, 210, 210, 1);
+    box-shadow:0px 1px 1px 0px rgba(255,255,255,1);
+    border-radius:4px;
+    &::before{
+        content: "";
+        width: 3px;
+        height: 16px;
+        position: absolute;
+        left: 12px;
+        top: 14px;
+        background: linear-gradient(top, #00A4FF, #74CBFF);
+        border-radius: 3px;
+    }
+    .title{
+        color: #666;
+        padding-left: 20px;
+        height: 24px;
+        line-height: 24px;
+        font-size: 14px;
+    }
+}
+.header{
+    border-bottom: 1px solid #EDEDED;
+    height: 46px;
+    margin-bottom: 12px;
+    padding: 0px 10px;
+    .getInfo{
+        font-size:14px;
+        font-family:Microsoft YaHei;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        dt,dd{
+            float: left;
+        }
+    }
+}
+.shujulist{
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+</style>

@@ -1,0 +1,94 @@
+<template>
+  <div class="">
+    <label class="startTime">开始时间:</label>
+    <el-date-picker
+      v-model="startTime"
+      type="datetime"
+      size="mini"
+      value-format="yyyy-MM-dd hh:mm:ss"
+      :picker-options="pickerStartOptions"
+      @change="change"
+      placeholder="选择开始时间"
+      ></el-date-picker>
+      <label class="endTime">结束时间:</label>
+      <el-date-picker
+        v-model="endTime"
+        type="datetime"
+        size="mini"
+        value-format="yyyy-MM-dd hh:mm:ss"
+        :picker-options="pickerEndOptions"
+        @change="change"
+        placeholder="选择结束时间"
+        ></el-date-picker>
+  </div>
+</template>
+
+<script>
+export default {
+  inject: ["farther"],
+  props: {
+    keyName:{
+      type:String
+    },
+    defaultValue: {
+      type: Object
+    }
+  },
+  watch: {
+    defaultValue: {
+      immediate: true,
+      handler(val) {
+        if (val) {
+          console.log('外部的参数发生改变****')
+          const { startTime, endTime } = val;
+          this.startTime = startTime;
+          this.endTime = endTime;
+        }
+      }
+    }
+  },
+  // mounted() {
+  //   const { startTime, endTime } = this.defaultValue;
+  //   this.startTime = startTime;
+  //   this.endTime = endTime;
+  // },
+  data(){
+    return{
+      pickerStartOptions: {
+        disabledDate:time=>{
+          if (this.endTime) {
+            return time.getTime() > new Date(this.endTime)
+          } else {
+            return false
+          }
+          
+        },
+      },
+      pickerEndOptions: {
+        disabledDate:time=>{
+          return time.getTime() < new Date(this.startTime) 
+        },
+      },
+      startTime: null,
+      endTime: null
+    }
+  },
+  methods:{
+    change(){
+      this.farther.form[this.keyName] = {
+        startTime: this.startTime,
+        endTime: this.endTime
+      }
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.startTime {
+  margin: 0 10px 0 0px;
+}
+.endTime {
+  margin: 0 10px 0 15px;
+}
+</style>

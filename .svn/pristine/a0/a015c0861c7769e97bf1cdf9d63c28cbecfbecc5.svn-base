@@ -1,0 +1,113 @@
+<template>
+   <el-button type="text" ref="button" class="button" :class="active" @click="focus" @keydown.enter.native="enter">{{value}}</el-button>
+</template>
+
+<script>
+// import EventBus from '@/utils/event-bus';
+import NursingMixins from '@/mixins/nursing';
+import Popups from '@/utils/Popup';
+    export default {
+        props:{
+            x: {
+                type: Number
+            }, 
+            y: {
+                type: Number
+            },
+            z: {
+                type: Number
+            },
+            attr:{
+                type:Object
+            },
+            keyName: {
+                type: String
+            }
+        },
+        mounted(){
+            const {PopupName}=this.attr;
+            this.PopupName=PopupName
+        },
+        watch: {
+            position: {
+                immediate: true,
+                handler(val) {
+                    if ((val.x === this.x) || (val.y === this.y && val.z === this.z)) {
+                        this.active = 'active';
+                    } else {
+                        this.active = ''
+                    }
+                    if (val.x === this.x && val.y === this.y && val.z === this.z) {
+                        this.active = 'z-active';
+                    }
+
+                }
+            },
+            enterClick: {
+                immediate: true,
+                handler(val, oldVal) {
+                    if (val && !oldVal) {
+                        if (this.position.x === this.x && this.position.y === this.y && this.position.z === this.z) { // 要同时按下enter键并且位置相同才能触发
+                             Popups(this.PopupName, {x:this.x,y:this.y,z:this.z});//打开对话框
+                            this.setEnter(false);
+                        }
+                    }
+                }
+            },
+            formData: {
+                immediate: true,
+                deep: true,
+                handler(val) {
+                    if (val[this.x-1] && val[this.x-1][this.keyName]) {
+                        this.value = val[this.x-1][this.keyName]
+                    } 
+
+                    if (val[this.x -1]) {
+                        this.recordId = val[this.x - 1].recordId;
+                    } else {
+                        this.recordId = null;
+                    }
+                }
+            }
+        },
+        mixins: [NursingMixins],
+        data(){
+            return{
+                active:"",
+                PopupName:"",
+                value:""
+            }
+        },
+        methods: {
+            focus() {
+                this.setPosition({ x: this.x, y: this.y,z:this.z });
+                Popups(this.PopupName, {x:this.x,y:this.y,z:this.z});
+            }
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+.button{
+    height: 30px;
+    line-height: 28px;
+    padding: 0px;
+    box-sizing: border-box;
+    border-bottom: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-radius: 0px;
+    padding-left: 24px;
+    text-align: left;
+    width: 100%;
+    color: #666;
+    font-size: 12px;
+    cursor: pointer;
+    &.active {
+        background-color: #FFE9CF;
+    }
+    &.z-active{
+        background-color: #fff;
+        border:2px solid rgba(0,164,255,1);
+    }
+}
+</style>

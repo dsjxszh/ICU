@@ -1,0 +1,15 @@
+<template>
+    <div>
+        统计类型维护
+    </div>
+</template>
+
+<script>
+    export default {
+        
+    }
+</script>
+
+<style lang="scss" scoped>
+
+</style>

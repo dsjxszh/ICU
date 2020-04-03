@@ -1,0 +1,39 @@
+<template>
+  <div class="">
+    <el-date-picker
+      v-model="farther.form[keyName]"
+      type="datetime"
+      @change="change"
+      :picker-options="pickerOptions"
+      size="mini"
+      ></el-date-picker>
+  </div>
+</template>
+
+<script>
+export default {
+  inject: ["farther"],
+  props: {
+    keyName:{
+      type:String
+    },
+  },
+  data(){
+    return{
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 8.64e7;
+        }
+      }
+    }
+  },methods:{
+    change(){
+      // console.log(time)
+      // this.start=time;
+    }
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+</style>

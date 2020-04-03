@@ -1,0 +1,163 @@
+<template>
+    <div class="menu">
+        <div class="list-item" v-for="(item, index) in data" :key="index">
+            <div :class="['item-title', item.clickItem]" @click="$emit('select', {id: item.id, children: item.children || []})">
+                <img class="title-icon" :src="icon(item.icon)" />
+                <span>{{item.title}}</span>
+                <img :src="arrow(item.show)" v-show="item.children" />
+            </div>
+            <div v-if="item.children" class="children">
+                <div v-for="(child, index) in item.children" :key="index" v-show="item.show">
+                    <div :class="['item-child', child.select]" @click="$emit('selectItem', child.id)">
+                        <img class="child-icon" :src="icon(child.icon, child.select)" />
+                        <span>{{child.title}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-nav-box-shadow f-fl"></div>
+    </div>
+</template>
+
+<script>
+import ArrowS from '@/assets/image/ArrowS@2x.png';
+import ArrowX from '@/assets/image/ArrowX@2x.png';
+export default {
+    data() {
+        return {
+            ArrowS,
+            ArrowX,
+            select: ''
+        }
+    },
+    props: {
+        data: {
+            type: Array,
+            require: true 
+        },
+    },
+    methods: {
+        arrow(show) {
+            return show ? ArrowX : ArrowS; 
+        },
+        icon(name, select) {
+            if (select === 'select') {
+                return require(`@/assets/image/${name}_hover@2x.png`)
+            } else {
+                return require(`@/assets/image/${name}@2x.png`)
+            }
+            
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 122px;
+    background: #EDEDED;
+    box-shadow: 0px 1px 1px 0px #fff inset;
+    height: 100%;
+    .list-item {
+        position: relative;
+    }
+    .item-title {
+        position: relative;
+        cursor: pointer;
+        color: #666 !important;
+        height: 40px;
+        width: 126px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('../../assets/image/tree@2x.png');
+        z-index: 1;
+        &:hover {
+            background-image: url('../../assets/image/tree_hover@2x.png');
+        }
+        &.click {
+            background-image: url('../../assets/image/tree_on@2x.png');
+        }
+        span {
+            position: absolute;
+            left: 30px;
+            height: 33px;
+            line-height: 33px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 12px;
+            top: 2px;
+        }
+        img {
+            position: absolute;
+            // height: 10px;
+            width: 9px;
+            top: 14px;
+            right: 10px;
+            &.title-icon {
+                // position: absolute;
+                left: 9px;
+                top: 8px;
+                width: 18px;
+                // height: 10px;
+            }
+        }
+    }
+    .children {
+        position: relative;
+        top: -7px;
+    }
+    .item-child {
+        position: relative;
+        cursor: pointer;
+        width: 97px;
+        height: 34px;
+        line-height: 34px;
+        border-bottom: 1px solid #fff;
+        background-color: #EDEDED;
+        color: #666;
+        text-shadow: 0px 1px 0px #fff;
+        padding: 0px 0px 0px 25px;
+        text-align: left;
+        &:hover {
+            background-color: #f2f2f2;
+        }
+        span {
+            font-size:12px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            position: absolute;
+            left: 46px;
+        }
+        .child-icon {
+            position: absolute;
+            left: 26px;
+            width: 18px;
+            top: 8px;
+        }
+    }
+    .select {
+        background: #74CBFF;
+        color: #0061C1;
+        text-shadow: 0px 1px 0px rgba(255,255,255,0.3);
+        &:hover {
+            background: #74CBFF;
+        }
+    }
+    .layui-nav-box-shadow {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        width: 10px;
+        height: 100%;
+        opacity: 0.15;
+        background: -webkit-linear-gradient(left, #000, rgba(255,255,255,0));
+
+    }
+}
+</style>

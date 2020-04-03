@@ -1,0 +1,52 @@
+<template>
+    <div class="app-container">
+        <search-form :params="params" :paramsbutton="paramsbutton" @search="search" @rest="rest" />
+        <business-table :columns="tableColumns" :tableData="tableData"></business-table>
+        <pagination :currentPage="1" :total="500"></pagination>
+    </div>
+</template>
+
+<script>
+import AllComponents from '@/utils/components'
+export default {
+    
+    props: {
+        params: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        paramsbutton: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        tableColumns: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        tableData:{
+            type: Array,
+            default() {
+                return []
+            }
+        }
+    },
+    components: {
+        ...AllComponents
+    },
+    
+    methods: {
+        search() {},
+        rest() {}
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+
+</style>

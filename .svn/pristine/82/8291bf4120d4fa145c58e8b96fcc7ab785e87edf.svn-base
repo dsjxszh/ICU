@@ -1,0 +1,171 @@
+<template>
+    <div class="nursinglist">
+        <div>
+            <span>男</span>
+            <span>53岁</span>
+            <label>住院号:</label>
+            <span></span>
+            <label>入ICU时间:</label>
+            <span></span>
+            <label>病情:</label>
+            <span></span>
+            <label>护理等级:</label>
+            <span></span>
+            <label>诊断:</label>
+            <span></span>
+            <label>过敏史:</label>
+            <span></span>
+        </div>
+        <div class="list">
+            <!-- <search-form :params="searchParams" :paramsbutton="paramsbutton" /> -->
+            <div class="form">
+                <date-template keyName="timerange" :defaultValue="defaultTime"></date-template>
+                <button-template style="marginLeft: 15px" className="buttonPrimary" text="查询" :func="search"></button-template>
+            </div>
+            <nursing-list :menu="menu" :params="params"></nursing-list>
+        </div>
+    </div>
+</template>
+
+<script>
+import NursingList from '@/components/NursingList';
+
+import AllComponents from '@/utils/components';
+import { mock, getResponse } from '@/mock/mock';
+import NursingMixins from '@/mixins/nursing';
+export default {
+    provide() {
+        return {
+            farther: this
+        }
+    },
+    components: {
+        ...AllComponents,
+        NursingList,
+    },
+    mixins: [NursingMixins],
+    data() {
+        return {
+            menu: [],
+            defaultTime: {
+                startTime: null,
+                endTime: null
+            },
+            params: [],
+            form: {
+                
+            },   //查询表单的条件
+            currentFormData: {},
+        }
+    },
+    watch: {
+        position: {
+            immediate: true,
+            handler(val, old) {
+                if (val === undefined || old === undefined) return;
+                if ((val.x && old.x) && (val.x !== old.x)) {
+                    console.log('换行了!')
+                    if (Object.keys(this.currentFormData).length === 0) {
+                        console.log('没有更新数据')
+                    } else {
+                        console.log(this.currentFormData)
+                        this.currentFormData = {}
+                    }
+                }
+            }
+        }
+    },
+    methods: {
+        search() {
+            console.log('请求的数据为:', this.form)
+            getResponse().then(response => {
+                this.setFormData(response)
+                // console.log('获得的数据为:', response);
+            })
+        },
+        saveData() {
+
+        },
+        encode() {
+            // 对menu中的各项进行编码
+            let num = 0;
+            this.menu = this.menu.map((item) => {
+                if (item.list) {
+                    // 说明下面会有多个二级菜单
+                    let originList = [ ...item.list ];
+                    originList = originList.map(child => {
+                        return {
+                            idx: num++,
+                            ...child
+                        }
+                    })
+                    return {
+                        ...item,
+                        list: originList
+                    }
+                } else {
+                    return {    //说明是一级
+                        idx: num++,
+                        ...item
+                    }
+                }
+            })
+            // console.log('编码出来的菜单为:', this.menu)
+        }
+    },
+    mounted() {
+        // 这里获取表单数据
+        mock().then(res => {
+            this.menu = res
+            let params = [];
+            this.menu.forEach(item => {
+                if (item.list) {
+                    item.list.forEach(child => {
+                        params.push({
+                            componentName: child.componentName,
+                            key: child.key,
+                            attr: child.attr||{},
+                            list: child.list || []
+                        })
+                    })
+                } else {
+                    params.push({
+                        componentName: item.componentName,
+                        attr: item.attr||{},
+                        key: item.key
+                    })
+                }
+            })
+            this.params = params;
+            this.encode(this.menu);
+        })
+
+        setTimeout(() => {
+            console.log('我执行到这里啦')
+            this.defaultTime = {
+                startTime: new Date(),
+                endTime: new Date()
+            }
+        }, 1000)
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.nursinglist {
+    padding-left: 20px;
+    width: 100%;
+    height: 100%;
+    .form {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        // width:100%;
+        border: 1px solid #ccd2d8;
+        padding: 16px 0 16px 16px;
+        font-size: 12px;
+        background-color: #ffffff;
+    }
+}
+
+</style>

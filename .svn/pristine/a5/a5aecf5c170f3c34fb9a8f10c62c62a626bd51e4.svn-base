@@ -1,0 +1,128 @@
+import Vue from "vue";
+import Router from "vue-router";
+import Layout from '@/layout'; // 布局页
+
+Vue.use(Router);
+
+// 通用页面：这里的配置时不需要权限的
+export const constRoutes = [
+  {
+    path: "/",
+    component: () => import("@/views/Login"),
+    hidden: true // 导航菜单忽略该项
+  },
+  {
+    path: "/dashboard",
+    component: () => import("@/layout"),// 应用布局
+    children: [
+      {
+        path: "firstPage",
+        component: () => import("@/views/firstPage"),
+        name: "entry"
+      },{
+        path: "entry",
+        component: () => import("@/views/entry"),
+        name: "entry"
+      },{
+        path: "bedBrowse",
+        component: () => import("@/views/bedBrowse"),
+        name: "bedBrowse"
+      },{
+        path: "quality",
+        component: () => import("@/views/quality"),
+        name: "quality"
+      },{
+        path: "announcement",
+        component: () => import("@/views/announcement"),
+        name: "announcement"
+      },{
+        path: "count",
+        component: () => import("@/views/count"),
+        name: "count"
+      },{
+        path: "advice",
+        component: () => import("@/views/advice"),
+        name: "advice"
+      },{
+        path: "pipe",
+        component: () => import("@/views/pipe"),
+        name: "pipe"
+      },{
+        path: "bedManage", 
+        component: () => import("@/views/bedManage"),
+        name: "bedManage"
+      },{
+        path: "equipment",
+        component: () => import("@/views/equipment"),
+        name: "equipment"
+      },{
+        path: "dictionary",
+        component: () => import("@/views/dictionary"),
+        name: "dictionary"
+      },{
+        path: "monitoring",
+        component: () => import("@/views/monitoring"),
+        name: "monitoring"
+      },{
+        path: "grade",
+        component: () => import("@/views/grade"),
+        name: "grade"
+      },{
+        path: "nurse",
+        component: () => import("@/views/nurse"),
+        name: "nurse"
+      },{
+        path: "nurseGroup",
+        component: () => import("@/views/nurseGroup"),
+        name: "nurseGroup"
+      },{
+        path: "nurseItem",
+        component: () => import("@/views/nurseItem"),
+        name: "nurseItem"
+      },{
+        path: "countType",
+        component: () => import("@/views/countType"),
+        name: "countType"
+      },{
+        path: "department",
+        component: () => import("@/views/department"),
+        name: "department"
+      },{
+        path: "icuBed",
+        component: () => import("@/views/icuBed"),
+        name: "icuBed"
+      },{
+        path: "role",
+        component: () => import("@/views/role"),
+        name: "role"
+      },{
+        path: "people",
+        component: () => import("@/views/people"),
+        name: "people"
+      },{
+        path: "workstation",
+        component: () => import("@/views/workstation"),
+        name: "workstation"
+      },{
+        path: "nursinglist",
+        component: () => import("@/views/nursinglist"),
+        name: "nursinglist"
+      }
+    ]
+  }
+];
+
+// 权限页面
+export const asyncRoutes = [
+    {
+      path: "/about",
+      component: Layout,
+      redirect: "/about/index",  
+    }
+];
+
+export default new Router({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes: constRoutes
+});

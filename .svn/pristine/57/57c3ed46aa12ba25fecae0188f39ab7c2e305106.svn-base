@@ -1,0 +1,132 @@
+<template>
+    <div class="menu">
+        <div class="list-item" v-for="(item, index) in data" :key="index">
+            <div class="item-title" @click="$emit('select', item.id)">
+                <img class="icon" :src="icon(item.icon)" />
+                <span>{{item.title}}</span>
+                <img :src="arrow(item.show)" />
+            </div>
+            <div v-if="item.children" class="children">
+                <div v-for="(child, index) in item.children" :key="index" v-show="item.show">
+                    <div :class="['item-child', child.select]" @click="$emit('selectItem', child.title)">
+                        <img class="icon" :src="icon(child.icon)" />
+                        <span>{{child.title}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-nav-box-shadow f-fl"></div>
+    </div>
+</template>
+
+<script>
+import ArrowS from '@/assets/image/ArrowS@2x.png';
+import ArrowX from '@/assets/image/ArrowX@2x.png';
+export default {
+    data() {
+        return {
+            ArrowS,
+            ArrowX,
+            select: ''
+        }
+    },
+    props: {
+        data: {
+            type: Array,
+            require: true 
+        },
+    },
+    methods: {
+        arrow(show) {
+            return show ? ArrowX : ArrowS; 
+        },
+        icon(name) {
+            return require(`@/assets/image/${name}@2x.png`)
+        }
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 122px;
+    background: #EDEDED;
+    box-shadow: 0px 1px 1px 0px #fff inset;
+    height: 100%;
+    .icon {
+        // position: absolute;
+        left: 5px;
+        top: 8px;
+        width: 10px;
+        height: 10px;
+    }
+    .list-item {
+        position: relative;
+    }
+    .item-title {
+        position: relative;
+        cursor: pointer;
+        color: #666 !important;
+        height: 40px;
+        width: 126px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: url('../../assets/image/tree@2x.png');
+        z-index: 1;
+        span {
+            left: 20px;
+            height: 33px;
+            line-height: 33px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 12px;
+        }
+        img {
+            position: absolute;
+            // height: 10px;
+            width: 9px;
+            top: 14px;
+            right: 10px;
+        }
+        &:hover {
+            background-image: url('../../assets/image/tree_hover@2x.png');
+        }
+    }
+    .children {
+        position: relative;
+        top: -7px;
+    }
+    .item-child {
+        cursor: pointer;
+        width: 97px;
+        height: 34px;
+        line-height: 34px;
+        border-bottom: 1px solid #fff;
+        background-color: #EDEDED;
+        color: #666;
+        text-shadow: 0px 1px 0px #fff;
+        padding: 0px 0px 0px 25px;
+        text-align: left;
+    }
+    .select {
+        background: #74CBFF;
+        color: #0061C1;
+        text-shadow: 0px 1px 0px rgba(255,255,255,0.3);
+    }
+    .layui-nav-box-shadow {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        width: 10px;
+        height: 100%;
+        opacity: 0.15;
+        background: -webkit-linear-gradient(left, #000, rgba(255,255,255,0));
+
+    }
+}
+</style>

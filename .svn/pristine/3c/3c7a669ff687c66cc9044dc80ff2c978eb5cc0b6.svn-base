@@ -1,0 +1,134 @@
+<template>
+  <div class="Size">
+    <label class="startTime">{{startTimeTitle}}</label>
+    <el-date-picker
+      v-model="startTime"
+      :type="type"
+      size="mini"
+      :value-format="valueformat"
+      :picker-options="pickerStartOptions"
+      :clearable="false"
+      @change="change"
+      placeholder="选择开始时间"
+      ></el-date-picker>
+      <label class="endTime">{{endTimeTitle}}</label>
+      <el-date-picker
+        v-model="endTime"
+        :type="type"
+        size="mini"
+        :value-format="valueformat"
+        :picker-options="pickerEndOptions"
+        :clearable="false"
+        @change="change"
+        placeholder="选择结束时间"
+        ></el-date-picker>
+  </div>
+</template>
+
+<script>
+export default {
+  inject: ["farther"],
+  props: {
+    keyName:{
+      type:String
+    },
+    defaultValue: {
+      type: Object
+    },
+    startTimeTitle: {
+      type: String,
+      default:"开始时间："
+    },
+    endTimeTitle: {
+      type: String,
+      default:"结束时间："
+    },
+    valueformat:{
+      type:String,
+      default:'yyyy-MM-dd'
+    }
+  },
+  watch: {
+    defaultValue: {
+      immediate: true,
+      handler(val) {
+        if (val) {
+          console.log('外部的参数发生改变****')
+          const { startTime, endTime } = val;
+          this.startTime = startTime;
+          this.endTime = endTime;
+        }
+      }
+    },
+    valueformat: {
+      immediate: true,
+      handler(val) {
+        if (val=='yyyy-MM-dd') {
+          this.type="date"
+        }else{
+          this.type="datetime"
+        }
+      }
+    }
+  },
+  // mounted() {
+  //   const { startTime, endTime } = this.defaultValue;
+  //   this.startTime = startTime;
+  //   this.endTime = endTime;
+  // },
+  data(){
+    return{
+      pickerStartOptions: {
+        disabledDate:time=>{
+          if (this.endTime) {
+            return time.getTime() > new Date(this.endTime)
+          } else {
+            return false
+          }
+          
+        },
+      },
+      pickerEndOptions: {
+        disabledDate:time=>{
+          return time.getTime() < new Date(this.startTime) 
+        },
+      },
+      startTime: null,
+      endTime: null,
+      type:'date'
+    }
+  },
+  methods:{
+    change(){
+      this.farther.form[this.keyName] = {
+        startTime: this.startTime,
+        endTime: this.endTime
+      }
+    }
+  }
+};
+</script>
+<style lang="scss">
+.Size{
+  .el-date-editor.el-input{
+    width: 100px;
+    .el-input__inner{
+      padding-right: 0px;
+      padding-left: 25px;
+    }
+  }
+  
+}
+</style>
+<style lang="scss" scoped>
+.endTime {
+  margin: 0 10px 0 15px;
+}
+.Size{
+  .el-input__inner{
+    width: 100px;
+    padding-right: 0px;
+    padding-left: 25px;
+  }
+}
+</style>

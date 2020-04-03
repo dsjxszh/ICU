@@ -1,0 +1,170 @@
+<template>
+    <div :class="bordernone">
+        <el-table 
+            :data="tableData" 
+            :row-class-name="tableRowClassName" 
+            stripe
+            :border="border"
+            v-loading="loading" 
+            ref="settingTable" 
+            style="width: 100%;"
+            @select="handleSelect" 
+            @select-all="handleSelectAll" 
+            :max-height="tableHeight"
+            @row-dblclick="rowdblclick"
+        >
+            <el-table-column 
+                :header-align="item.column_align ? item.column_align:'left'" 
+                :align="item.column_align ? item.column_align:'left'" 
+                v-for="(item, index) in columns" 
+                :key="index" 
+                :label="item.label" 
+                :width="item.width" 
+                :sortable="item.sort || false" 
+                :fixed="item.fixed"
+                :prop="item.prop"
+            >
+                <template v-slot:scope>
+                    <template v-if="item.prop === 'buttons'">
+                        <operation-buttons :buttons="item.buttons" />
+                    </template>
+                    <template v-else-if="item.component">
+                        <component :is="item.component" v-bind="{...scope.row}" />
+                    </template>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+</template>
+
+<script>
+import AllComponents from '@/utils/components'
+export default {
+    props: {
+        tableData: {
+            type: Array,
+            default () {
+                return [];
+            }
+        },
+        tableHeight: {
+            type: Number,
+            default () {
+                return 700;
+            }
+        },
+        loading: {
+            type: Boolean,
+            default () {
+                return false;
+            }
+        },
+        columns: {
+            type: Array,
+            default () {
+                return [];
+            }
+        },
+        border:{
+            type:Boolean,
+            default:true
+        }
+    },
+    watch:{
+        border:{
+            immediate: true,
+            handler(val) {
+                if(!val)
+                    this.bordernone = "bordernone";
+                else
+                    this.bordernone = "";
+            }
+        }
+    },
+    data() {
+        return {
+            dialogVisible: false,
+            bordernone:""
+        }
+    },
+    components: {
+        ...AllComponents
+    },
+    methods: {
+        handleSelect(selection) {
+            this.$emit("select", selection);
+        },
+        handleSelectAll(selection) {
+            this.$emit("select", selection);
+        },
+        
+
+        tableRowClassName({
+            rowIndex
+        }) {
+            if (rowIndex % 2 === 0) {
+                return "warning-row";
+            }
+            return "normal-row";
+        },
+        rowdblclick(row){
+             this.$emit("rowdblclick", row);
+        }
+    }
+};
+</script>
+<style lang="scss">
+.el-table th.is-leaf, .el-table td{
+    border-color: #D2D2D2;
+}
+.el-table th, .el-table td{
+    padding: 6px 0;
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td {
+    background: #fff;
+}
+.el-table th.is-leaf{
+    background-color: #EDEDED;
+    font-size: 12px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: rgba(102,102,102,1);
+}
+.el-table td{
+    background-color: #f7f7f7;
+}
+.el-table--group, .el-table--border{
+    border-width: 0px;
+    border-right: 1px solid #d2d2d2;
+}
+.el-table__header-wrapper{
+ border-left: 1px solid #d2d2d2;
+ border-top: 1px solid #d2d2d2;
+}
+.el-table__body-wrapper {
+    border: 1px solid #d2d2d2;
+    border-top: 0px;
+}
+.el-table--enable-row-hover .el-table__body tr:hover > td {
+    background-color: #FFE9CF;
+}
+
+    .bordernone{
+        .el-table__header-wrapper,.el-table__body-wrapper,.el-table th.is-leaf,.el-table td {
+           border-width: 0px;
+        }
+    }
+</style>
+<style lang="scss" scoped>
+    .simple-linear {
+        background: linear-gradient(0deg, #f2f2f2, #f9f9f9);
+    }
+
+    .el-table /deep/ .warning-row {
+        background: #FCFCFC;
+    }
+
+    .el-table /deep/ .normal-row {
+        background: white;
+    }
+</style>

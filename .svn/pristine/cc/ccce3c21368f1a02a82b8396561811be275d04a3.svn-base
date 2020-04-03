@@ -1,0 +1,173 @@
+<template>
+    <el-dialog
+    title="历史患者"
+    :visible.sync="dialogVisible"
+    width="60%"
+    @close="ClosePopup1">
+        <common-table :params="params" :paramsbutton="paramsbutton" :tableColumns="tableColumns" :tablestyle="tablestyle" :tableData="tableData"></common-table>
+    </el-dialog>
+</template>
+
+<script>
+import CommonTable from '@/components/CommonTable';
+// 配置复选框
+const PatientStateData=[
+    {
+        value:0,
+        label:"全部"
+    },
+    {
+        value:1,
+        label:"在科"
+    },
+    {
+        value:2,
+        label:"历史"
+    },
+]
+    export default {
+        provide() {
+            return {
+                farther: this
+            }
+        },
+        components: {
+            CommonTable
+        },
+        data(){
+            return{
+                form: {
+
+                },
+                dialogVisible:true,
+                params: [
+                    {
+                        componentName: "RadioList",
+                        keyName: "PatientState",
+                        arrayData:PatientStateData
+                    },{
+                        componentName: "InputTemplate",
+                        keyName: "SearchStr",
+                        label: "查询条件：",
+                        placeholder:"按姓名/住院号搜索"
+                    },{
+                        componentName: "DateTemplate",
+                        keyName: "SearchStr",
+                        startTimeTitle: "入科时间：",
+                        endTimeTitle: "至",
+                        defaultValue:{
+                            startTime:'2015-10-01',
+                            endTime:'2015-10-01'
+                        },
+                        valueformat:'yyyy-MM-dd',
+                    }
+                ],
+                paramsbutton:[
+                    {
+                        text: "查询",
+                        className: "buttonPrimary",
+                        func:this.ss
+                    },
+                    {
+                        text: "重置",
+                       func:this.ss
+                    },
+                ],
+                tablestyle:{
+                    border:false,
+                },
+                tableColumns: [
+                    {
+                        label: "床位",
+                        prop: "roomName",
+                        width: 84
+                    },
+                    {
+                        label: "姓名",
+                        prop: "patientName",
+                        width: 80
+                    },
+                    {
+                        label: "住院号",
+                        prop: "inpNo",
+                        width: 110
+                    },
+                    {
+                        label: "性别",
+                        prop: "sex",
+                        width: 60
+                    },
+                    {
+                        label: "入科诊断",
+                        prop: "diagnose"
+                    },
+                    {
+                        label: "入科时间",
+                        prop: "inTime",
+                        width: 150
+                    }
+                ],
+                tableData:[
+                    {
+                    acknowledged: '上海市普陀区金沙江路 1518 弄',
+                    // bqzt: '2016-05-02',
+                    // hljb: '王小虎',
+                    // yksch: '上海',
+                    // previousDepartment: '普陀区',
+                    // chuangwei: '上海市普陀区金沙江路 1518 弄',
+                    // name: 200333,
+                    // createDate: '家',
+                    // objectType: 200333,
+                    // severityName: '家'
+                    },
+                    {
+                    acknowledged: '上海市普陀区金沙江路 1518 弄',
+                    // bqzt: '2016-05-02',
+                    // hljb: '王小虎',
+                    // yksch: '上海',
+                    // previousDepartment: '普陀区',
+                    // chuangwei: '上海市普陀区金沙江路 1518 弄',
+                    // name: 200333,
+                    // createDate: '家',
+                    // objectType: 200333,
+                    // severityName: '家'
+                    }
+                ],
+            }
+        },
+        methods: {
+            ClosePopup1(){//关闭模态框
+                this.dialogVisible=false
+            },
+            ss(){
+
+            }
+        }
+    }
+</script>
+<style lang="scss">
+.el-dialog{
+    border-radius: 4px;
+    .el-dialog__header {
+        padding: 6px 20px;
+        box-shadow: 0px 1px 0px 0px rgba(237,237,237,1);
+        background: rgba(247,247,247,1);
+        border-radius: 4px 4px 0px 0px;
+        .el-dialog__title {
+            font-size: 15px;
+            font-family: Microsoft YaHei;
+            font-weight: bold;
+            color: rgba(102,102,102,1);
+        }
+        .el-dialog__headerbtn {
+            top: 10px;
+        }
+    }
+    .el-dialog__body {
+        padding: 0px 20px 30px;
+    }
+}
+</style>
+<style lang="scss" scoped>
+
+</style>
